@@ -11,6 +11,6 @@ package deu.hms;
 public class Hms {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+       
     }
 }
