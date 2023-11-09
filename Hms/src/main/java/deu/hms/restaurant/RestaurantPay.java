@@ -34,6 +34,7 @@ public class RestaurantPay extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setText("카드");
@@ -53,7 +54,7 @@ public class RestaurantPay extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("맑은 고딕", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("<지불 방법>");
+        jLabel1.setText("지불 방법");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

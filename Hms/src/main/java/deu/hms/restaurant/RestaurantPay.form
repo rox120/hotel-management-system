@@ -7,6 +7,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -106,7 +107,7 @@
           <Font name="&#xb9d1;&#xc740; &#xace0;&#xb515;" size="14" style="1"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="&lt;&#xc9c0;&#xbd88; &#xbc29;&#xbc95;&gt;"/>
+        <Property name="text" type="java.lang.String" value="&#xc9c0;&#xbd88; &#xbc29;&#xbc95;"/>
       </Properties>
     </Component>
   </SubComponents>
