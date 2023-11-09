@@ -41,7 +41,7 @@ public class UserFrame extends javax.swing.JFrame {
 
         jButton4.setText("결제");
 
-        jLabel1.setText("예약관리");
+        jLabel1.setText("고객관리");
 
         jButton1.setText("예약정보");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -75,9 +75,8 @@ public class UserFrame extends javax.swing.JFrame {
                             .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4)))
+                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
                 .addContainerGap(58, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(

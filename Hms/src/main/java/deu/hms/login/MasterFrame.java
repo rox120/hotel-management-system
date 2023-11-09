@@ -44,7 +44,7 @@ public class MasterFrame extends javax.swing.JFrame {
 
         jButton4.setText("결제");
 
-        jLabel1.setText("예약관리");
+        jLabel1.setText("고객관리");
 
         jButton1.setText("예약정보");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
