@@ -4,7 +4,11 @@
  */
 package deu.hms.login;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import javax.swing.JOptionPane;
+ 
 
 /**
  *
@@ -100,26 +104,27 @@ public class LoginFrame extends javax.swing.JFrame {
     // Login Button Function
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
         // TODO add your handling code here:
-        MySqlLink uLogin = new MySqlLink();
-        String uId = IdInput.getText();
+        String inputUId = IdInput.getText();
         char[] uPwChar = PwInput.getPassword();
-        String uPw = new String(uPwChar);
-        
-        int logRes = uLogin.LoginQuery(uId,uPw);
-        
-        if(logRes == 1 ) {
-            MasterFrame MF = new MasterFrame();
-            MF.setVisible(true);
+        String inputUPw = new String(uPwChar);
+        text_reader tr = new text_reader();
+        int results = tr.checkUsrIdPw(inputUId,inputUPw);
+        //check admin or staff
+        if(results == 1) {
+            MasterFrame mf = new MasterFrame();
+            mf.setVisible(true);
             dispose();
-            
-        } else if(logRes == 2) {
-            UserFrame UF = new UserFrame();
-            UF.setVisible(true);
+        } else if(results == 0) {
+            UserFrame uf = new UserFrame();
+            uf.setVisible(true);
             dispose();
         } else {
             JOptionPane.showConfirmDialog(this, "유저를 찾을수 없습니다 ", "Login Error", JOptionPane.DEFAULT_OPTION);
-            
+
         }
+        
+            
+        
     }//GEN-LAST:event_LoginButtonActionPerformed
 
     /**
