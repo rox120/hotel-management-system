@@ -34,8 +34,8 @@ public class text_reader {
     public int checkUsrIdPw(String uId, String uPw) {
         
         int resultcode = -1;
-        
-        File userfile = new File("/Users/bennyjung/hms_pj/hotel-management-system/Hms/src/main/java/deu/hms/login/test_users.txt");
+        String paths = System.getProperty("user.dir");
+        File userfile = new File(paths+"/test_users.txt");
         
         try{
             readFile(userfile);
