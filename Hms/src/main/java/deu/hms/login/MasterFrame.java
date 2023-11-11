@@ -4,6 +4,7 @@
  */
 package deu.hms.login;
 
+import deu.hms.reservation.ReservationManagementJFrame;
 import deu.hms.restaurant.RestaurantFrame;
 import deu.hms.restaurant.RoomFrame;
 
@@ -144,6 +145,8 @@ public class MasterFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        ReservationManagementJFrame rm = new ReservationManagementJFrame();
+        rm.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void RoomServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RoomServiceActionPerformed

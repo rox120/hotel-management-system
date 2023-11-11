@@ -4,6 +4,8 @@
  */
 package deu.hms.login;
 
+import deu.hms.reservation.ReservationManagementJFrame;
+
 /**
  *
  * @author bennyjung
@@ -107,6 +109,8 @@ public class UserFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        ReservationManagementJFrame reservationManagementJFrame = new ReservationManagementJFrame();
+        reservationManagementJFrame.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

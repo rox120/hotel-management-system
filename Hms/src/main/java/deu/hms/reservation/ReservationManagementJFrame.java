@@ -4,6 +4,8 @@
  */
 package deu.hms.reservation;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Administrator1
@@ -30,8 +32,10 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
         update = new javax.swing.JButton();
         inquiry = new javax.swing.JButton();
         delete = new javax.swing.JButton();
+        disposeButton = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         programInfo = new javax.swing.JMenu();
+        infoMenuItem = new javax.swing.JMenuItem();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -45,8 +49,8 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
-        reservationTable.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
         reservationTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
@@ -62,7 +66,7 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
                 java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, true, true, true, true, true
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -75,7 +79,6 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(reservationTable);
 
-        registration.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
         registration.setText("등록");
         registration.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         registration.addActionListener(new java.awt.event.ActionListener() {
@@ -84,21 +87,48 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
             }
         });
 
-        update.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
         update.setText("수정");
         update.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        update.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateActionPerformed(evt);
+            }
+        });
 
-        inquiry.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
         inquiry.setText("조회");
         inquiry.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        inquiry.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inquiryActionPerformed(evt);
+            }
+        });
 
-        delete.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
         delete.setText("삭제");
+        delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteActionPerformed(evt);
+            }
+        });
+
+        disposeButton.setText("이전");
+        disposeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                disposeButtonActionPerformed(evt);
+            }
+        });
 
         menuBar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         programInfo.setText("정보");
-        programInfo.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
+
+        infoMenuItem.setText("정보");
+        infoMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                infoMenuItemActionPerformed(evt);
+            }
+        });
+        programInfo.add(infoMenuItem);
+
         menuBar.add(programInfo);
 
         setJMenuBar(menuBar);
@@ -108,8 +138,10 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(29, 29, 29)
+                .addComponent(disposeButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(registration)
                 .addGap(18, 18, 18)
                 .addComponent(update)
@@ -117,17 +149,18 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
                 .addComponent(inquiry)
                 .addGap(18, 18, 18)
                 .addComponent(delete)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(29, 29, 29))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(45, Short.MAX_VALUE)
+                .addContainerGap(43, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(registration)
                     .addComponent(update)
                     .addComponent(inquiry)
-                    .addComponent(delete))
+                    .addComponent(delete)
+                    .addComponent(disposeButton))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -136,8 +169,38 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void registrationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrationActionPerformed
-        // TODO add your handling code here:
+        
+        RegistrationJFrame registration = new RegistrationJFrame();
+        registration.setVisible(true);
     }//GEN-LAST:event_registrationActionPerformed
+
+    private void disposeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disposeButtonActionPerformed
+        
+        dispose();
+    }//GEN-LAST:event_disposeButtonActionPerformed
+
+    private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
+        
+        ModificationJFrame modification = new ModificationJFrame();
+        modification.setVisible(true);
+    }//GEN-LAST:event_updateActionPerformed
+
+    private void inquiryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inquiryActionPerformed
+        // TODO add your handling code here:
+        InquiryJFrame inquiry = new InquiryJFrame();
+        inquiry.setVisible(true);
+    }//GEN-LAST:event_inquiryActionPerformed
+
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+        // TODO add your handling code here:
+        DeleteJFrame delete = new DeleteJFrame();
+        delete.setVisible(true);
+    }//GEN-LAST:event_deleteActionPerformed
+
+    private void infoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoMenuItemActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(this, "20183211 정현우");
+    }//GEN-LAST:event_infoMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -176,6 +239,8 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton delete;
+    private javax.swing.JButton disposeButton;
+    private javax.swing.JMenuItem infoMenuItem;
     private javax.swing.JButton inquiry;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JScrollPane jScrollPane1;
