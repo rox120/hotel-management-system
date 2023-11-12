@@ -4,7 +4,8 @@
  */
 package deu.hms.login;
 
-import deu.hms.reservation.ReservationManagementJFrame;
+import deu.hms.restaurant.RestaurantFrame;
+import deu.hms.restaurant.RoomServiceFrame;
 
 /**
  *
@@ -17,6 +18,7 @@ public class UserFrame extends javax.swing.JFrame {
      */
     public UserFrame() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -33,8 +35,8 @@ public class UserFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        RoomService = new javax.swing.JButton();
+        Restaurant = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -46,17 +48,22 @@ public class UserFrame extends javax.swing.JFrame {
         jLabel1.setText("고객관리");
 
         jButton1.setText("예약정보");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         jButton2.setText("체크인");
 
-        jButton7.setText("룸서비스");
+        RoomService.setText("룸서비스");
+        RoomService.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RoomServiceActionPerformed(evt);
+            }
+        });
 
-        jButton8.setText("식당");
+        Restaurant.setText("식당");
+        Restaurant.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RestaurantActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("음식");
 
@@ -76,8 +83,8 @@ public class UserFrame extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Restaurant, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(RoomService, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addContainerGap(58, Short.MAX_VALUE))
         );
@@ -97,9 +104,9 @@ public class UserFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(RoomService, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(Restaurant, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
@@ -107,11 +114,15 @@ public class UserFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        ReservationManagementJFrame reservationManagementJFrame = new ReservationManagementJFrame();
-        reservationManagementJFrame.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void RoomServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RoomServiceActionPerformed
+        RoomServiceFrame RM = new RoomServiceFrame();
+        RM.setVisible(true);
+    }//GEN-LAST:event_RoomServiceActionPerformed
+
+    private void RestaurantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RestaurantActionPerformed
+        RestaurantFrame RS = new RestaurantFrame();
+        RS.setVisible(true);
+    }//GEN-LAST:event_RestaurantActionPerformed
 
     /**
      * @param args the command line arguments
@@ -150,12 +161,12 @@ public class UserFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Restaurant;
+    private javax.swing.JButton RoomService;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables

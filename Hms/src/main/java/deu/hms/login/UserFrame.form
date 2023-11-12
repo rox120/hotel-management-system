@@ -38,8 +38,8 @@
                           <Component id="jButton4" min="-2" pref="88" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Component id="jButton8" alignment="0" min="-2" pref="88" max="-2" attributes="0"/>
-                  <Component id="jButton7" alignment="0" min="-2" pref="88" max="-2" attributes="0"/>
+                  <Component id="Restaurant" alignment="0" min="-2" pref="88" max="-2" attributes="0"/>
+                  <Component id="RoomService" alignment="0" min="-2" pref="88" max="-2" attributes="0"/>
                   <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="58" max="32767" attributes="0"/>
@@ -63,9 +63,9 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton7" min="-2" pref="45" max="-2" attributes="0"/>
+                      <Component id="RoomService" min="-2" pref="45" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton8" min="-2" pref="45" max="-2" attributes="0"/>
+                      <Component id="Restaurant" min="-2" pref="45" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jButton3" min="-2" pref="45" max="-2" attributes="0"/>
               </Group>
@@ -94,24 +94,27 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="&#xc608;&#xc57d;&#xc815;&#xbcf4;"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton2">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#xccb4;&#xd06c;&#xc778;"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton7">
+    <Component class="javax.swing.JButton" name="RoomService">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#xb8f8;&#xc11c;&#xbe44;&#xc2a4;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RoomServiceActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton8">
+    <Component class="javax.swing.JButton" name="Restaurant">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#xc2dd;&#xb2f9;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RestaurantActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>

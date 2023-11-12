@@ -4,9 +4,8 @@
  */
 package deu.hms.login;
 
-import deu.hms.reservation.ReservationManagementJFrame;
 import deu.hms.restaurant.RestaurantFrame;
-import deu.hms.restaurant.RoomFrame;
+import deu.hms.restaurant.RoomServiceFrame;
 
 /**
  *
@@ -19,6 +18,7 @@ public class MasterFrame extends javax.swing.JFrame {
      */
     public MasterFrame() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -43,6 +43,7 @@ public class MasterFrame extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jButton3.setText("체크아웃");
 
@@ -145,18 +146,14 @@ public class MasterFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        ReservationManagementJFrame rm = new ReservationManagementJFrame();
-        rm.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void RoomServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RoomServiceActionPerformed
-        // TODO add your handling code here:
-        RoomFrame RF = new RoomFrame();
-        RF.setVisible(true);
+        RoomServiceFrame RM = new RoomServiceFrame();
+        RM.setVisible(true);
     }//GEN-LAST:event_RoomServiceActionPerformed
 
     private void RestaurantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RestaurantActionPerformed
-        // TODO add your handling code here:
         RestaurantFrame RS = new RestaurantFrame();
         RS.setVisible(true);
     }//GEN-LAST:event_RestaurantActionPerformed
