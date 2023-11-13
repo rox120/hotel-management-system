@@ -28,10 +28,8 @@ public class InquiryJFrame extends javax.swing.JFrame {
 
         defaultPhoneJTextField = new javax.swing.JTextField();
         wonLabel = new javax.swing.JLabel();
-        checkInDateChooser = new com.toedter.calendar.JDateChooser();
         disposeButton = new javax.swing.JButton();
         phoneLabel = new javax.swing.JLabel();
-        checkOutDateChooser = new com.toedter.calendar.JDateChooser();
         addressLabel = new javax.swing.JLabel();
         chargeJTextField = new javax.swing.JTextField();
         checkInLabel = new javax.swing.JLabel();
@@ -42,16 +40,16 @@ public class InquiryJFrame extends javax.swing.JFrame {
         thirdPhoneJTextField = new javax.swing.JTextField();
         nameLabel = new javax.swing.JLabel();
         chargeLabel = new javax.swing.JLabel();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jDateChooser2 = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
         defaultPhoneJTextField.setText("010");
 
-        wonLabel.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
         wonLabel.setText("원");
 
-        disposeButton.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
         disposeButton.setText("확인");
         disposeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -59,20 +57,16 @@ public class InquiryJFrame extends javax.swing.JFrame {
             }
         });
 
-        phoneLabel.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
         phoneLabel.setText("전화번호");
 
-        addressLabel.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
         addressLabel.setText("주소");
         addressLabel.setToolTipText("");
 
         chargeJTextField.setEditable(false);
         chargeJTextField.setBackground(new java.awt.Color(240, 240, 240));
 
-        checkInLabel.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
         checkInLabel.setText("체크인");
 
-        checkOutLabel.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
         checkOutLabel.setText("체크아웃");
 
         lastNameJTextField.setText("성");
@@ -95,10 +89,8 @@ public class InquiryJFrame extends javax.swing.JFrame {
             }
         });
 
-        nameLabel.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
         nameLabel.setText("이름");
 
-        chargeLabel.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
         chargeLabel.setText("총 금액");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -113,29 +105,34 @@ public class InquiryJFrame extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(phoneLabel)
                             .addComponent(checkInLabel))
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lastNameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(firstNameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(checkInDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lastNameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(firstNameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(defaultPhoneJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(secondPhoneJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(thirdPhoneJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(defaultPhoneJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(secondPhoneJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(thirdPhoneJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(18, 18, 18)
+                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(checkOutLabel)
                             .addComponent(chargeLabel))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(checkOutDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                            .addComponent(chargeJTextField))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(wonLabel))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(chargeJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(wonLabel))
+                            .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(addressLabel)
                     .addComponent(disposeButton, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap(95, Short.MAX_VALUE))
@@ -156,15 +153,15 @@ public class InquiryJFrame extends javax.swing.JFrame {
                     .addComponent(thirdPhoneJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(addressLabel)
-                .addGap(18, 18, 18)
+                .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(checkInLabel)
-                            .addComponent(checkInDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(checkOutLabel))
-                    .addComponent(checkOutDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(chargeLabel)
@@ -251,13 +248,13 @@ public class InquiryJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel addressLabel;
     private javax.swing.JTextField chargeJTextField;
     private javax.swing.JLabel chargeLabel;
-    private com.toedter.calendar.JDateChooser checkInDateChooser;
     private javax.swing.JLabel checkInLabel;
-    private com.toedter.calendar.JDateChooser checkOutDateChooser;
     private javax.swing.JLabel checkOutLabel;
     private javax.swing.JTextField defaultPhoneJTextField;
     private javax.swing.JButton disposeButton;
     private javax.swing.JTextField firstNameJTextField;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JTextField lastNameJTextField;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JLabel phoneLabel;
