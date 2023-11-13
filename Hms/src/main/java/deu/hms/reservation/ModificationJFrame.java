@@ -28,63 +28,60 @@ public class ModificationJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        defaultPhoneJTextField = new javax.swing.JTextField();
-        wonLabel = new javax.swing.JLabel();
-        registButton = new javax.swing.JButton();
-        checkInDateChooser = new com.toedter.calendar.JDateChooser();
-        disposeButton = new javax.swing.JButton();
-        phoneLabel = new javax.swing.JLabel();
-        checkOutDateChooser = new com.toedter.calendar.JDateChooser();
-        addressLabel = new javax.swing.JLabel();
-        chargeJTextField = new javax.swing.JTextField();
-        checkInLabel = new javax.swing.JLabel();
-        checkOutLabel = new javax.swing.JLabel();
-        secondPhoneJTextField = new javax.swing.JTextField();
-        lastNameJTextField = new javax.swing.JTextField();
-        firstNameJTextField = new javax.swing.JTextField();
-        thirdPhoneJTextField = new javax.swing.JTextField();
-        nameLabel = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        searchAddressButton = new javax.swing.JButton();
         chargeLabel = new javax.swing.JLabel();
+        defaultPhoneJTextField = new javax.swing.JTextField();
+        checkInDateChooser = new com.toedter.calendar.JDateChooser();
+        checkOutDateChooser = new com.toedter.calendar.JDateChooser();
+        nameLabel = new javax.swing.JLabel();
+        chargeJTextField = new javax.swing.JTextField();
+        phoneLabel = new javax.swing.JLabel();
+        secondPhoneJTextField = new javax.swing.JTextField();
+        addressLabel = new javax.swing.JLabel();
+        thirdPhoneJTextField = new javax.swing.JTextField();
+        checkInLabel = new javax.swing.JLabel();
+        wonLabel = new javax.swing.JLabel();
+        checkOutLabel = new javax.swing.JLabel();
+        registButton = new javax.swing.JButton();
+        lastNameJTextField = new javax.swing.JTextField();
+        disposeButton = new javax.swing.JButton();
+        firstNameJTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
+        searchAddressButton.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
+        searchAddressButton.setText("주소 검색");
+
+        chargeLabel.setText("총 금액");
+
         defaultPhoneJTextField.setText("010");
 
-        wonLabel.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
+        nameLabel.setText("이름");
+
+        chargeJTextField.setEditable(false);
+        chargeJTextField.setBackground(new java.awt.Color(240, 240, 240));
+
+        phoneLabel.setText("전화번호");
+
+        addressLabel.setText("주소");
+        addressLabel.setToolTipText("");
+
+        checkInLabel.setText("체크인");
+
         wonLabel.setText("원");
 
-        registButton.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
+        checkOutLabel.setText("체크아웃");
+
         registButton.setText("등록");
         registButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 registButtonActionPerformed(evt);
             }
         });
-
-        disposeButton.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
-        disposeButton.setText("취소");
-        disposeButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                disposeButtonActionPerformed(evt);
-            }
-        });
-
-        phoneLabel.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
-        phoneLabel.setText("전화번호");
-
-        addressLabel.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
-        addressLabel.setText("주소");
-        addressLabel.setToolTipText("");
-
-        chargeJTextField.setEditable(false);
-        chargeJTextField.setBackground(new java.awt.Color(240, 240, 240));
-
-        checkInLabel.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
-        checkInLabel.setText("체크인");
-
-        checkOutLabel.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
-        checkOutLabel.setText("체크아웃");
 
         lastNameJTextField.setText("성");
         lastNameJTextField.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -93,6 +90,13 @@ public class ModificationJFrame extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 lastNameJTextFieldFocusLost(evt);
+            }
+        });
+
+        disposeButton.setText("취소");
+        disposeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                disposeButtonActionPerformed(evt);
             }
         });
 
@@ -106,58 +110,64 @@ public class ModificationJFrame extends javax.swing.JFrame {
             }
         });
 
-        nameLabel.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
-        nameLabel.setText("이름");
-
-        chargeLabel.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
-        chargeLabel.setText("총 금액");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(60, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(registButton)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(disposeButton))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(checkInLabel)
+                                    .addGap(30, 30, 30)
+                                    .addComponent(checkInDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(checkOutLabel)
+                                        .addComponent(chargeLabel))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(checkOutDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(chargeJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(wonLabel)))
                     .addComponent(nameLabel)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(phoneLabel)
-                            .addComponent(checkInLabel))
+                            .addComponent(addressLabel))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(searchAddressButton))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lastNameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(firstNameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(checkInDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(defaultPhoneJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(secondPhoneJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(thirdPhoneJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(checkOutLabel)
-                            .addComponent(chargeLabel))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(checkOutDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                            .addComponent(chargeJTextField))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(wonLabel))
-                    .addComponent(addressLabel)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(registButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(disposeButton)))
-                .addContainerGap(95, Short.MAX_VALUE))
+                                .addComponent(thirdPhoneJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(59, 59, 59))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nameLabel)
                     .addComponent(lastNameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -169,16 +179,28 @@ public class ModificationJFrame extends javax.swing.JFrame {
                     .addComponent(secondPhoneJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(thirdPhoneJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(addressLabel)
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(addressLabel)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(searchAddressButton)
+                        .addGap(6, 6, 6)))
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(checkInLabel)
-                            .addComponent(checkInDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(checkInLabel)
                         .addGap(18, 18, 18)
                         .addComponent(checkOutLabel))
-                    .addComponent(checkOutDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(checkInDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(checkOutDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(chargeLabel)
@@ -188,7 +210,7 @@ public class ModificationJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(registButton)
                     .addComponent(disposeButton))
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addGap(38, 38, 38))
         );
 
         pack();
@@ -198,11 +220,6 @@ public class ModificationJFrame extends javax.swing.JFrame {
         // TODO 등록 - 데이터베이스에 추가
 
     }//GEN-LAST:event_registButtonActionPerformed
-
-    private void disposeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disposeButtonActionPerformed
-
-        dispose();
-    }//GEN-LAST:event_disposeButtonActionPerformed
 
     private void lastNameJTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_lastNameJTextFieldFocusGained
 
@@ -217,6 +234,11 @@ public class ModificationJFrame extends javax.swing.JFrame {
             lastNameJTextField.setText("성");
         }
     }//GEN-LAST:event_lastNameJTextFieldFocusLost
+
+    private void disposeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disposeButtonActionPerformed
+
+        dispose();
+    }//GEN-LAST:event_disposeButtonActionPerformed
 
     private void firstNameJTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_firstNameJTextFieldFocusGained
 
@@ -278,10 +300,14 @@ public class ModificationJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField defaultPhoneJTextField;
     private javax.swing.JButton disposeButton;
     private javax.swing.JTextField firstNameJTextField;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField lastNameJTextField;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JLabel phoneLabel;
     private javax.swing.JButton registButton;
+    private javax.swing.JButton searchAddressButton;
     private javax.swing.JTextField secondPhoneJTextField;
     private javax.swing.JTextField thirdPhoneJTextField;
     private javax.swing.JLabel wonLabel;
