@@ -4,6 +4,7 @@
  */
 package deu.hms.login;
 
+import deu.hms.reservation.ReservationManagementJFrame;
 import deu.hms.restaurant.RestaurantFrame;
 import deu.hms.restaurant.RoomServiceFrame;
 
@@ -48,6 +49,11 @@ public class UserFrame extends javax.swing.JFrame {
         jLabel1.setText("고객관리");
 
         jButton1.setText("예약정보");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("체크인");
 
@@ -123,6 +129,12 @@ public class UserFrame extends javax.swing.JFrame {
         RestaurantFrame RS = new RestaurantFrame();
         RS.setVisible(true);
     }//GEN-LAST:event_RestaurantActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        ReservationManagementJFrame reservation = new ReservationManagementJFrame();
+        reservation.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
