@@ -15,6 +15,8 @@ public class ModificationJFrame extends javax.swing.JFrame {
      */
     public ModificationJFrame() {
         initComponents();
+        setLocationRelativeTo(null);
+        setTitle("Modification");
     }
 
     /**

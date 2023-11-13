@@ -15,6 +15,8 @@ public class InquiryJFrame extends javax.swing.JFrame {
      */
     public InquiryJFrame() {
         initComponents();
+        setLocationRelativeTo(null);
+        setTitle("Inquiry");
     }
 
     /**

@@ -14,6 +14,8 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
 
     public ReservationManagementJFrame() {
         initComponents();
+        setLocationRelativeTo(null);
+        setTitle("Reservation Management");
     }
 
     /**

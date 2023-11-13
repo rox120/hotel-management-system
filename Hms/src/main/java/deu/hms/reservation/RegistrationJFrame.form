@@ -123,42 +123,27 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="nameLabel">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="&#xb9d1;&#xc740; &#xace0;&#xb515;" size="12" style="0"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="&#xc774;&#xb984;"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="phoneLabel">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="&#xb9d1;&#xc740; &#xace0;&#xb515;" size="12" style="0"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="&#xc804;&#xd654;&#xbc88;&#xd638;"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="addressLabel">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="&#xb9d1;&#xc740; &#xace0;&#xb515;" size="12" style="0"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="&#xc8fc;&#xc18c;"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="checkInLabel">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="&#xb9d1;&#xc740; &#xace0;&#xb515;" size="12" style="0"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="&#xccb4;&#xd06c;&#xc778;"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="checkOutLabel">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="&#xb9d1;&#xc740; &#xace0;&#xb515;" size="12" style="0"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="&#xccb4;&#xd06c;&#xc544;&#xc6c3;"/>
       </Properties>
     </Component>
@@ -182,9 +167,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="chargeLabel">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="&#xb9d1;&#xc740; &#xace0;&#xb515;" size="12" style="0"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="&#xcd1d; &#xae08;&#xc561;"/>
       </Properties>
     </Component>
@@ -211,17 +193,11 @@
     </Component>
     <Component class="javax.swing.JLabel" name="wonLabel">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="&#xb9d1;&#xc740; &#xace0;&#xb515;" size="12" style="0"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="&#xc6d0;"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="registButton">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="&#xb9d1;&#xc740; &#xace0;&#xb515;" size="12" style="0"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="&#xb4f1;&#xb85d;"/>
       </Properties>
       <Events>
@@ -230,9 +206,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="disposeButton">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="&#xb9d1;&#xc740; &#xace0;&#xb515;" size="12" style="0"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="&#xcde8;&#xc18c;"/>
       </Properties>
       <Events>

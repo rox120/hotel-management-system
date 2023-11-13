@@ -15,6 +15,8 @@ public class DeleteJFrame extends javax.swing.JFrame {
      */
     public DeleteJFrame() {
         initComponents();
+        setLocationRelativeTo(null);
+        setTitle("Delete");
     }
 
     /**
