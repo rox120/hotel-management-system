@@ -1,12 +1,22 @@
-/*
-
-
- */
 package deu.hms.reservation;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import javax.swing.JOptionPane;
 
 /**
  *
- * @author Administrator1
+ * @author Hyunwoo
  */
 public class RegistrationJFrame extends javax.swing.JFrame {
 
@@ -18,7 +28,7 @@ public class RegistrationJFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setTitle("Registrator");
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,6 +38,14 @@ public class RegistrationJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        addressSearchingDialog = new javax.swing.JDialog();
+        addressLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        addressTable = new javax.swing.JTable();
+        addressSearchingTextField = new javax.swing.JTextField();
+        selectAddressButton = new javax.swing.JButton();
+        searchAddressButton = new javax.swing.JButton();
+        setInvisibleDialogButton = new javax.swing.JButton();
         nameLabel = new javax.swing.JLabel();
         phoneLabel = new javax.swing.JLabel();
         addressLabel = new javax.swing.JLabel();
@@ -45,10 +63,203 @@ public class RegistrationJFrame extends javax.swing.JFrame {
         wonLabel = new javax.swing.JLabel();
         registButton = new javax.swing.JButton();
         disposeButton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        searchAddressButton = new javax.swing.JButton();
+        zipNoLabel = new javax.swing.JLabel();
+        roadAddrPart1Label = new javax.swing.JLabel();
+        roadAddrPart2Label = new javax.swing.JLabel();
+        callAddressSearchingDialogButton = new javax.swing.JButton();
+
+        addressLabel1.setText("주소");
+
+        addressTable.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
+        addressTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "우편 번호", "도로명 주소", "건물명"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(addressTable);
+        if (addressTable.getColumnModel().getColumnCount() > 0) {
+            addressTable.getColumnModel().getColumn(0).setMinWidth(65);
+            addressTable.getColumnModel().getColumn(0).setPreferredWidth(65);
+            addressTable.getColumnModel().getColumn(0).setMaxWidth(65);
+            addressTable.getColumnModel().getColumn(2).setMinWidth(200);
+            addressTable.getColumnModel().getColumn(2).setPreferredWidth(200);
+            addressTable.getColumnModel().getColumn(2).setMaxWidth(200);
+        }
+
+        selectAddressButton.setText("확인");
+        selectAddressButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectAddressButtonActionPerformed(evt);
+            }
+        });
+
+        searchAddressButton.setText("검색");
+        searchAddressButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchAddressButtonActionPerformed(evt);
+            }
+        });
+
+        setInvisibleDialogButton.setText("취소");
+        setInvisibleDialogButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                setInvisibleDialogButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout addressSearchingDialogLayout = new javax.swing.GroupLayout(addressSearchingDialog.getContentPane());
+        addressSearchingDialog.getContentPane().setLayout(addressSearchingDialogLayout);
+        addressSearchingDialogLayout.setHorizontalGroup(
+            addressSearchingDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addressSearchingDialogLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(selectAddressButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(setInvisibleDialogButton)
+                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
+            .addGroup(addressSearchingDialogLayout.createSequentialGroup()
+                .addGap(117, 117, 117)
+                .addComponent(addressLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(addressSearchingTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(searchAddressButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        addressSearchingDialogLayout.setVerticalGroup(
+            addressSearchingDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addressSearchingDialogLayout.createSequentialGroup()
+                .addContainerGap(48, Short.MAX_VALUE)
+                .addGroup(addressSearchingDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addressLabel1)
+                    .addComponent(addressSearchingTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchAddressButton))
+                .addGap(38, 38, 38)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(addressSearchingDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(selectAddressButton)
+                    .addComponent(setInvisibleDialogButton))
+                .addContainerGap())
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -90,6 +301,8 @@ public class RegistrationJFrame extends javax.swing.JFrame {
 
         chargeJTextField.setEditable(false);
         chargeJTextField.setBackground(new java.awt.Color(240, 240, 240));
+        chargeJTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        chargeJTextField.setText("0");
 
         wonLabel.setText("원");
 
@@ -107,11 +320,11 @@ public class RegistrationJFrame extends javax.swing.JFrame {
             }
         });
 
-        searchAddressButton.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
-        searchAddressButton.setText("주소 검색");
-        searchAddressButton.addActionListener(new java.awt.event.ActionListener() {
+        callAddressSearchingDialogButton.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
+        callAddressSearchingDialogButton.setText("주소 검색");
+        callAddressSearchingDialogButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchAddressButtonActionPerformed(evt);
+                callAddressSearchingDialogButtonActionPerformed(evt);
             }
         });
 
@@ -122,6 +335,37 @@ public class RegistrationJFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(60, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(phoneLabel)
+                                    .addComponent(addressLabel)
+                                    .addComponent(nameLabel))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(zipNoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(callAddressSearchingDialogButton))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(defaultPhoneJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(secondPhoneJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(thirdPhoneJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lastNameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(firstNameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(roadAddrPart1Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(roadAddrPart2Label, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(66, 66, 66)
+                                .addComponent(registButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(disposeButton)))
+                        .addGap(59, 59, 59))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
@@ -137,37 +381,8 @@ public class RegistrationJFrame extends javax.swing.JFrame {
                                     .addComponent(checkOutDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(chargeJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(wonLabel))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(phoneLabel)
-                            .addComponent(addressLabel)
-                            .addComponent(nameLabel))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(searchAddressButton))
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(defaultPhoneJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(secondPhoneJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(thirdPhoneJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lastNameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(firstNameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addComponent(registButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(disposeButton)))
-                .addGap(59, 59, 59))
+                        .addComponent(wonLabel)
+                        .addGap(46, 46, 46))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,24 +403,24 @@ public class RegistrationJFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(addressLabel)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(searchAddressButton)
-                        .addGap(6, 6, 6)))
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(zipNoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE))
+                    .addComponent(callAddressSearchingDialogButton, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(roadAddrPart1Label, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(roadAddrPart2Label, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(checkInDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(checkInLabel)
-                        .addGap(18, 18, 18)
-                        .addComponent(checkOutLabel))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(checkInDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(checkOutDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(checkOutLabel)
+                    .addComponent(checkOutDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(chargeLabel)
@@ -259,12 +474,91 @@ public class RegistrationJFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_registButtonActionPerformed
 
-    private void searchAddressButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchAddressButtonActionPerformed
+    private void callAddressSearchingDialogButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callAddressSearchingDialogButtonActionPerformed
         // TODO add your handling code here:
-        SearchAddress search = new SearchAddress();
-        search.setVisible(true);
+        addressSearchingDialog.setVisible(true);
+        addressSearchingDialog.setLocationRelativeTo(this);
+        addressSearchingDialog.setSize(550, 350);
+        addressSearchingDialog.setTitle("주소 검색");
+        addressSearchingDialog.setLocationRelativeTo(this);
+    }//GEN-LAST:event_callAddressSearchingDialogButtonActionPerformed
+
+    private void selectAddressButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectAddressButtonActionPerformed
+        // TODO 검색결과 선택 후 버튼 클릭시 동작
+        int selectedRow = addressTable.getSelectedRow();
+
+        if (selectedRow != -1) { // 선택된 행이 있다면 데이터 가져오기
+            String zipNo = addressTable.getValueAt(selectedRow, 0).toString();
+            String roadAddrPart1 = addressTable.getValueAt(selectedRow, 1).toString();
+            String roadAddrPart2 = addressTable.getValueAt(selectedRow, 2).toString();
+
+            // 가져온 데이터를 등록창의 주소 칸 JLabel에 전달
+            zipNoLabel.setText(zipNo);
+            roadAddrPart1Label.setText(roadAddrPart1);
+            roadAddrPart2Label.setText(roadAddrPart2);
+
+            addressSearchingDialog.setVisible(false);
+        } else {
+            // 선택된 행이 없을 경우에 대한 처리
+            JOptionPane.showMessageDialog(this, "주소를 선택하십시오.", "경고", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_selectAddressButtonActionPerformed
+
+    private void searchAddressButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchAddressButtonActionPerformed
+
+        try {
+            String currentPage = "1";
+            String countPerPage = "100";
+            String confmKey = "devU01TX0FVVEgyMDIzMTExMjA2NDkxNDExNDI2NTI=";
+            String keyword = addressSearchingTextField.getText(); // 검색하고자 하는 키워드 입력
+
+            String apiUrl = "https://business.juso.go.kr/addrlink/addrLinkApi.do?currentPage=" + currentPage
+            + "&countPerPage=" + countPerPage + "&keyword=" + URLEncoder.encode(keyword, "UTF-8")
+            + "&confmKey=" + confmKey;
+
+            URL url = new URL(apiUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+
+            InputStream inputStream = connection.getInputStream();
+
+            // XML 파싱
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document document = builder.parse(inputStream);
+
+            DefaultTableModel model = (DefaultTableModel) addressTable.getModel();
+            model.setRowCount(0);
+
+            // 주소 정보 추출
+            NodeList jusoList = document.getElementsByTagName("juso");
+            for (int i = 0; i < jusoList.getLength(); ++i) {
+                Element jusoElement = (Element) jusoList.item(i);
+
+                String zipNo = getElementValue(jusoElement, "zipNo"); // [우편번호]
+                String roadAddrPart1 = getElementValue(jusoElement, "roadAddrPart1"); // [도로명 주소] 도로명주소(참고항목 제외)
+                String roadAddrPart2 = getElementValue(jusoElement, "roadAddrPart2"); // [건물명] 도로명주소 참고항목
+
+                model.addRow(new Object[]{zipNo, roadAddrPart1, roadAddrPart2});
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_searchAddressButtonActionPerformed
 
+    private void setInvisibleDialogButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setInvisibleDialogButtonActionPerformed
+
+        dispose();
+    }//GEN-LAST:event_setInvisibleDialogButtonActionPerformed
+
+    private static String getElementValue(Element element, String tagName) {
+        NodeList nodeList = element.getElementsByTagName(tagName);
+        if (nodeList.getLength() > 0) {
+            return nodeList.item(0).getTextContent();
+        }
+        return "";
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -302,6 +596,11 @@ public class RegistrationJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel addressLabel;
+    private javax.swing.JLabel addressLabel1;
+    private javax.swing.JDialog addressSearchingDialog;
+    private javax.swing.JTextField addressSearchingTextField;
+    private javax.swing.JTable addressTable;
+    private javax.swing.JButton callAddressSearchingDialogButton;
     private javax.swing.JTextField chargeJTextField;
     private javax.swing.JLabel chargeLabel;
     private com.toedter.calendar.JDateChooser checkInDateChooser;
@@ -311,16 +610,19 @@ public class RegistrationJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField defaultPhoneJTextField;
     private javax.swing.JButton disposeButton;
     private javax.swing.JTextField firstNameJTextField;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField lastNameJTextField;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JLabel phoneLabel;
     private javax.swing.JButton registButton;
+    private javax.swing.JLabel roadAddrPart1Label;
+    private javax.swing.JLabel roadAddrPart2Label;
     private javax.swing.JButton searchAddressButton;
     private javax.swing.JTextField secondPhoneJTextField;
+    private javax.swing.JButton selectAddressButton;
+    private javax.swing.JButton setInvisibleDialogButton;
     private javax.swing.JTextField thirdPhoneJTextField;
     private javax.swing.JLabel wonLabel;
+    private javax.swing.JLabel zipNoLabel;
     // End of variables declaration//GEN-END:variables
 }
