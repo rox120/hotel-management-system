@@ -4,7 +4,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -12,6 +11,10 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,10 +26,25 @@ public class RegistrationJFrame extends javax.swing.JFrame {
     /**
      * Creates new form RegistrationJFrame
      */
+    
+    private String lastName;
+    private String firstName;
+    private String secondPhoneNumber;
+    private String thirdPhoneNumber;
+    private String checkInDate;
+    private String checkOutDate;
+    private int numberOfGuests;
+    private String roomNumber;
+    private int costOfStaying;
+    
     public RegistrationJFrame() {
         initComponents();
         setLocationRelativeTo(null);
-        setTitle("Registrator");
+        setTitle("등록");
+    }
+    
+    public String getCheckInDate() {
+        return checkInDate;
     }
     
     /**
@@ -46,20 +64,36 @@ public class RegistrationJFrame extends javax.swing.JFrame {
         selectAddressButton = new javax.swing.JButton();
         searchAddressButton = new javax.swing.JButton();
         setInvisibleDialogButton = new javax.swing.JButton();
+        registCreditCardDialog = new javax.swing.JDialog();
+        jLabel4 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
+        jTextField4 = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jTextField5 = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jTextField6 = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        jLabel11 = new javax.swing.JLabel();
+        jTextField7 = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
         nameLabel = new javax.swing.JLabel();
         phoneLabel = new javax.swing.JLabel();
         addressLabel = new javax.swing.JLabel();
         checkInLabel = new javax.swing.JLabel();
         checkOutLabel = new javax.swing.JLabel();
-        lastNameJTextField = new javax.swing.JTextField();
-        firstNameJTextField = new javax.swing.JTextField();
-        chargeLabel = new javax.swing.JLabel();
-        defaultPhoneJTextField = new javax.swing.JTextField();
+        firstNameTextField = new javax.swing.JTextField();
+        costOfStayingLabel = new javax.swing.JLabel();
+        defaultPhoneTextField = new javax.swing.JTextField();
         checkInDateChooser = new com.toedter.calendar.JDateChooser();
         checkOutDateChooser = new com.toedter.calendar.JDateChooser();
-        chargeJTextField = new javax.swing.JTextField();
-        secondPhoneJTextField = new javax.swing.JTextField();
-        thirdPhoneJTextField = new javax.swing.JTextField();
+        costOfStayingTextField = new javax.swing.JTextField();
+        secondPhoneTextField = new javax.swing.JTextField();
+        thirdPhoneTextField = new javax.swing.JTextField();
         wonLabel = new javax.swing.JLabel();
         registButton = new javax.swing.JButton();
         disposeButton = new javax.swing.JButton();
@@ -67,10 +101,17 @@ public class RegistrationJFrame extends javax.swing.JFrame {
         roadAddrPart1Label = new javax.swing.JLabel();
         roadAddrPart2Label = new javax.swing.JLabel();
         callAddressSearchingDialogButton = new javax.swing.JButton();
+        numberOfGuestsComboBox = new javax.swing.JComboBox<>();
+        numberOfPeopleLabel = new javax.swing.JLabel();
+        lastNameTextField = new javax.swing.JTextField();
+        roomNumberTextField = new javax.swing.JTextField();
+        roomLabel = new javax.swing.JLabel();
+        creditCardInfoLabel = new javax.swing.JLabel();
+        registCreditCardButton = new javax.swing.JButton();
+        calculatingCostOfStayingButton = new javax.swing.JButton();
 
         addressLabel1.setText("주소");
 
-        addressTable.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
         addressTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -254,17 +295,109 @@ public class RegistrationJFrame extends javax.swing.JFrame {
                     .addComponent(searchAddressButton))
                 .addGap(38, 38, 38)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(addressSearchingDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(selectAddressButton)
                     .addComponent(setInvisibleDialogButton))
-                .addContainerGap())
+                .addGap(12, 12, 12))
+        );
+
+        jLabel4.setText("카드 번호");
+
+        jLabel5.setText("-");
+
+        jLabel6.setText("-");
+
+        jLabel7.setText("-");
+
+        jLabel8.setText("유효 기간");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+
+        jLabel9.setText("월");
+
+        jLabel10.setText("/");
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "23", "24", "25", "26", "27", "28", "29" }));
+
+        jLabel11.setText("년");
+
+        jLabel12.setText("cvc");
+
+        javax.swing.GroupLayout registCreditCardDialogLayout = new javax.swing.GroupLayout(registCreditCardDialog.getContentPane());
+        registCreditCardDialog.getContentPane().setLayout(registCreditCardDialogLayout);
+        registCreditCardDialogLayout.setHorizontalGroup(
+            registCreditCardDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(registCreditCardDialogLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(registCreditCardDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(registCreditCardDialogLayout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(registCreditCardDialogLayout.createSequentialGroup()
+                        .addGroup(registCreditCardDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel12))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(registCreditCardDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(registCreditCardDialogLayout.createSequentialGroup()
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel11)))))
+                .addContainerGap(33, Short.MAX_VALUE))
+        );
+        registCreditCardDialogLayout.setVerticalGroup(
+            registCreditCardDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(registCreditCardDialogLayout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addGroup(registCreditCardDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(registCreditCardDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
+                .addGap(18, 18, 18)
+                .addGroup(registCreditCardDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12))
+                .addContainerGap(149, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        nameLabel.setText("이름");
+        nameLabel.setText("예약자 명");
 
         phoneLabel.setText("전화번호");
 
@@ -275,34 +408,31 @@ public class RegistrationJFrame extends javax.swing.JFrame {
 
         checkOutLabel.setText("체크아웃");
 
-        lastNameJTextField.setText("성");
-        lastNameJTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+        firstNameTextField.setText("이름");
+        firstNameTextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                lastNameJTextFieldFocusGained(evt);
+                firstNameTextFieldFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                lastNameJTextFieldFocusLost(evt);
+                firstNameTextFieldFocusLost(evt);
+            }
+        });
+        firstNameTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                firstNameTextFieldActionPerformed(evt);
             }
         });
 
-        firstNameJTextField.setText("이름");
-        firstNameJTextField.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                firstNameJTextFieldFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                firstNameJTextFieldFocusLost(evt);
-            }
-        });
+        costOfStayingLabel.setText("투숙 비용");
 
-        chargeLabel.setText("총 금액");
+        defaultPhoneTextField.setText("010");
 
-        defaultPhoneJTextField.setText("010");
+        checkOutDateChooser.setDateFormatString("y. M. d");
 
-        chargeJTextField.setEditable(false);
-        chargeJTextField.setBackground(new java.awt.Color(240, 240, 240));
-        chargeJTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        chargeJTextField.setText("0");
+        costOfStayingTextField.setEditable(false);
+        costOfStayingTextField.setBackground(new java.awt.Color(240, 240, 240));
+        costOfStayingTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        costOfStayingTextField.setText("0");
 
         wonLabel.setText("원");
 
@@ -320,7 +450,6 @@ public class RegistrationJFrame extends javax.swing.JFrame {
             }
         });
 
-        callAddressSearchingDialogButton.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
         callAddressSearchingDialogButton.setText("주소 검색");
         callAddressSearchingDialogButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -328,141 +457,201 @@ public class RegistrationJFrame extends javax.swing.JFrame {
             }
         });
 
+        numberOfGuestsComboBox.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
+        numberOfGuestsComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6" }));
+        numberOfGuestsComboBox.setToolTipText("");
+        numberOfGuestsComboBox.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                numberOfGuestsComboBoxFocusGained(evt);
+            }
+        });
+        numberOfGuestsComboBox.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                numberOfGuestsComboBoxMouseClicked(evt);
+            }
+        });
+
+        numberOfPeopleLabel.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
+        numberOfPeopleLabel.setText("명");
+
+        lastNameTextField.setText("성");
+        lastNameTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                lastNameTextFieldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                lastNameTextFieldFocusLost(evt);
+            }
+        });
+
+        roomNumberTextField.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                roomNumberTextFieldMouseClicked(evt);
+            }
+        });
+
+        roomLabel.setText("호");
+
+        creditCardInfoLabel.setText("신용카드 정보");
+
+        registCreditCardButton.setText("카드 등록");
+
+        calculatingCostOfStayingButton.setText("금액 확인");
+        calculatingCostOfStayingButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                calculatingCostOfStayingButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(60, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(checkInLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(checkInDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(checkOutLabel)
+                                    .addComponent(costOfStayingLabel)
+                                    .addComponent(creditCardInfoLabel))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(checkOutDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(costOfStayingTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(registCreditCardButton))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(wonLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(numberOfGuestsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(numberOfPeopleLabel))
+                            .addComponent(calculatingCostOfStayingButton)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(roomNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(roomLabel)))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(phoneLabel)
-                                    .addComponent(addressLabel)
                                     .addComponent(nameLabel))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(zipNoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(callAddressSearchingDialogButton))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(defaultPhoneJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(secondPhoneJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(thirdPhoneJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lastNameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(firstNameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(roadAddrPart1Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(roadAddrPart2Label, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(66, 66, 66)
-                                .addComponent(registButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(disposeButton)))
-                        .addGap(59, 59, 59))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(checkInLabel)
-                                .addGap(30, 30, 30)
-                                .addComponent(checkInDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
+                                .addGap(42, 42, 42)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(checkOutLabel)
-                                    .addComponent(chargeLabel))
-                                .addGap(18, 18, 18)
+                                    .addComponent(defaultPhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lastNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(checkOutDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(chargeJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(wonLabel)
-                        .addGap(46, 46, 46))))
+                                    .addComponent(secondPhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(firstNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(thirdPhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(addressLabel)
+                                .addGap(69, 69, 69)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(roadAddrPart2Label, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(registButton)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(disposeButton))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(zipNoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(callAddressSearchingDialogButton))
+                                            .addComponent(roadAddrPart1Label, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                        .addContainerGap(52, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nameLabel)
-                    .addComponent(lastNameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(firstNameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(phoneLabel)
-                    .addComponent(defaultPhoneJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(secondPhoneJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(thirdPhoneJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(addressLabel)
-                            .addComponent(zipNoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE))
-                    .addComponent(callAddressSearchingDialogButton, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(nameLabel)
+                            .addComponent(firstNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lastNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(phoneLabel)
+                            .addComponent(defaultPhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(secondPhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(thirdPhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(zipNoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(addressLabel)
+                    .addComponent(callAddressSearchingDialogButton))
+                .addGap(4, 4, 4)
                 .addComponent(roadAddrPart1Label, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(roadAddrPart2Label, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(checkInDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(checkInLabel)
-                        .addGap(18, 18, 18)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(checkOutLabel)
-                    .addComponent(checkOutDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(checkInLabel)
+                                .addGap(18, 18, 18))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(checkInDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(13, 13, 13)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(checkOutLabel)
+                            .addComponent(checkOutDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(numberOfGuestsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(numberOfPeopleLabel))
+                        .addGap(7, 7, 7)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(roomNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(roomLabel))))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(chargeLabel)
-                    .addComponent(chargeJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(wonLabel))
+                    .addComponent(costOfStayingLabel)
+                    .addComponent(costOfStayingTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(wonLabel)
+                    .addComponent(calculatingCostOfStayingButton))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(registButton)
-                    .addComponent(disposeButton))
-                .addGap(38, 38, 38))
+                    .addComponent(creditCardInfoLabel)
+                    .addComponent(registCreditCardButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(disposeButton)
+                    .addComponent(registButton))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void lastNameJTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_lastNameJTextFieldFocusGained
+    private void firstNameTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_firstNameTextFieldFocusGained
         
-        if (lastNameJTextField.getText().equals("성")) { // 기본값 "성"(사용자 임의 입력이 "성"일 경우 포함)이면 Text Field에 focus가 생길 경우 Text Field를 비움
-            lastNameJTextField.setText("");
+        if (firstNameTextField.getText().equals("이름")) { // 기본값 "이름"(사용자 임의 입력이 "성"일 경우 포함)이면 Text Field에 focus가 생길 경우 Text Field를 비움
+            firstNameTextField.setText("");
         }
-    }//GEN-LAST:event_lastNameJTextFieldFocusGained
+    }//GEN-LAST:event_firstNameTextFieldFocusGained
 
-    private void lastNameJTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_lastNameJTextFieldFocusLost
+    private void firstNameTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_firstNameTextFieldFocusLost
         
-        if (lastNameJTextField.getText().equals("")) { // 사용자 임의 입력 없이 Text Field에서 focus가 없어지면 "성"을 보이게 함
-            lastNameJTextField.setText("성");
+        if (firstNameTextField.getText().equals("")) { // 사용자 임의 입력 없이 Text Field에서 focus가 없어지면 "이름"을 보이게 함
+            firstNameTextField.setText("이름");
         }
-    }//GEN-LAST:event_lastNameJTextFieldFocusLost
-
-    private void firstNameJTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_firstNameJTextFieldFocusGained
-        
-        if (firstNameJTextField.getText().equals("이름")) { // 기본값 "이름"(사용자 임의 입력이 "이름"일 경우 포함)이면 Text Field에 focus가 생길 경우 Text Field를 비움
-            firstNameJTextField.setText("");
-        }
-    }//GEN-LAST:event_firstNameJTextFieldFocusGained
-
-    private void firstNameJTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_firstNameJTextFieldFocusLost
-        
-        if (firstNameJTextField.getText().equals("")) { // 사용자 임의 입력 없이 Text Field에서 focus가 없어지면 "이름"을 보이게 함
-            firstNameJTextField.setText("이름");
-        }
-    }//GEN-LAST:event_firstNameJTextFieldFocusLost
+    }//GEN-LAST:event_firstNameTextFieldFocusLost
 
     private void disposeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disposeButtonActionPerformed
         
@@ -548,15 +737,116 @@ public class RegistrationJFrame extends javax.swing.JFrame {
 
     private void setInvisibleDialogButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setInvisibleDialogButtonActionPerformed
 
-        dispose();
+        addressSearchingDialog.setVisible(false);
     }//GEN-LAST:event_setInvisibleDialogButtonActionPerformed
 
+    private void lastNameTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_lastNameTextFieldFocusGained
+        
+        if (lastNameTextField.getText().equals("성")) { // 기본값 "성"(사용자 임의 입력이 "성"일 경우 포함)이면 Text Field에 focus가 생길 경우 Text Field를 비움
+            lastNameTextField.setText("");
+        }
+    }//GEN-LAST:event_lastNameTextFieldFocusGained
+
+    private void lastNameTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_lastNameTextFieldFocusLost
+        // TODO add your handling code here:
+        if (lastNameTextField.getText().equals("")) { // 기본값 "성"(사용자 임의 입력이 "성"일 경우 포함)이면 Text Field에 focus가 생길 경우 Text Field를 비움
+            lastNameTextField.setText("성");
+        }
+    }//GEN-LAST:event_lastNameTextFieldFocusLost
+
+    private void firstNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstNameTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_firstNameTextFieldActionPerformed
+
+    private void numberOfGuestsComboBoxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_numberOfGuestsComboBoxFocusGained
+
+    }//GEN-LAST:event_numberOfGuestsComboBoxFocusGained
+
+    private void roomNumberTextFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_roomNumberTextFieldMouseClicked
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(this, "1~4층: 50,000원\n5~7층: 100,000원\n8~10층: 150,000원", "객실 요금", JOptionPane.WARNING_MESSAGE);
+    }//GEN-LAST:event_roomNumberTextFieldMouseClicked
+
+    private void numberOfGuestsComboBoxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_numberOfGuestsComboBoxMouseClicked
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(this, "기본 투숙인원은 4명입니다.\n초과 인원 당 20,000원의 추가 요금이 발생함을 고객님께 고지하십시오.", "주의", JOptionPane.WARNING_MESSAGE);
+    }//GEN-LAST:event_numberOfGuestsComboBoxMouseClicked
+
+    private void calculatingCostOfStayingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculatingCostOfStayingButtonActionPerformed
+        
+        // JCalender로 선택한 날짜를 받아온다.
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        checkInDate = dateFormat.format(checkInDateChooser.getDate());
+        checkOutDate = dateFormat.format(checkOutDateChooser.getDate());
+        
+        // 두 날짜 사이의 기간을 계산한다.
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate startDate = LocalDate.parse(checkInDate, formatter);
+        LocalDate endDate = LocalDate.parse(checkOutDate, formatter);
+        long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
+        
+        // 선택된 투숙객 수를 받아오고, 추가 금액 여부를 확인한다.
+        numberOfGuests = Integer.parseInt(numberOfGuestsComboBox.getSelectedItem().toString()); // 투숙객 수를 받아온다.
+                                                                                                  // 4명을 초과하면 초과 인원당 10,000원의 추가 금액을
+                                                                                                  //   계산하는 calcAlphaCost(int numberOfGuests)의 인자값
+        roomNumber = roomNumberTextField.getText(); // 방 번호를 받아온다.
+        
+        String roomGrade = "1"; // 요금 책정을 위한 객실의 층(방 번호의 첫글자)을 저장하는 변수
+                                 // 등급에 따라 방 가격을 책정하는 roomPricing(String roomGrade)에 전달될 인자값
+        if (roomNumber.length() < 4) { // 10층은 방 번호가 네자리이므로 첫 한 글자만 가져올지, 두 글자를 가져올지
+            roomGrade = roomNumber.substring(0, 1);
+        } else {
+            roomGrade = roomNumber.substring(0, 2);
+        }
+        
+        costOfStaying = (int)daysBetween * roomPricing(roomGrade) + calcAlphaCost(numberOfGuests); // 숙박 일수 * 방 가격 + 추가 금액
+        
+        costOfStayingTextField.setText(Integer.toString(costOfStaying)); // 계산 결과를 TextField에 전달
+    }//GEN-LAST:event_calculatingCostOfStayingButtonActionPerformed
+
     private static String getElementValue(Element element, String tagName) {
+        
         NodeList nodeList = element.getElementsByTagName(tagName);
+        
         if (nodeList.getLength() > 0) {
+            
             return nodeList.item(0).getTextContent();
         }
+        
         return "";
+    }
+    
+    private int calcAlphaCost(int numberOfGuests) {
+        
+        int alphaCost = 0;
+        
+        if (numberOfGuests > 4) { // 4명을 넘기면
+            alphaCost = (numberOfGuests - 4) * 10000; // 인당 10,000원의 추가 금액 발생
+        }
+        
+        return alphaCost;
+    }
+    
+    private int roomPricing(String roomGrade) {
+        
+        int roomPrice = 0;
+        switch (roomGrade) {  
+            case "5":
+            case "6":
+            case "7":
+                roomPrice = 100000; // 5~7층: 100,000원
+                break;
+            case "8":
+            case "9":
+            case "10":
+                roomPrice = 150000; // 8~10층: 150,000원
+                break;
+            default:
+                roomPrice = 50000; // 1~4층: 50,000원
+                break;
+        }
+        
+        return roomPrice;
     }
     
     /**
@@ -600,28 +890,52 @@ public class RegistrationJFrame extends javax.swing.JFrame {
     private javax.swing.JDialog addressSearchingDialog;
     private javax.swing.JTextField addressSearchingTextField;
     private javax.swing.JTable addressTable;
+    private javax.swing.JButton calculatingCostOfStayingButton;
     private javax.swing.JButton callAddressSearchingDialogButton;
-    private javax.swing.JTextField chargeJTextField;
-    private javax.swing.JLabel chargeLabel;
     private com.toedter.calendar.JDateChooser checkInDateChooser;
     private javax.swing.JLabel checkInLabel;
     private com.toedter.calendar.JDateChooser checkOutDateChooser;
     private javax.swing.JLabel checkOutLabel;
-    private javax.swing.JTextField defaultPhoneJTextField;
+    private javax.swing.JLabel costOfStayingLabel;
+    private javax.swing.JTextField costOfStayingTextField;
+    private javax.swing.JLabel creditCardInfoLabel;
+    private javax.swing.JTextField defaultPhoneTextField;
     private javax.swing.JButton disposeButton;
-    private javax.swing.JTextField firstNameJTextField;
+    private javax.swing.JTextField firstNameTextField;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField lastNameJTextField;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextField lastNameTextField;
     private javax.swing.JLabel nameLabel;
+    private javax.swing.JComboBox<String> numberOfGuestsComboBox;
+    private javax.swing.JLabel numberOfPeopleLabel;
     private javax.swing.JLabel phoneLabel;
     private javax.swing.JButton registButton;
+    private javax.swing.JButton registCreditCardButton;
+    private javax.swing.JDialog registCreditCardDialog;
     private javax.swing.JLabel roadAddrPart1Label;
     private javax.swing.JLabel roadAddrPart2Label;
+    private javax.swing.JLabel roomLabel;
+    private javax.swing.JTextField roomNumberTextField;
     private javax.swing.JButton searchAddressButton;
-    private javax.swing.JTextField secondPhoneJTextField;
+    private javax.swing.JTextField secondPhoneTextField;
     private javax.swing.JButton selectAddressButton;
     private javax.swing.JButton setInvisibleDialogButton;
-    private javax.swing.JTextField thirdPhoneJTextField;
+    private javax.swing.JTextField thirdPhoneTextField;
     private javax.swing.JLabel wonLabel;
     private javax.swing.JLabel zipNoLabel;
     // End of variables declaration//GEN-END:variables
