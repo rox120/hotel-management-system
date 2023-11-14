@@ -1,21 +1,17 @@
-/*
-
-
- */
 package deu.hms.reservation;
 
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author Administrator1
+ * @author Hyunwoo
  */
 public class ReservationManagementJFrame extends javax.swing.JFrame {
 
     public ReservationManagementJFrame() {
         initComponents();
         setLocationRelativeTo(null);
-        setTitle("Reservation Management");
+        setTitle("예약 관리");
     }
 
     /**
@@ -80,6 +76,13 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(reservationTable);
+        if (reservationTable.getColumnModel().getColumnCount() > 0) {
+            reservationTable.getColumnModel().getColumn(0).setMinWidth(30);
+            reservationTable.getColumnModel().getColumn(0).setPreferredWidth(30);
+            reservationTable.getColumnModel().getColumn(0).setMaxWidth(30);
+            reservationTable.getColumnModel().getColumn(1).setMaxWidth(55);
+            reservationTable.getColumnModel().getColumn(6).setMaxWidth(100);
+        }
 
         registration.setText("등록");
         registration.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -172,8 +175,8 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
 
     private void registrationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrationActionPerformed
         
-        RegistrationJFrame registration = new RegistrationJFrame();
-        registration.setVisible(true);
+        RegistrationJFrame registrator = new RegistrationJFrame();
+        registrator.setVisible(true);
     }//GEN-LAST:event_registrationActionPerformed
 
     private void disposeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disposeButtonActionPerformed
@@ -183,20 +186,20 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
         
-        ModificationJFrame modification = new ModificationJFrame();
-        modification.setVisible(true);
+        ModificationJFrame modificator = new ModificationJFrame();
+        modificator.setVisible(true);
     }//GEN-LAST:event_updateActionPerformed
 
     private void inquiryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inquiryActionPerformed
         // TODO add your handling code here:
-        InquiryJFrame inquiry = new InquiryJFrame();
-        inquiry.setVisible(true);
+        InquiryJFrame inquiryJFrame = new InquiryJFrame();
+        inquiryJFrame.setVisible(true);
     }//GEN-LAST:event_inquiryActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
         // TODO add your handling code here:
-        DeleteJFrame delete = new DeleteJFrame();
-        delete.setVisible(true);
+        DeleteJFrame deleteJFrame = new DeleteJFrame();
+        deleteJFrame.setVisible(true);
     }//GEN-LAST:event_deleteActionPerformed
 
     private void infoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoMenuItemActionPerformed
