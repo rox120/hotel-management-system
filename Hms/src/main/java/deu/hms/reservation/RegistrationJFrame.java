@@ -1,5 +1,10 @@
 package deu.hms.reservation;
 
+import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -27,15 +32,18 @@ public class RegistrationJFrame extends javax.swing.JFrame {
      * Creates new form RegistrationJFrame
      */
     
-    private String lastName;
-    private String firstName;
-    private String secondPhoneNumber;
-    private String thirdPhoneNumber;
+    private static int NO = 0;
+    private String name;
+    private String phoneNumber;
+    private String zipNo;
+    private String address;
     private String checkInDate;
     private String checkOutDate;
     private int numberOfGuests;
     private String roomNumber;
     private int costOfStaying;
+    private String path = System.getProperty("user.dir");
+    private String filePath = path + "/reservationInfoList.txt";
     
     public RegistrationJFrame() {
         initComponents();
@@ -397,7 +405,8 @@ public class RegistrationJFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        nameLabel.setText("예약자 명");
+        nameLabel.setText("이름");
+        nameLabel.setToolTipText("");
 
         phoneLabel.setText("전화번호");
 
@@ -457,7 +466,6 @@ public class RegistrationJFrame extends javax.swing.JFrame {
             }
         });
 
-        numberOfGuestsComboBox.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
         numberOfGuestsComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6" }));
         numberOfGuestsComboBox.setToolTipText("");
         numberOfGuestsComboBox.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -471,7 +479,6 @@ public class RegistrationJFrame extends javax.swing.JFrame {
             }
         });
 
-        numberOfPeopleLabel.setFont(new java.awt.Font("맑은 고딕", 0, 12)); // NOI18N
         numberOfPeopleLabel.setText("명");
 
         lastNameTextField.setText("성");
@@ -542,20 +549,8 @@ public class RegistrationJFrame extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(phoneLabel)
-                                    .addComponent(nameLabel))
-                                .addGap(42, 42, 42)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(defaultPhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lastNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(secondPhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(firstNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(thirdPhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(phoneLabel)
+                            .addComponent(nameLabel)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(addressLabel)
                                 .addGap(69, 69, 69)
@@ -566,12 +561,23 @@ public class RegistrationJFrame extends javax.swing.JFrame {
                                             .addComponent(registButton)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addComponent(disposeButton))
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addComponent(zipNoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(callAddressSearchingDialogButton))
-                                            .addComponent(roadAddrPart1Label, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(defaultPhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(lastNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(secondPhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(firstNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(thirdPhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addGroup(layout.createSequentialGroup()
+                                                    .addComponent(zipNoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(callAddressSearchingDialogButton))
+                                                .addComponent(roadAddrPart1Label, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                         .addContainerGap(52, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -660,11 +666,22 @@ public class RegistrationJFrame extends javax.swing.JFrame {
 
     private void registButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registButtonActionPerformed
         // TODO 등록 - 데이터베이스에 추가
-        
+        try (FileWriter fileWriter = new FileWriter(filePath, true);
+             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+
+            bufferedWriter.write(inputData());
+            bufferedWriter.newLine();
+            
+            bufferedWriter.flush();
+            bufferedWriter.close();
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_registButtonActionPerformed
 
     private void callAddressSearchingDialogButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callAddressSearchingDialogButtonActionPerformed
-        // TODO add your handling code here:
+        
         addressSearchingDialog.setVisible(true);
         addressSearchingDialog.setLocationRelativeTo(this);
         addressSearchingDialog.setSize(550, 350);
@@ -673,7 +690,7 @@ public class RegistrationJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_callAddressSearchingDialogButtonActionPerformed
 
     private void selectAddressButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectAddressButtonActionPerformed
-        // TODO 검색결과 선택 후 버튼 클릭시 동작
+        
         int selectedRow = addressTable.getSelectedRow();
 
         if (selectedRow != -1) { // 선택된 행이 있다면 데이터 가져오기
@@ -847,6 +864,36 @@ public class RegistrationJFrame extends javax.swing.JFrame {
         }
         
         return roomPrice;
+    }
+    
+    private String inputData() {
+        
+        name = lastNameTextField.getText() + firstNameTextField.getText();
+        phoneNumber = defaultPhoneTextField.getText() + "-" + 
+                        secondPhoneTextField.getText() + "-" + 
+                        thirdPhoneTextField.getText();
+        zipNo = zipNoLabel.getText();
+        address = roadAddrPart1Label.getText() + " " + roadAddrPart2Label.getText();
+        
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        checkInDate = dateFormat.format(checkInDateChooser.getDate());
+        checkOutDate = dateFormat.format(checkOutDateChooser.getDate());
+        
+        numberOfGuests = Integer.parseInt(numberOfGuestsComboBox.getSelectedItem().toString());
+        roomNumber = roomNumberTextField.getText();
+        costOfStaying = Integer.parseInt(costOfStayingTextField.getText());
+        String checkInStatus = "No";
+        String inputData = String.format("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t",
+                                        NO, 
+                                        name, phoneNumber, 
+                                        zipNo, address, 
+                                        checkInDate, checkOutDate, 
+                                        numberOfGuests, roomNumber,
+                                        costOfStaying, 
+                                        checkInStatus);
+        ++NO;
+        
+        return inputData;
     }
     
     /**
