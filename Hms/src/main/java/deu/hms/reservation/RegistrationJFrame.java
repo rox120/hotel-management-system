@@ -675,6 +675,8 @@ public class RegistrationJFrame extends javax.swing.JFrame {
             bufferedWriter.flush();
             bufferedWriter.close();
             
+            dispose();
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
