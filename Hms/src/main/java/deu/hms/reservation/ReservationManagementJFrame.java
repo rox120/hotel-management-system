@@ -51,25 +51,18 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
 
         reservationTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "No", "이름", "전화 번호", "주소", "체크인", "체크아웃", "요금"
+                "No", "이름", "전화번호", "우편번호", "주소", "체크인 날짜", "체크아웃 날짜", "인원수", "호실", "요금", "체크인"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
-            };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -81,7 +74,22 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
             reservationTable.getColumnModel().getColumn(0).setPreferredWidth(30);
             reservationTable.getColumnModel().getColumn(0).setMaxWidth(30);
             reservationTable.getColumnModel().getColumn(1).setMaxWidth(55);
-            reservationTable.getColumnModel().getColumn(6).setMaxWidth(100);
+            reservationTable.getColumnModel().getColumn(2).setMinWidth(100);
+            reservationTable.getColumnModel().getColumn(2).setPreferredWidth(100);
+            reservationTable.getColumnModel().getColumn(2).setMaxWidth(100);
+            reservationTable.getColumnModel().getColumn(4).setMinWidth(200);
+            reservationTable.getColumnModel().getColumn(4).setPreferredWidth(200);
+            reservationTable.getColumnModel().getColumn(4).setMaxWidth(200);
+            reservationTable.getColumnModel().getColumn(7).setMinWidth(55);
+            reservationTable.getColumnModel().getColumn(7).setPreferredWidth(55);
+            reservationTable.getColumnModel().getColumn(7).setMaxWidth(55);
+            reservationTable.getColumnModel().getColumn(8).setMinWidth(55);
+            reservationTable.getColumnModel().getColumn(8).setPreferredWidth(55);
+            reservationTable.getColumnModel().getColumn(8).setMaxWidth(55);
+            reservationTable.getColumnModel().getColumn(9).setMaxWidth(100);
+            reservationTable.getColumnModel().getColumn(10).setMinWidth(55);
+            reservationTable.getColumnModel().getColumn(10).setPreferredWidth(55);
+            reservationTable.getColumnModel().getColumn(10).setMaxWidth(55);
         }
 
         registration.setText("등록");
@@ -142,7 +150,7 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(disposeButton)
