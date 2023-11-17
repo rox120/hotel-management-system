@@ -1,26 +1,24 @@
 package deu.hms.reservation;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedWriter;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import java.io.FileWriter;
+import java.io.InputStream;
+import java.io.IOException;
+import java.io.BufferedWriter;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.net.HttpURLConnection;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.time.format.DateTimeFormatter;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -32,7 +30,7 @@ public class RegistrationJFrame extends javax.swing.JFrame {
      * Creates new form RegistrationJFrame
      */
     
-    private static int NO = 0;
+    private int No = 0;
     private String name;
     private String phoneNumber;
     private String zipNo;
@@ -41,9 +39,13 @@ public class RegistrationJFrame extends javax.swing.JFrame {
     private String checkOutDate;
     private int numberOfGuests;
     private String roomNumber;
+    private String roomGrade;
     private int costOfStaying;
-    private String path = System.getProperty("user.dir");
-    private String filePath = path + "/reservationInfoList.txt";
+    private final String path = System.getProperty("user.dir");
+    private final String filePath = path + "/reservationInfoList.txt";
+    
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     
     public RegistrationJFrame() {
         initComponents();
@@ -51,8 +53,73 @@ public class RegistrationJFrame extends javax.swing.JFrame {
         setTitle("등록");
     }
     
+    public String getLastName() {
+        
+        return lastNameTextField.getText();
+    }
+    
+    public String getFirstName() {
+        
+        return firstNameTextField.getText();
+    }
+    
+    public String getThisName() {
+        
+        return getLastName() + getFirstName();
+    }
+    
+    public String getPhone() {
+        
+        return defaultPhoneTextField.getText() + secondPhoneTextField.getText() + thirdPhoneTextField.getText();
+    }
+    
+    public String getZipNo() {
+        
+        return zipNoLabel.getText();
+    }
+    
+    public String getRoadAddrPart1() {
+        
+        return roadAddrPart1Label.getText();
+    }
+    
+    public String getRoadAddrPart2() {
+        
+        return roadAddrPart2Label.getText();
+    }
+    
     public String getCheckInDate() {
+        
+        checkInDate = dateFormat.format(checkInDateChooser.getDate());
+        
         return checkInDate;
+    }
+    
+    public String getCheckOutDate() {
+        
+        checkOutDate = dateFormat.format(checkOutDateChooser.getDate());
+        
+        return checkOutDate;
+    }
+    
+    public int getNumberOfGuests() {
+        
+        return Integer.parseInt(numberOfGuestsComboBox.getSelectedItem().toString());
+    }
+    
+    public String getRoomNumber() {
+        
+        return roomNumberTextField.getText();
+    }
+    
+    public String getRoomGrade() {
+        
+        return extractRoomGrade(getRoomNumber());
+    }
+    
+    public int getCostOfStaying() {
+        
+        return costOfStaying;
     }
     
     /**
@@ -116,7 +183,7 @@ public class RegistrationJFrame extends javax.swing.JFrame {
         roomLabel = new javax.swing.JLabel();
         creditCardInfoLabel = new javax.swing.JLabel();
         registCreditCardButton = new javax.swing.JButton();
-        calculatingCostOfStayingButton = new javax.swing.JButton();
+        calcCostOfStayingButton = new javax.swing.JButton();
 
         addressLabel1.setText("주소");
 
@@ -466,7 +533,7 @@ public class RegistrationJFrame extends javax.swing.JFrame {
             }
         });
 
-        numberOfGuestsComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6" }));
+        numberOfGuestsComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6" }));
         numberOfGuestsComboBox.setToolTipText("");
         numberOfGuestsComboBox.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -503,10 +570,10 @@ public class RegistrationJFrame extends javax.swing.JFrame {
 
         registCreditCardButton.setText("카드 등록");
 
-        calculatingCostOfStayingButton.setText("금액 확인");
-        calculatingCostOfStayingButton.addActionListener(new java.awt.event.ActionListener() {
+        calcCostOfStayingButton.setText("금액 확인");
+        calcCostOfStayingButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                calculatingCostOfStayingButtonActionPerformed(evt);
+                calcCostOfStayingButtonActionPerformed(evt);
             }
         });
 
@@ -541,7 +608,7 @@ public class RegistrationJFrame extends javax.swing.JFrame {
                                 .addComponent(numberOfGuestsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(numberOfPeopleLabel))
-                            .addComponent(calculatingCostOfStayingButton)
+                            .addComponent(calcCostOfStayingButton)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(roomNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -630,7 +697,7 @@ public class RegistrationJFrame extends javax.swing.JFrame {
                     .addComponent(costOfStayingLabel)
                     .addComponent(costOfStayingTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(wonLabel)
-                    .addComponent(calculatingCostOfStayingButton))
+                    .addComponent(calcCostOfStayingButton))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(creditCardInfoLabel)
@@ -665,21 +732,28 @@ public class RegistrationJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_disposeButtonActionPerformed
 
     private void registButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registButtonActionPerformed
-        // TODO 등록 - 데이터베이스에 추가
-        try (FileWriter fileWriter = new FileWriter(filePath, true);
+        // TODO 유효성 검사
+        if (isRegistrable()) {
+            if (costOfStayingTextField.getText().equals("0")) {
+            JOptionPane.showMessageDialog(this, "먼저 금액을 확인하십시오.", "경고", JOptionPane.WARNING_MESSAGE);
+        } else {
+            try (FileWriter fileWriter = new FileWriter(filePath, true);
              BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
 
-            bufferedWriter.write(inputData());
-            bufferedWriter.newLine();
+                bufferedWriter.write(inputData());
+                bufferedWriter.newLine();
+
+                bufferedWriter.flush();
+                bufferedWriter.close();
+
+                dispose();
             
-            bufferedWriter.flush();
-            bufferedWriter.close();
-            
-            dispose();
-            
-        } catch (IOException e) {
-            e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+        }
+        
     }//GEN-LAST:event_registButtonActionPerformed
 
     private void callAddressSearchingDialogButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callAddressSearchingDialogButtonActionPerformed
@@ -696,7 +770,7 @@ public class RegistrationJFrame extends javax.swing.JFrame {
         int selectedRow = addressTable.getSelectedRow();
 
         if (selectedRow != -1) { // 선택된 행이 있다면 데이터 가져오기
-            String zipNo = addressTable.getValueAt(selectedRow, 0).toString();
+            zipNo = addressTable.getValueAt(selectedRow, 0).toString();
             String roadAddrPart1 = addressTable.getValueAt(selectedRow, 1).toString();
             String roadAddrPart2 = addressTable.getValueAt(selectedRow, 2).toString();
 
@@ -743,7 +817,7 @@ public class RegistrationJFrame extends javax.swing.JFrame {
             for (int i = 0; i < jusoList.getLength(); ++i) {
                 Element jusoElement = (Element) jusoList.item(i);
 
-                String zipNo = getElementValue(jusoElement, "zipNo"); // [우편번호]
+                zipNo = getElementValue(jusoElement, "zipNo"); // [우편번호]
                 String roadAddrPart1 = getElementValue(jusoElement, "roadAddrPart1"); // [도로명 주소] 도로명주소(참고항목 제외)
                 String roadAddrPart2 = getElementValue(jusoElement, "roadAddrPart2"); // [건물명] 도로명주소 참고항목
 
@@ -774,7 +848,7 @@ public class RegistrationJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_lastNameTextFieldFocusLost
 
     private void firstNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstNameTextFieldActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_firstNameTextFieldActionPerformed
 
     private void numberOfGuestsComboBoxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_numberOfGuestsComboBoxFocusGained
@@ -782,46 +856,29 @@ public class RegistrationJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_numberOfGuestsComboBoxFocusGained
 
     private void roomNumberTextFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_roomNumberTextFieldMouseClicked
-        // TODO add your handling code here:
+        
         JOptionPane.showMessageDialog(this, "1~4층: 50,000원\n5~7층: 100,000원\n8~10층: 150,000원", "객실 요금", JOptionPane.WARNING_MESSAGE);
     }//GEN-LAST:event_roomNumberTextFieldMouseClicked
 
     private void numberOfGuestsComboBoxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_numberOfGuestsComboBoxMouseClicked
-        // TODO add your handling code here:
+        
         JOptionPane.showMessageDialog(this, "기본 투숙인원은 4명입니다.\n초과 인원 당 20,000원의 추가 요금이 발생함을 고객님께 고지하십시오.", "주의", JOptionPane.WARNING_MESSAGE);
     }//GEN-LAST:event_numberOfGuestsComboBoxMouseClicked
 
-    private void calculatingCostOfStayingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculatingCostOfStayingButtonActionPerformed
-        
-        // JCalender로 선택한 날짜를 받아온다.
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        checkInDate = dateFormat.format(checkInDateChooser.getDate());
-        checkOutDate = dateFormat.format(checkOutDateChooser.getDate());
-        
-        // 두 날짜 사이의 기간을 계산한다.
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate startDate = LocalDate.parse(checkInDate, formatter);
-        LocalDate endDate = LocalDate.parse(checkOutDate, formatter);
-        long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
-        
-        // 선택된 투숙객 수를 받아오고, 추가 금액 여부를 확인한다.
-        numberOfGuests = Integer.parseInt(numberOfGuestsComboBox.getSelectedItem().toString()); // 투숙객 수를 받아온다.
-                                                                                                  // 4명을 초과하면 초과 인원당 10,000원의 추가 금액을
-                                                                                                  //   계산하는 calcAlphaCost(int numberOfGuests)의 인자값
-        roomNumber = roomNumberTextField.getText(); // 방 번호를 받아온다.
-        
-        String roomGrade = "1"; // 요금 책정을 위한 객실의 층(방 번호의 첫글자)을 저장하는 변수
-                                 // 등급에 따라 방 가격을 책정하는 roomPricing(String roomGrade)에 전달될 인자값
-        if (roomNumber.length() < 4) { // 10층은 방 번호가 네자리이므로 첫 한 글자만 가져올지, 두 글자를 가져올지
-            roomGrade = roomNumber.substring(0, 1);
-        } else {
-            roomGrade = roomNumber.substring(0, 2);
+    private void calcCostOfStayingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcCostOfStayingButtonActionPerformed
+
+        if (isCalcCostOfStayingButtonAvailable()) {
+            // JCalender로 선택한 날짜를 받아온다.
+            checkInDate = getCheckInDate();
+            checkOutDate = getCheckOutDate();
+            numberOfGuests = getNumberOfGuests(); // 선택된 투숙객 수를 받아온다.
+                                                  // 4명을 초과하면 초과 인원당 10,000원의 추가 금액을 계산하는 calcAlphaCost(int numberOfGuests)의 인자값
+            roomNumber = getRoomNumber(); // 방 번호를 받아온다.
+            calcCostOfStaying(); // 숙박 일수 * 방 가격 + calcAlphaCost()
+
+            costOfStayingTextField.setText(Integer.toString(getCostOfStaying())); // 계산 결과를 TextField에 전달
         }
-        
-        costOfStaying = (int)daysBetween * roomPricing(roomGrade) + calcAlphaCost(numberOfGuests); // 숙박 일수 * 방 가격 + 추가 금액
-        
-        costOfStayingTextField.setText(Integer.toString(costOfStaying)); // 계산 결과를 TextField에 전달
-    }//GEN-LAST:event_calculatingCostOfStayingButtonActionPerformed
+    }//GEN-LAST:event_calcCostOfStayingButtonActionPerformed
 
     private static String getElementValue(Element element, String tagName) {
         
@@ -868,16 +925,43 @@ public class RegistrationJFrame extends javax.swing.JFrame {
         return roomPrice;
     }
     
+    private long calcDaysBetween() {
+        
+        LocalDate startDate = LocalDate.parse(checkInDate, formatter);
+        LocalDate endDate = LocalDate.parse(checkOutDate, formatter);
+        long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
+        ChronoUnit.DAYS.between(startDate, endDate);
+        
+        return daysBetween;
+    }
+    
+    private String extractRoomGrade(String roomNumber) {
+        if (roomNumber == null || roomNumber.isEmpty()) {
+            
+            return "1";
+        }
+
+        if (roomNumber.length() < 4) {
+            return roomNumber.substring(0, 1);
+        } else {
+            return roomNumber.substring(0, 2);
+        }
+    }
+    
+    private void calcCostOfStaying() {
+        
+        costOfStaying = (int)calcDaysBetween() * roomPricing(getRoomGrade()) + calcAlphaCost(getNumberOfGuests());
+    }
+    
     private String inputData() {
         
         name = lastNameTextField.getText() + firstNameTextField.getText();
         phoneNumber = defaultPhoneTextField.getText() + "-" + 
                         secondPhoneTextField.getText() + "-" + 
                         thirdPhoneTextField.getText();
-        zipNo = zipNoLabel.getText();
-        address = roadAddrPart1Label.getText() + " " + roadAddrPart2Label.getText();
+        zipNo = getZipNo();
+        address = getRoadAddrPart1() + " " + getRoadAddrPart2();
         
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         checkInDate = dateFormat.format(checkInDateChooser.getDate());
         checkOutDate = dateFormat.format(checkOutDateChooser.getDate());
         
@@ -886,16 +970,112 @@ public class RegistrationJFrame extends javax.swing.JFrame {
         costOfStaying = Integer.parseInt(costOfStayingTextField.getText());
         String checkInStatus = "No";
         String inputData = String.format("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t",
-                                        NO, 
+                                        ++No, 
                                         name, phoneNumber, 
                                         zipNo, address, 
                                         checkInDate, checkOutDate, 
                                         numberOfGuests, roomNumber,
                                         costOfStaying, 
                                         checkInStatus);
-        ++NO;
         
         return inputData;
+    }
+    
+    private boolean isCalcCostOfStayingButtonAvailable() {
+
+        if (!isDateChosen()) {
+            
+            JOptionPane.showMessageDialog(this, "날짜를 모두 선택하십시오.", "경고", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        if (!isNumberOfGeustsChosen()) {
+            
+            JOptionPane.showMessageDialog(this, "인원수를 선택하십시오.", "경고", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        
+        if (!isRoomNumberFilled()) {
+            
+            JOptionPane.showMessageDialog(this, "호실을 입력하십시오.", "경고", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        
+        return true;
+    }
+    
+    private boolean isRegistrable() {
+        
+        if (!isNameFilled()) {
+            
+            JOptionPane.showMessageDialog(this, "이름을 입력하십시오.", "경고", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        if (!isPhoneFilled()) {
+            
+            JOptionPane.showMessageDialog(this, "휴대폰 번호를 확인하십시오.", "경고", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        
+        if (!isAddressFilled()) {
+            
+            JOptionPane.showMessageDialog(this, "주소를 입력하십시오.", "경고", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        
+        if (!isDateChosen()) {
+            
+            JOptionPane.showMessageDialog(this, "날짜를 모두 선택하십시오.", "경고", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        if (!isNumberOfGeustsChosen()) {
+            
+            JOptionPane.showMessageDialog(this, "인원수를 선택하십시오.", "경고", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        
+        if (!isRoomNumberFilled()) {
+            
+            JOptionPane.showMessageDialog(this, "호실을 입력하십시오.", "경고", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        
+        return true;
+    }
+    
+    private boolean isNameFilled() {
+        
+        return getLastName().length() > 0 && getFirstName().length() > 0 &&
+                !(getThisName().equals("성이름"));
+    }
+    
+    private boolean isPhoneFilled() {
+        
+        return defaultPhoneTextField.getText().equals("010") && 
+                secondPhoneTextField.getText().length() == 4 &&
+                thirdPhoneTextField.getText().length() == 4;
+    }
+    
+    private boolean isAddressFilled() {
+        
+        return getZipNo().length() > 0;
+    }
+    
+    private boolean isDateChosen() {
+        
+        return getCheckInDate().length() > 0 && getCheckOutDate().length() > 0;
+    }
+    
+    private boolean isNumberOfGeustsChosen() {
+        
+        return getNumberOfGuests() > 0;
+    }
+    
+    private boolean isRoomNumberFilled() {
+        
+        return getRoomNumber().length() > 0;
     }
     
     /**
@@ -939,7 +1119,7 @@ public class RegistrationJFrame extends javax.swing.JFrame {
     private javax.swing.JDialog addressSearchingDialog;
     private javax.swing.JTextField addressSearchingTextField;
     private javax.swing.JTable addressTable;
-    private javax.swing.JButton calculatingCostOfStayingButton;
+    private javax.swing.JButton calcCostOfStayingButton;
     private javax.swing.JButton callAddressSearchingDialogButton;
     private com.toedter.calendar.JDateChooser checkInDateChooser;
     private javax.swing.JLabel checkInLabel;
