@@ -52,7 +52,6 @@
                                   <Component id="roomLabel" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
                       </Group>
                       <Component id="phoneLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="nameLabel" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -575,7 +574,6 @@
                                   <Component id="roomLabel1" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
                       </Group>
                       <Component id="phoneLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="nameLabel1" alignment="0" min="-2" max="-2" attributes="0"/>

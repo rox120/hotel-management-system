@@ -1,10 +1,14 @@
 package deu.hms.reservation;
 
+import java.io.BufferedReader;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,6 +21,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Vector;
 import javax.swing.JDialog;
 import javax.swing.table.DefaultTableModel;
 import javax.xml.parsers.DocumentBuilder;
@@ -29,7 +34,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
  */
 public class ReservationManagementJFrame extends javax.swing.JFrame {
 
-    private int No = 0;
+    private int index = 0;
     private String name;
     private String phoneNumber;
     private String zipNo;
@@ -1170,6 +1175,8 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
                     bufferedWriter.close();
                     
                     loadReservationData();
+                    
+                    InitData();
                     registDialog.setVisible(false);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -1180,7 +1187,7 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
 
     private void disposeButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disposeButton1ActionPerformed
 
-        dispose();
+        registDialog.setVisible(false);
     }//GEN-LAST:event_disposeButton1ActionPerformed
 
     private void callAddressSearchingDialogButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callAddressSearchingDialogButtonActionPerformed
@@ -1259,8 +1266,8 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document document = builder.parse(inputStream);
 
-            DefaultTableModel model = (DefaultTableModel) addressTable.getModel();
-            model.setRowCount(0);
+            DefaultTableModel tableModel = (DefaultTableModel) addressTable.getModel();
+            tableModel.setRowCount(0);
 
             // 주소 정보 추출
             NodeList jusoList = document.getElementsByTagName("juso");
@@ -1271,7 +1278,7 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
                 String roadAddrPart1 = getElementValue(jusoElement, "roadAddrPart1"); // [도로명 주소] 도로명주소(참고항목 제외)
                 String roadAddrPart2 = getElementValue(jusoElement, "roadAddrPart2"); // [건물명] 도로명주소 참고항목
 
-                model.addRow(new Object[]{zipNo, roadAddrPart1, roadAddrPart2});
+                tableModel.addRow(new Object[]{zipNo, roadAddrPart1, roadAddrPart2});
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -1284,13 +1291,57 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_setInvisibleDialogButtonActionPerformed
 
     private void deleteOkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteOkButtonActionPerformed
-        // TODO 예 - 데이터베이스에서 선택한 예약 정보 삭제:
+        // TODO 예 -> 데이터베이스에서 선택한 예약 정보 삭제:
+        Object targetIndex;
+        int selectedRow = reservationTable.getSelectedRow();
+        targetIndex = reservationTable.getValueAt(selectedRow, 0);
+        String[] columns = null;
+        
+        String replacementData = "D"; // 수정할 데이터를 지정하세요
 
+        try {
+            File file = new File(filePath);
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            StringBuilder sb = new StringBuilder();
+
+            // 파일의 내용을 읽어오면서 수정할 부분을 찾음
+            String line;
+            int currentIndex = 1;
+            while ((line = br.readLine()) != null) {
+                if (currentIndex == Integer.parseInt((String) targetIndex)) {
+                    System.out.println("aa");
+                    // 특정 행일 경우, 수정할 데이터로 변경
+                    columns = line.split("\t");
+                    columns[columns.length - 1] = replacementData;
+                    line = reWriteLine(columns);
+                    
+                    sb.append(line).append("\n");
+                } else {
+                    // 나머지 행은 그대로 유지
+                    sb.append(line).append("\n");
+                }
+                ++currentIndex;
+            }
+            br.close();
+
+            // 수정된 내용을 파일에 다시 쓰고 저장
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            writer.write(sb.toString());
+            writer.flush();
+            writer.close();
+
+            System.out.println("파일 내용이 수정되었습니다.");
+            loadReservationData();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        deleteDialog.setVisible(false);
     }//GEN-LAST:event_deleteOkButtonActionPerformed
 
     private void disposeButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disposeButton2ActionPerformed
 
-        dispose();
+        deleteDialog.setVisible(false);
     }//GEN-LAST:event_disposeButton2ActionPerformed
 
     private void registButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registButton1ActionPerformed
@@ -1343,7 +1394,7 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
 
     public void loadReservationData() {
         ArrayList<BookingInfo> bookingInfo = new ArrayList<>();
-        DefaultTableModel model = (DefaultTableModel) reservationTable.getModel();
+        DefaultTableModel reservationTableModel = (DefaultTableModel) reservationTable.getModel();
         try {
             FileManagement fileMgmt = new FileManagement();
             fileMgmt.readBookingFileData(filePath);
@@ -1369,7 +1420,7 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
             }
 
             // 테이블 모델 업데이트
-            model.setDataVector(data, new Object[]{
+            reservationTableModel.setDataVector(data, new Object[]{
                 "No", "이름", "전화번호", "우편번호", "주소", "체크인 날짜", "체크아웃 날짜",
                 "인원수", "방번호", "숙박비", "체크인"
             });
@@ -1389,8 +1440,38 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
         return "";
     }
         
-    private String inputData() {
+    private int getPreviousIndex() throws IOException {
         
+        int previousIndex = 0;
+        String[] columns = null;
+        boolean isFirstData = true;
+        
+        try(BufferedReader br = new BufferedReader(new FileReader(filePath))){
+            String line;
+            while ((line = br.readLine()) != null) {
+                
+                columns = line.split("\t");
+            }
+            
+            if (columns != null) {
+                previousIndex = Integer.parseInt(columns[0]);
+                isFirstData = false;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        if (!isFirstData) {
+            return previousIndex + 1;
+        }
+        else {
+            return previousIndex;
+        }
+    }
+    
+    private String inputData() throws IOException {
+        
+        index = getPreviousIndex();
         name = getThisName();
         phoneNumber = getPhone();
         zipNo = getZipNo();
@@ -1404,7 +1485,7 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
         costOfStaying = getCostOfStaying();
         String checkInStatus = "N";
         String inputData = String.format("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t",
-                                        ++No, 
+                                        index, 
                                         name, phoneNumber, 
                                         zipNo, address, 
                                         checkInDate, checkOutDate, 
@@ -1413,6 +1494,22 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
                                         checkInStatus);
         
         return inputData;
+    }
+    
+    private void InitData() {
+        
+        lastNameTextField.setText("성");
+        firstNameTextField.setText("이름");
+        secondPhoneTextField.setText(null);
+        thirdPhoneTextField.setText(null);
+        zipNoLabel.setText(null);
+        roadAddrPart1Label.setText(null);
+        roadAddrPart2Label.setText(null);
+        checkInDateChooser.setDate(null);
+        checkOutDateChooser.setDate(null);
+        numberOfGuestsComboBox.setSelectedIndex(0);
+        roomNumberTextField.setText(null);
+        costOfStayingTextField.setText("0");
     }
     
     private int calcAlphaCost(int numberOfGuests) {
@@ -1470,10 +1567,19 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
             return roomNumber.substring(0, 2);
         }
     }
-    
+        
     private void calcCostOfStaying() {
         
         costOfStaying = (int)calcDaysBetween() * roomPricing(getRoomGrade()) + calcAlphaCost(getNumberOfGuests());
+    }
+    
+    private String reWriteLine(String[] columns) {
+        String line = String.format("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t", 
+                                    columns[0], columns[1], columns[2], columns[3],
+                                    columns[4], columns[5], columns[6], columns[7],
+                                    columns[8], columns[9], columns[10]);
+        
+        return line;
     }
     
     /**
