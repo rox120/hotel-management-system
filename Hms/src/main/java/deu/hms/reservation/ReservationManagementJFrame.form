@@ -4,8 +4,11 @@
   <NonVisualComponents>
     <Container class="javax.swing.JDialog" name="registDialog">
       <Properties>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[520, 500]"/>
+        </Property>
         <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[500, 383]"/>
+          <Dimension value="[520, 500]"/>
         </Property>
       </Properties>
 
@@ -93,7 +96,7 @@
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="50" max="32767" attributes="0"/>
+                  <EmptySpace pref="70" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -172,7 +175,7 @@
                       <Component id="disposeButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="registButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="26" max="32767" attributes="0"/>
+                  <EmptySpace pref="143" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -530,6 +533,17 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JDialog" name="updateDialog">
+      <Properties>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[520, 400]"/>
+        </Property>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[520, 400]"/>
+        </Property>
+        <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[520, 400]"/>
+        </Property>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -537,85 +551,77 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="checkInLabel1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="checkInDateChooser1" min="-2" pref="130" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="checkOutLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="costOfStayingLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="creditCardInfoLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="checkOutDateChooser1" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="costOfStayingTextField1" alignment="0" min="-2" pref="130" max="-2" attributes="0"/>
-                                      <Component id="registCreditCardButton1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="wonLabel1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="numberOfGuestsComboBox1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="numberOfPeopleLabel1" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="calcCostOfStayingButton1" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="roomNumberTextField1" min="-2" pref="72" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="roomLabel1" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
-                      <Component id="phoneLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="nameLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="addressLabel2" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="roadAddrPart2Label1" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="registButton1" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="disposeButton3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="defaultPhoneTextField1" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
-                                              <Component id="lastNameTextField1" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="secondPhoneTextField1" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
-                                              <Component id="firstNameTextField1" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="thirdPhoneTextField1" min="-2" pref="50" max="-2" attributes="0"/>
+                                          <Component id="checkInLabel1" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="updateCheckInDateChooser" min="-2" pref="130" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Component id="zipNoLabel1" min="-2" pref="200" max="-2" attributes="0"/>
-                                              <EmptySpace max="32767" attributes="0"/>
-                                              <Component id="callAddressSearchingDialogButton1" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="checkOutLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="costOfStayingLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="creditCardInfoLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <Component id="roadAddrPart1Label1" alignment="1" min="-2" pref="315" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="updateCheckOutDateChooser" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="updateCostOfStayingTextField" alignment="0" min="-2" pref="130" max="-2" attributes="0"/>
+                                              <Component id="updateRegistCreditCardButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="wonLabel1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="updateNumberOfGuestsComboBox" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="numberOfPeopleLabel1" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="updateCalcCostOfStayingButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="updateRoomNumberTextField" min="-2" pref="72" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="roomLabel1" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
+                                  <Component id="updateButton" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="updateInvisibleButton" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
+                          <EmptySpace min="0" pref="134" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="updateDefaultPhoneTextField" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
+                                      <Component id="updateLastNameTextField" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="updateSecondPhoneTextField" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
+                                      <Component id="updateFirstNameTextField" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="updateThirdPhoneTextField" min="-2" pref="50" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="phoneLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="nameLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="50" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -623,31 +629,19 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="nameLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="firstNameTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="lastNameTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="phoneLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="defaultPhoneTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="secondPhoneTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="thirdPhoneTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="zipNoLabel1" min="-2" pref="20" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="addressLabel2" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="callAddressSearchingDialogButton1" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="nameLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="updateFirstNameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="updateLastNameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                  <Component id="roadAddrPart1Label1" min="-2" pref="20" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="roadAddrPart2Label1" min="-2" pref="20" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="phoneLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="updateDefaultPhoneTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="updateSecondPhoneTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="updateThirdPhoneTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -656,23 +650,23 @@
                                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="checkInDateChooser1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="updateCheckInDateChooser" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="checkOutLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="checkOutDateChooser1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="updateCheckOutDateChooser" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="numberOfGuestsComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="updateNumberOfGuestsComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="numberOfPeopleLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="roomNumberTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="updateRoomNumberTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="roomLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -680,62 +674,48 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="costOfStayingLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="costOfStayingTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="updateCostOfStayingTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="wonLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="calcCostOfStayingButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="updateCalcCostOfStayingButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="creditCardInfoLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="registCreditCardButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="updateRegistCreditCardButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="disposeButton3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="registButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="updateInvisibleButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="updateButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="26" max="32767" attributes="0"/>
+                  <EmptySpace pref="119" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="registButton1">
+        <Component class="javax.swing.JButton" name="updateButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#xb4f1;&#xb85d;"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="registButton1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updateButtonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="disposeButton3">
+        <Component class="javax.swing.JButton" name="updateInvisibleButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#xcde8;&#xc18c;"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="disposeButton3ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updateInvisibleButtonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="zipNoLabel1">
-        </Component>
-        <Component class="javax.swing.JLabel" name="roadAddrPart1Label1">
-        </Component>
-        <Component class="javax.swing.JLabel" name="roadAddrPart2Label1">
-        </Component>
-        <Component class="javax.swing.JButton" name="callAddressSearchingDialogButton1">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="&#xc8fc;&#xc18c; &#xac80;&#xc0c9;"/>
-          </Properties>
+        <Component class="javax.swing.JTextField" name="updateRoomNumberTextField">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="callAddressSearchingDialogButton1ActionPerformed"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="updateRoomNumberTextFieldMouseClicked"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="roomNumberTextField1">
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="roomNumberTextField1MouseClicked"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="numberOfGuestsComboBox1">
+        <Component class="javax.swing.JComboBox" name="updateNumberOfGuestsComboBox">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="7">
@@ -751,8 +731,8 @@
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
           <Events>
-            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="numberOfGuestsComboBox1FocusGained"/>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="numberOfGuestsComboBox1MouseClicked"/>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="updateNumberOfGuestsComboBoxFocusGained"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="updateNumberOfGuestsComboBoxMouseClicked"/>
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -784,13 +764,13 @@
             <Property name="text" type="java.lang.String" value="&#xc2e0;&#xc6a9;&#xce74;&#xb4dc; &#xc815;&#xbcf4;"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="lastNameTextField1">
+        <Component class="javax.swing.JTextField" name="updateLastNameTextField">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#xc131;"/>
           </Properties>
           <Events>
-            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="lastNameTextField1FocusGained"/>
-            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="lastNameTextField1FocusLost"/>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="updateLastNameTextFieldFocusGained"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="updateLastNameTextFieldFocusLost"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="checkOutLabel1">
@@ -798,7 +778,7 @@
             <Property name="text" type="java.lang.String" value="&#xccb4;&#xd06c;&#xc544;&#xc6c3;"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="registCreditCardButton1">
+        <Component class="javax.swing.JButton" name="updateRegistCreditCardButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#xce74;&#xb4dc; &#xb4f1;&#xb85d;"/>
           </Properties>
@@ -808,28 +788,22 @@
             <Property name="text" type="java.lang.String" value="&#xc804;&#xd654;&#xbc88;&#xd638;"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="addressLabel2">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="&#xc8fc;&#xc18c;"/>
-            <Property name="toolTipText" type="java.lang.String" value=""/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="firstNameTextField1">
+        <Component class="javax.swing.JTextField" name="updateFirstNameTextField">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#xc774;&#xb984;"/>
           </Properties>
           <Events>
-            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="firstNameTextField1FocusGained"/>
-            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="firstNameTextField1FocusLost"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="firstNameTextField1ActionPerformed"/>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="updateFirstNameTextFieldFocusGained"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="updateFirstNameTextFieldFocusLost"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updateFirstNameTextFieldActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="calcCostOfStayingButton1">
+        <Component class="javax.swing.JButton" name="updateCalcCostOfStayingButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#xae08;&#xc561; &#xd655;&#xc778;"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="calcCostOfStayingButton1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updateCalcCostOfStayingButtonActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="costOfStayingLabel1">
@@ -837,19 +811,19 @@
             <Property name="text" type="java.lang.String" value="&#xd22c;&#xc219; &#xbe44;&#xc6a9;"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="defaultPhoneTextField1">
+        <Component class="javax.swing.JTextField" name="updateDefaultPhoneTextField">
           <Properties>
             <Property name="text" type="java.lang.String" value="010"/>
           </Properties>
         </Component>
-        <Component class="com.toedter.calendar.JDateChooser" name="checkInDateChooser1">
+        <Component class="com.toedter.calendar.JDateChooser" name="updateCheckInDateChooser">
         </Component>
-        <Component class="com.toedter.calendar.JDateChooser" name="checkOutDateChooser1">
+        <Component class="com.toedter.calendar.JDateChooser" name="updateCheckOutDateChooser">
           <Properties>
             <Property name="dateFormatString" type="java.lang.String" value="y. M. d"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="costOfStayingTextField1">
+        <Component class="javax.swing.JTextField" name="updateCostOfStayingTextField">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -859,9 +833,9 @@
             <Property name="text" type="java.lang.String" value="0"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="secondPhoneTextField1">
+        <Component class="javax.swing.JTextField" name="updateSecondPhoneTextField">
         </Component>
-        <Component class="javax.swing.JTextField" name="thirdPhoneTextField1">
+        <Component class="javax.swing.JTextField" name="updateThirdPhoneTextField">
         </Component>
         <Component class="javax.swing.JLabel" name="wonLabel1">
           <Properties>
@@ -876,23 +850,6 @@
           <Color id="&#xae30;&#xbcf8; &#xcee4;&#xc11c;"/>
         </Property>
       </Properties>
-      <SubComponents>
-        <Menu class="javax.swing.JMenu" name="programInfo">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="&#xc815;&#xbcf4;"/>
-          </Properties>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="infoMenuItem">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="&#xc815;&#xbcf4;"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="infoMenuItemActionPerformed"/>
-              </Events>
-            </MenuItem>
-          </SubComponents>
-        </Menu>
-      </SubComponents>
     </Menu>
   </NonVisualComponents>
   <Properties>
@@ -921,28 +878,25 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jScrollPane1" alignment="0" pref="1000" max="32767" attributes="0"/>
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
               <Component id="disposeButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="callRegistDialogButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="update" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="inquiry" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="delete" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="43" max="32767" attributes="0"/>
+              <EmptySpace pref="66" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="callRegistDialogButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="update" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="inquiry" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="delete" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="disposeButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -973,7 +927,7 @@
                 <Column editable="false" title="&#xccb4;&#xd06c;&#xc544;&#xc6c3; &#xb0a0;&#xc9dc;" type="java.lang.Object"/>
                 <Column editable="false" title="&#xc778;&#xc6d0;&#xc218;" type="java.lang.Object"/>
                 <Column editable="false" title="&#xd638;&#xc2e4;" type="java.lang.Object"/>
-                <Column editable="false" title="&#xc694;&#xae08;" type="java.lang.Object"/>
+                <Column editable="false" title="&#xc219;&#xbc15;&#xbe44;" type="java.lang.Object"/>
                 <Column editable="false" title="&#xccb4;&#xd06c;&#xc778;" type="java.lang.Object"/>
               </Table>
             </Property>
@@ -1024,7 +978,7 @@
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="100" minWidth="-1" prefWidth="-1" resizable="true">
+                <Column maxWidth="100" minWidth="100" prefWidth="100" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
@@ -1059,15 +1013,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updateActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="inquiry">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="&#xc870;&#xd68c;"/>
-        <Property name="horizontalTextPosition" type="int" value="0"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inquiryActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="delete">
