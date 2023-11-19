@@ -110,4 +110,90 @@ public class Validation {
         
         return reservationManager.getRoomNumber().length() > 0;
     }
+    
+    public boolean isUpdateCalcCostOfStayingButtonAvailable() {
+        
+        if (!isUpdateDateChosen()) {
+
+            JOptionPane.showMessageDialog(reservationManager.getUpdateDialog(), "날짜를 모두 선택하십시오.", "경고", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        if (!isUpdateNumberOfGeustsChosen()) {
+
+            JOptionPane.showMessageDialog(reservationManager.getUpdateDialog(), "인원수를 선택하십시오.", "경고", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        if (!isUpdateRoomNumberFilled()) {
+
+            JOptionPane.showMessageDialog(reservationManager.getUpdateDialog(), "호실을 입력하십시오.", "경고", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        return true;
+    }
+    
+    public boolean isUpdateRegistrable() {
+
+        if (!isUpdateNameFilled()) {
+            
+            JOptionPane.showMessageDialog(reservationManager.getUpdateDialog(), "이름을 입력하십시오.", "경고", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        if (!isUpdatePhoneFilled()) {
+            
+            JOptionPane.showMessageDialog(reservationManager.getUpdateDialog(), "휴대폰 번호를 확인하십시오.", "경고", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        
+        if (!isUpdateDateChosen()) {
+            
+            JOptionPane.showMessageDialog(reservationManager.getUpdateDialog(), "날짜를 모두 선택하십시오.", "경고", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        if (!isUpdateNumberOfGeustsChosen()) {
+            
+            JOptionPane.showMessageDialog(reservationManager.getUpdateDialog(), "인원수를 선택하십시오.", "경고", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        
+        if (!isUpdateRoomNumberFilled()) {
+            
+            JOptionPane.showMessageDialog(reservationManager.getUpdateDialog(), "호실을 입력하십시오.", "경고", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        
+        return true;
+    }
+    
+    private boolean isUpdateNameFilled() {
+
+        return reservationManager.getUpdateLastName().length() > 0 && reservationManager.getUpdateFirstName().length() > 0 &&
+                !(reservationManager.getUpdateThisName().equals("성이름"));
+    }
+    
+    private boolean isUpdatePhoneFilled() {
+        
+        return reservationManager.getUpdateDefaultPhone().equals("010") && 
+                reservationManager.getUpdateSecondPhone().length() == 4 &&
+                reservationManager.getUpdateThirdPhone().length() == 4;
+    }
+    
+    private boolean isUpdateDateChosen() {
+        
+        return reservationManager.getUpdateCheckInDate().length() > 0 && reservationManager.getUpdateCheckOutDate().length() > 0;
+    }
+    
+    private boolean isUpdateNumberOfGeustsChosen() {
+        
+        return reservationManager.getUpdateNumberOfGuests() > 0;
+    }
+    
+    private boolean isUpdateRoomNumberFilled() {
+        
+        return reservationManager.getUpdateRoomNumber().length() > 0;
+    }
 }
