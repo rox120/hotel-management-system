@@ -15,13 +15,17 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.ParseException;
 import javax.swing.JOptionPane;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.table.DefaultTableModel;
 import javax.xml.parsers.DocumentBuilder;
@@ -50,9 +54,13 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
     
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
- 
+    
     public JDialog getRegistDialog() {
         return registDialog;
+    }
+    
+    public JDialog getUpdateDialog() {
+        return updateDialog;
     }
     
     public String getLastName() {
@@ -136,6 +144,68 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
         return costOfStaying;
     }
     
+    public String getUpdateLastName() {
+        
+        return updateLastNameTextField.getText();
+    }
+    
+    public String getUpdateFirstName() {
+        
+        return updateFirstNameTextField.getText();
+    }
+    
+    public String getUpdateThisName() {
+        
+        return getUpdateLastName() + getUpdateFirstName();
+    }
+    
+    public String getUpdateDefaultPhone() {
+        return updateDefaultPhoneTextField.getText();
+    }
+    
+    public String getUpdateSecondPhone() {
+        return updateSecondPhoneTextField.getText();
+    }
+    
+    public String getUpdateThirdPhone() {
+        return updateThirdPhoneTextField.getText();
+    }
+    
+    public String getUpdatePhone() {
+        
+        return getUpdateDefaultPhone() + "-" + getUpdateSecondPhone() + "-" + getUpdateThirdPhone();
+    }
+    
+    public String getUpdateCheckInDate() {
+        
+        return dateFormat.format(updateCheckInDateChooser.getDate());
+    }
+    
+    public String getUpdateCheckOutDate() {
+        
+        return dateFormat.format(updateCheckOutDateChooser.getDate());
+    }
+    
+    public int getUpdateNumberOfGuests() {
+        
+        return Integer.parseInt(updateNumberOfGuestsComboBox.getSelectedItem().toString());
+    }
+    
+    public String getUpdateRoomNumber() {
+        
+        return updateRoomNumberTextField.getText();
+    }
+    
+    public String getUpdateRoomGrade() {
+        
+        return extractRoomGrade(getUpdateRoomNumber());
+    }
+    
+    public int getUpdateCostOfStaying() {
+        
+        return costOfStaying;
+    }
+    
     public ReservationManagementJFrame() {
         initComponents();
         setLocationRelativeTo(null);
@@ -195,46 +265,39 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
         deleteOkButton = new javax.swing.JButton();
         disposeButton2 = new javax.swing.JButton();
         updateDialog = new javax.swing.JDialog();
-        registButton1 = new javax.swing.JButton();
-        disposeButton3 = new javax.swing.JButton();
-        zipNoLabel1 = new javax.swing.JLabel();
-        roadAddrPart1Label1 = new javax.swing.JLabel();
-        roadAddrPart2Label1 = new javax.swing.JLabel();
-        callAddressSearchingDialogButton1 = new javax.swing.JButton();
-        roomNumberTextField1 = new javax.swing.JTextField();
-        numberOfGuestsComboBox1 = new javax.swing.JComboBox<>();
+        updateButton = new javax.swing.JButton();
+        updateInvisibleButton = new javax.swing.JButton();
+        updateRoomNumberTextField = new javax.swing.JTextField();
+        updateNumberOfGuestsComboBox = new javax.swing.JComboBox<>();
         roomLabel1 = new javax.swing.JLabel();
         numberOfPeopleLabel1 = new javax.swing.JLabel();
         checkInLabel1 = new javax.swing.JLabel();
         nameLabel1 = new javax.swing.JLabel();
         creditCardInfoLabel1 = new javax.swing.JLabel();
-        lastNameTextField1 = new javax.swing.JTextField();
+        updateLastNameTextField = new javax.swing.JTextField();
         checkOutLabel1 = new javax.swing.JLabel();
-        registCreditCardButton1 = new javax.swing.JButton();
+        updateRegistCreditCardButton = new javax.swing.JButton();
         phoneLabel1 = new javax.swing.JLabel();
-        addressLabel2 = new javax.swing.JLabel();
-        firstNameTextField1 = new javax.swing.JTextField();
-        calcCostOfStayingButton1 = new javax.swing.JButton();
+        updateFirstNameTextField = new javax.swing.JTextField();
+        updateCalcCostOfStayingButton = new javax.swing.JButton();
         costOfStayingLabel1 = new javax.swing.JLabel();
-        defaultPhoneTextField1 = new javax.swing.JTextField();
-        checkInDateChooser1 = new com.toedter.calendar.JDateChooser();
-        checkOutDateChooser1 = new com.toedter.calendar.JDateChooser();
-        costOfStayingTextField1 = new javax.swing.JTextField();
-        secondPhoneTextField1 = new javax.swing.JTextField();
-        thirdPhoneTextField1 = new javax.swing.JTextField();
+        updateDefaultPhoneTextField = new javax.swing.JTextField();
+        updateCheckInDateChooser = new com.toedter.calendar.JDateChooser();
+        updateCheckOutDateChooser = new com.toedter.calendar.JDateChooser();
+        updateCostOfStayingTextField = new javax.swing.JTextField();
+        updateSecondPhoneTextField = new javax.swing.JTextField();
+        updateThirdPhoneTextField = new javax.swing.JTextField();
         wonLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         reservationTable = new javax.swing.JTable();
         callRegistDialogButton = new javax.swing.JButton();
         update = new javax.swing.JButton();
-        inquiry = new javax.swing.JButton();
         delete = new javax.swing.JButton();
         disposeButton = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
-        programInfo = new javax.swing.JMenu();
-        infoMenuItem = new javax.swing.JMenuItem();
 
-        registDialog.setSize(new java.awt.Dimension(500, 383));
+        registDialog.setMinimumSize(new java.awt.Dimension(520, 500));
+        registDialog.setSize(new java.awt.Dimension(520, 500));
 
         roomNumberTextField.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -376,8 +439,7 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
                             .addGroup(registDialogLayout.createSequentialGroup()
                                 .addComponent(roomNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(roomLabel)))
-                        .addGap(64, 64, 64))
+                                .addComponent(roomLabel))))
                     .addComponent(phoneLabel)
                     .addComponent(nameLabel)
                     .addGroup(registDialogLayout.createSequentialGroup()
@@ -407,7 +469,7 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(callAddressSearchingDialogButton))
                                         .addComponent(roadAddrPart1Label, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
         registDialogLayout.setVerticalGroup(
             registDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -468,7 +530,7 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
                 .addGroup(registDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(disposeButton1)
                     .addComponent(registButton))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(143, Short.MAX_VALUE))
         );
 
         addressLabel1.setText("주소");
@@ -708,43 +770,40 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
                 .addContainerGap(59, Short.MAX_VALUE))
         );
 
-        registButton1.setText("등록");
-        registButton1.addActionListener(new java.awt.event.ActionListener() {
+        updateDialog.setMinimumSize(new java.awt.Dimension(520, 400));
+        updateDialog.setPreferredSize(new java.awt.Dimension(520, 400));
+        updateDialog.setSize(new java.awt.Dimension(520, 400));
+
+        updateButton.setText("등록");
+        updateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                registButton1ActionPerformed(evt);
+                updateButtonActionPerformed(evt);
             }
         });
 
-        disposeButton3.setText("취소");
-        disposeButton3.addActionListener(new java.awt.event.ActionListener() {
+        updateInvisibleButton.setText("취소");
+        updateInvisibleButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                disposeButton3ActionPerformed(evt);
+                updateInvisibleButtonActionPerformed(evt);
             }
         });
 
-        callAddressSearchingDialogButton1.setText("주소 검색");
-        callAddressSearchingDialogButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                callAddressSearchingDialogButton1ActionPerformed(evt);
-            }
-        });
-
-        roomNumberTextField1.addMouseListener(new java.awt.event.MouseAdapter() {
+        updateRoomNumberTextField.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                roomNumberTextField1MouseClicked(evt);
+                updateRoomNumberTextFieldMouseClicked(evt);
             }
         });
 
-        numberOfGuestsComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6" }));
-        numberOfGuestsComboBox1.setToolTipText("");
-        numberOfGuestsComboBox1.addFocusListener(new java.awt.event.FocusAdapter() {
+        updateNumberOfGuestsComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6" }));
+        updateNumberOfGuestsComboBox.setToolTipText("");
+        updateNumberOfGuestsComboBox.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                numberOfGuestsComboBox1FocusGained(evt);
+                updateNumberOfGuestsComboBoxFocusGained(evt);
             }
         });
-        numberOfGuestsComboBox1.addMouseListener(new java.awt.event.MouseAdapter() {
+        updateNumberOfGuestsComboBox.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                numberOfGuestsComboBox1MouseClicked(evt);
+                updateNumberOfGuestsComboBoxMouseClicked(evt);
             }
         });
 
@@ -759,57 +818,54 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
 
         creditCardInfoLabel1.setText("신용카드 정보");
 
-        lastNameTextField1.setText("성");
-        lastNameTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
+        updateLastNameTextField.setText("성");
+        updateLastNameTextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                lastNameTextField1FocusGained(evt);
+                updateLastNameTextFieldFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                lastNameTextField1FocusLost(evt);
+                updateLastNameTextFieldFocusLost(evt);
             }
         });
 
         checkOutLabel1.setText("체크아웃");
 
-        registCreditCardButton1.setText("카드 등록");
+        updateRegistCreditCardButton.setText("카드 등록");
 
         phoneLabel1.setText("전화번호");
 
-        addressLabel2.setText("주소");
-        addressLabel2.setToolTipText("");
-
-        firstNameTextField1.setText("이름");
-        firstNameTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
+        updateFirstNameTextField.setText("이름");
+        updateFirstNameTextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                firstNameTextField1FocusGained(evt);
+                updateFirstNameTextFieldFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                firstNameTextField1FocusLost(evt);
+                updateFirstNameTextFieldFocusLost(evt);
             }
         });
-        firstNameTextField1.addActionListener(new java.awt.event.ActionListener() {
+        updateFirstNameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                firstNameTextField1ActionPerformed(evt);
+                updateFirstNameTextFieldActionPerformed(evt);
             }
         });
 
-        calcCostOfStayingButton1.setText("금액 확인");
-        calcCostOfStayingButton1.addActionListener(new java.awt.event.ActionListener() {
+        updateCalcCostOfStayingButton.setText("금액 확인");
+        updateCalcCostOfStayingButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                calcCostOfStayingButton1ActionPerformed(evt);
+                updateCalcCostOfStayingButtonActionPerformed(evt);
             }
         });
 
         costOfStayingLabel1.setText("투숙 비용");
 
-        defaultPhoneTextField1.setText("010");
+        updateDefaultPhoneTextField.setText("010");
 
-        checkOutDateChooser1.setDateFormatString("y. M. d");
+        updateCheckOutDateChooser.setDateFormatString("y. M. d");
 
-        costOfStayingTextField1.setEditable(false);
-        costOfStayingTextField1.setBackground(new java.awt.Color(240, 240, 240));
-        costOfStayingTextField1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        costOfStayingTextField1.setText("0");
+        updateCostOfStayingTextField.setEditable(false);
+        updateCostOfStayingTextField.setBackground(new java.awt.Color(240, 240, 240));
+        updateCostOfStayingTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        updateCostOfStayingTextField.setText("0");
 
         wonLabel1.setText("원");
 
@@ -821,91 +877,74 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
                 .addGap(42, 42, 42)
                 .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(updateDialogLayout.createSequentialGroup()
-                        .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, updateDialogLayout.createSequentialGroup()
-                                .addComponent(checkInLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(checkInDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(updateDialogLayout.createSequentialGroup()
-                                .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(checkOutLabel1)
-                                    .addComponent(costOfStayingLabel1)
-                                    .addComponent(creditCardInfoLabel1))
-                                .addGap(18, 18, 18)
-                                .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(checkOutDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(costOfStayingTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(registCreditCardButton1))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(wonLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(updateDialogLayout.createSequentialGroup()
-                                .addComponent(numberOfGuestsComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(numberOfPeopleLabel1))
-                            .addComponent(calcCostOfStayingButton1)
-                            .addGroup(updateDialogLayout.createSequentialGroup()
-                                .addComponent(roomNumberTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(roomLabel1)))
-                        .addGap(64, 64, 64))
-                    .addComponent(phoneLabel1)
-                    .addComponent(nameLabel1)
-                    .addGroup(updateDialogLayout.createSequentialGroup()
-                        .addComponent(addressLabel2)
-                        .addGap(69, 69, 69)
-                        .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(roadAddrPart2Label1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(updateDialogLayout.createSequentialGroup()
-                                    .addComponent(registButton1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(disposeButton3))
-                                .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, updateDialogLayout.createSequentialGroup()
+                                        .addComponent(checkInLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(updateCheckInDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(updateDialogLayout.createSequentialGroup()
                                         .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(defaultPhoneTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lastNameTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(checkOutLabel1)
+                                            .addComponent(costOfStayingLabel1)
+                                            .addComponent(creditCardInfoLabel1))
+                                        .addGap(18, 18, 18)
                                         .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(secondPhoneTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(firstNameTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(updateCheckOutDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(updateCostOfStayingTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(updateRegistCreditCardButton))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(wonLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(updateDialogLayout.createSequentialGroup()
+                                        .addComponent(updateNumberOfGuestsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(thirdPhoneTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(updateDialogLayout.createSequentialGroup()
-                                            .addComponent(zipNoLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(callAddressSearchingDialogButton1))
-                                        .addComponent(roadAddrPart1Label1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addContainerGap(50, Short.MAX_VALUE))
+                                        .addComponent(numberOfPeopleLabel1))
+                                    .addComponent(updateCalcCostOfStayingButton)
+                                    .addGroup(updateDialogLayout.createSequentialGroup()
+                                        .addComponent(updateRoomNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(roomLabel1))))
+                            .addGroup(updateDialogLayout.createSequentialGroup()
+                                .addGap(93, 93, 93)
+                                .addComponent(updateButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(updateInvisibleButton)))
+                        .addGap(0, 134, Short.MAX_VALUE))
+                    .addGroup(updateDialogLayout.createSequentialGroup()
+                        .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(updateDialogLayout.createSequentialGroup()
+                                .addGap(93, 93, 93)
+                                .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(updateDefaultPhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(updateLastNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(updateSecondPhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(updateFirstNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(updateThirdPhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(phoneLabel1)
+                            .addComponent(nameLabel1))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         updateDialogLayout.setVerticalGroup(
             updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(updateDialogLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(updateDialogLayout.createSequentialGroup()
-                        .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(nameLabel1)
-                            .addComponent(firstNameTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lastNameTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(phoneLabel1)
-                            .addComponent(defaultPhoneTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(secondPhoneTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(thirdPhoneTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(zipNoLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(addressLabel2)
-                    .addComponent(callAddressSearchingDialogButton1))
-                .addGap(4, 4, 4)
-                .addComponent(roadAddrPart1Label1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(roadAddrPart2Label1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nameLabel1)
+                    .addComponent(updateFirstNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(updateLastNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(phoneLabel1)
+                    .addComponent(updateDefaultPhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(updateSecondPhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(updateThirdPhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(updateDialogLayout.createSequentialGroup()
                         .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -913,34 +952,34 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
                                 .addComponent(checkInLabel1)
                                 .addGap(18, 18, 18))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, updateDialogLayout.createSequentialGroup()
-                                .addComponent(checkInDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(updateCheckInDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(13, 13, 13)))
                         .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(checkOutLabel1)
-                            .addComponent(checkOutDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(updateCheckOutDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(updateDialogLayout.createSequentialGroup()
                         .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(numberOfGuestsComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(updateNumberOfGuestsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(numberOfPeopleLabel1))
                         .addGap(7, 7, 7)
                         .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(roomNumberTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(updateRoomNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(roomLabel1))))
                 .addGap(18, 18, 18)
                 .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(costOfStayingLabel1)
-                    .addComponent(costOfStayingTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(updateCostOfStayingTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(wonLabel1)
-                    .addComponent(calcCostOfStayingButton1))
+                    .addComponent(updateCalcCostOfStayingButton))
                 .addGap(18, 18, 18)
                 .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(creditCardInfoLabel1)
-                    .addComponent(registCreditCardButton1))
+                    .addComponent(updateRegistCreditCardButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(disposeButton3)
-                    .addComponent(registButton1))
-                .addContainerGap(26, Short.MAX_VALUE))
+                    .addComponent(updateInvisibleButton)
+                    .addComponent(updateButton))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -954,7 +993,7 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "No", "이름", "전화번호", "우편번호", "주소", "체크인 날짜", "체크아웃 날짜", "인원수", "호실", "요금", "체크인"
+                "No", "이름", "전화번호", "우편번호", "주소", "체크인 날짜", "체크아웃 날짜", "인원수", "호실", "숙박비", "체크인"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -983,6 +1022,8 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
             reservationTable.getColumnModel().getColumn(8).setMinWidth(55);
             reservationTable.getColumnModel().getColumn(8).setPreferredWidth(55);
             reservationTable.getColumnModel().getColumn(8).setMaxWidth(55);
+            reservationTable.getColumnModel().getColumn(9).setMinWidth(100);
+            reservationTable.getColumnModel().getColumn(9).setPreferredWidth(100);
             reservationTable.getColumnModel().getColumn(9).setMaxWidth(100);
             reservationTable.getColumnModel().getColumn(10).setMinWidth(55);
             reservationTable.getColumnModel().getColumn(10).setPreferredWidth(55);
@@ -1005,14 +1046,6 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
             }
         });
 
-        inquiry.setText("조회");
-        inquiry.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        inquiry.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inquiryActionPerformed(evt);
-            }
-        });
-
         delete.setText("삭제");
         delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1028,19 +1061,6 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
         });
 
         menuBar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        programInfo.setText("정보");
-
-        infoMenuItem.setText("정보");
-        infoMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                infoMenuItemActionPerformed(evt);
-            }
-        });
-        programInfo.add(infoMenuItem);
-
-        menuBar.add(programInfo);
-
         setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1049,26 +1069,23 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addGap(33, 33, 33)
                 .addComponent(disposeButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(callRegistDialogButton)
                 .addGap(18, 18, 18)
                 .addComponent(update)
                 .addGap(18, 18, 18)
-                .addComponent(inquiry)
-                .addGap(18, 18, 18)
                 .addComponent(delete)
-                .addGap(29, 29, 29))
+                .addGap(33, 33, 33))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(43, Short.MAX_VALUE)
+                .addContainerGap(66, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(callRegistDialogButton)
                     .addComponent(update)
-                    .addComponent(inquiry)
                     .addComponent(delete)
                     .addComponent(disposeButton))
                 .addGap(18, 18, 18)
@@ -1082,7 +1099,7 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
         
         registDialog.setVisible(true);
         registDialog.setLocationRelativeTo(this);
-        registDialog.setSize(550, 383);
+        registDialog.setSize(520, 500);
         registDialog.setTitle("등록");
         registDialog.setLocationRelativeTo(this);
     }//GEN-LAST:event_callRegistDialogButtonActionPerformed
@@ -1093,17 +1110,63 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_disposeButtonActionPerformed
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
-        
-        updateDialog.setVisible(true);
-        updateDialog.setLocationRelativeTo(this);
-        updateDialog.setSize(500, 383);
-        updateDialog.setTitle("수정");
-        updateDialog.setLocationRelativeTo(this);
-    }//GEN-LAST:event_updateActionPerformed
 
-    private void inquiryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inquiryActionPerformed
-        // TODO 조회 기능은 없다.
-    }//GEN-LAST:event_inquiryActionPerformed
+        int selectedRow = -1;
+        selectedRow = reservationTable.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "예약 정보를 선택하십시오.", "경고", JOptionPane.WARNING_MESSAGE);
+        } else {
+            updateDialog.setVisible(true);
+            updateDialog.setLocationRelativeTo(this);
+            updateDialog.setSize(520, 400);
+            updateDialog.setTitle("수정");
+            updateDialog.setLocationRelativeTo(this);
+            
+            Object targetIndex;
+            targetIndex = reservationTable.getValueAt(selectedRow, 0);
+            String[] columns;
+            String[] phones;
+            
+            try {
+            File file = new File(filePath);
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            StringBuilder sb = new StringBuilder();
+            
+            // 파일의 내용을 읽어오면서
+            String line;
+            int currentIndex = 1;
+            while ((line = br.readLine()) != null) {
+                if (currentIndex == Integer.parseInt((String) targetIndex)) {
+                    // 특정 행일 경우,
+                    columns = line.split("\t"); // 데이터를 구분해서 String 배열에 저장
+                    
+                    String updateName = columns[1];
+                    updateLastNameTextField.setText(updateName.substring(0, 1));
+                    updateFirstNameTextField.setText(updateName.substring(1));
+                    
+                    phones = columns[2].split("-");
+                    updateSecondPhoneTextField.setText(phones[1]);
+                    updateThirdPhoneTextField.setText(phones[2]);
+                    
+                    Date updateCheckInDate = dateFormat.parse(columns[5]);
+                    Date updateCheckOutDate = dateFormat.parse(columns[6]);
+                    updateCheckInDateChooser.setDate(updateCheckInDate);
+                    updateCheckOutDateChooser.setDate(updateCheckOutDate);
+                    
+                    updateNumberOfGuestsComboBox.setSelectedIndex(Integer.parseInt(columns[7]));
+                    updateRoomNumberTextField.setText(columns[8]);
+                    updateCostOfStayingTextField.setText("0");
+                }
+                ++currentIndex;
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException ex) {
+            Logger.getLogger(ReservationManagementJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
+    }//GEN-LAST:event_updateActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
 
@@ -1114,14 +1177,12 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
         deleteDialog.setLocationRelativeTo(this);
     }//GEN-LAST:event_deleteActionPerformed
 
-    private void infoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoMenuItemActionPerformed
-        // TODO add your handling code here:
-        JOptionPane.showMessageDialog(this, "20183211 정현우");
-    }//GEN-LAST:event_infoMenuItemActionPerformed
-
     private void roomNumberTextFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_roomNumberTextFieldMouseClicked
 
-        JOptionPane.showMessageDialog(this, "1~4층: 50,000원\n5~7층: 100,000원\n8~10층: 150,000원", "객실 요금", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(this, "1~4층: 50,000원" + System.lineSeparator() + 
+                                                         "5~7층: 100,000원" +  System.lineSeparator() + 
+                                                         "8~10층: 150,000원", 
+                                                   "객실 요금", JOptionPane.WARNING_MESSAGE);
     }//GEN-LAST:event_roomNumberTextFieldMouseClicked
 
     private void firstNameTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_firstNameTextFieldFocusGained
@@ -1205,7 +1266,9 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
 
     private void numberOfGuestsComboBoxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_numberOfGuestsComboBoxMouseClicked
 
-        JOptionPane.showMessageDialog(this, "기본 투숙인원은 4명입니다.\n초과 인원 당 10,000원의 추가 요금이 발생함을 고객님께 고지하십시오.", "주의", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(this, "기본 투숙인원은 4명입니다." +  System.lineSeparator() + 
+                                                         "초과 인원 당 10,000원의 추가 요금이 발생함을 고객님께 고지하십시오.", 
+                                                    "주의", JOptionPane.WARNING_MESSAGE);
     }//GEN-LAST:event_numberOfGuestsComboBoxMouseClicked
 
     private void lastNameTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_lastNameTextFieldFocusGained
@@ -1291,14 +1354,14 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_setInvisibleDialogButtonActionPerformed
 
     private void deleteOkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteOkButtonActionPerformed
-        // TODO 예 -> 데이터베이스에서 선택한 예약 정보 삭제:
+
         Object targetIndex;
         int selectedRow = reservationTable.getSelectedRow();
         targetIndex = reservationTable.getValueAt(selectedRow, 0);
         String[] columns = null;
         
-        String replacementData = "D"; // 수정할 데이터를 지정하세요
-
+        String replacementData = "D";
+        
         try {
             File file = new File(filePath);
             BufferedReader br = new BufferedReader(new FileReader(file));
@@ -1309,16 +1372,15 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
             int currentIndex = 1;
             while ((line = br.readLine()) != null) {
                 if (currentIndex == Integer.parseInt((String) targetIndex)) {
-                    System.out.println("aa");
                     // 특정 행일 경우, 수정할 데이터로 변경
                     columns = line.split("\t");
                     columns[columns.length - 1] = replacementData;
                     line = reWriteLine(columns);
                     
-                    sb.append(line).append("\n");
+                    sb.append(line).append(System.lineSeparator());
                 } else {
                     // 나머지 행은 그대로 유지
-                    sb.append(line).append("\n");
+                    sb.append(line).append(System.lineSeparator());
                 }
                 ++currentIndex;
             }
@@ -1330,7 +1392,6 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
             writer.flush();
             writer.close();
 
-            System.out.println("파일 내용이 수정되었습니다.");
             loadReservationData();
         } catch (IOException e) {
             e.printStackTrace();
@@ -1344,53 +1405,135 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
         deleteDialog.setVisible(false);
     }//GEN-LAST:event_disposeButton2ActionPerformed
 
-    private void registButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_registButton1ActionPerformed
+    private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
+        // TODO 기존 정보와 바뀐 게 있으면 등록
+        Object targetIndex;
+        int selectedRow = reservationTable.getSelectedRow();
+        targetIndex = reservationTable.getValueAt(selectedRow, 0);
+        String[] columns;
+        String[] phones;
+        
+        try {
+            File file = new File(filePath);
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            StringBuilder sb = new StringBuilder();
+            
+            // 파일의 내용을 읽어오면서 수정할 부분을 찾음
+            String line;
+            int currentIndex = 1;
+            while ((line = br.readLine()) != null) {
+                if (currentIndex == Integer.parseInt((String) targetIndex)) {
+                    // 특정 행일 경우, 수정할 데이터로 변경
+                    columns = line.split("\t"); // 데이터를 구분해서 String 배열에 저장
+                    phones = columns[2].split("-");
+                    
+                    if (updateCostOfStayingTextField.getText().equals("0")){
+                        JOptionPane.showMessageDialog(this, "먼저 금액을 확인하십시오.", "경고", JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        if (!columns[1].substring(0, 1).equals(updateLastNameTextField.getText())) {
+                            columns[1] = updateLastNameTextField.getText() + updateFirstNameTextField.getText();
+                        }
+                        if (!columns[1].substring(1, 2).equals(updateFirstNameTextField.getText())) {
+                            columns[1] = updateLastNameTextField.getText() + updateFirstNameTextField.getText();
+                        }
+                        if (!phones[1].equals(updateSecondPhoneTextField.getText())) {
+                            columns[2] = getUpdateDefaultPhone() + updateSecondPhoneTextField.getText() + updateThirdPhoneTextField.getText();
+                        }
+                        if (!phones[2].equals(updateThirdPhoneTextField.getText())) {
+                            columns[2] = getUpdateDefaultPhone() + updateSecondPhoneTextField.getText() + updateThirdPhoneTextField.getText();
+                        }
+                        if (!columns[5].equals(updateCheckInDateChooser.getDate())) {
+                            columns[5] = getUpdateCheckInDate();
+                        }
+                        if (!columns[6].equals(updateCheckOutDateChooser.getDate())) {
+                            columns[6] = getUpdateCheckOutDate();
+                        }
+                        if (!(Integer.parseInt(columns[7]) == updateNumberOfGuestsComboBox.getSelectedIndex())) {
+                            columns[7] = Integer.toString(getUpdateNumberOfGuests());
+                        }
+                        if (!columns[8].equals(updateRoomNumberTextField.getText())) {
+                            columns[8] = updateRoomNumberTextField.getText();
+                        }
+                        if (!columns[9].equals(updateCostOfStayingTextField.getText())) {
+                            columns[9] = updateCostOfStayingTextField.getText();
+                        }
+                        
+                        line = reWriteLine(columns);
+                        sb.append(line).append(System.lineSeparator());
+                        updateDialog.setVisible(false);
+                    }
+                } else {
+                    // 나머지 행은 그대로 유지
+                    sb.append(line).append( System.lineSeparator());
+                }
+                ++currentIndex;
+            }
+            br.close();
 
-    private void disposeButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disposeButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_disposeButton3ActionPerformed
+            // 수정된 내용을 파일에 다시 쓰고 저장
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            writer.write(sb.toString());
+            writer.flush();
+            writer.close();
 
-    private void callAddressSearchingDialogButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callAddressSearchingDialogButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_callAddressSearchingDialogButton1ActionPerformed
+            loadReservationData();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_updateButtonActionPerformed
 
-    private void roomNumberTextField1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_roomNumberTextField1MouseClicked
+    private void updateInvisibleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateInvisibleButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_roomNumberTextField1MouseClicked
+        updateDialog.setVisible(false);
+    }//GEN-LAST:event_updateInvisibleButtonActionPerformed
 
-    private void numberOfGuestsComboBox1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_numberOfGuestsComboBox1FocusGained
+    private void updateRoomNumberTextFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateRoomNumberTextFieldMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_numberOfGuestsComboBox1FocusGained
+    }//GEN-LAST:event_updateRoomNumberTextFieldMouseClicked
 
-    private void numberOfGuestsComboBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_numberOfGuestsComboBox1MouseClicked
+    private void updateNumberOfGuestsComboBoxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_updateNumberOfGuestsComboBoxFocusGained
         // TODO add your handling code here:
-    }//GEN-LAST:event_numberOfGuestsComboBox1MouseClicked
+    }//GEN-LAST:event_updateNumberOfGuestsComboBoxFocusGained
 
-    private void lastNameTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_lastNameTextField1FocusGained
+    private void updateNumberOfGuestsComboBoxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateNumberOfGuestsComboBoxMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_lastNameTextField1FocusGained
+    }//GEN-LAST:event_updateNumberOfGuestsComboBoxMouseClicked
 
-    private void lastNameTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_lastNameTextField1FocusLost
+    private void updateLastNameTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_updateLastNameTextFieldFocusGained
         // TODO add your handling code here:
-    }//GEN-LAST:event_lastNameTextField1FocusLost
+    }//GEN-LAST:event_updateLastNameTextFieldFocusGained
 
-    private void firstNameTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_firstNameTextField1FocusGained
+    private void updateLastNameTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_updateLastNameTextFieldFocusLost
         // TODO add your handling code here:
-    }//GEN-LAST:event_firstNameTextField1FocusGained
+    }//GEN-LAST:event_updateLastNameTextFieldFocusLost
 
-    private void firstNameTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_firstNameTextField1FocusLost
+    private void updateFirstNameTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_updateFirstNameTextFieldFocusGained
         // TODO add your handling code here:
-    }//GEN-LAST:event_firstNameTextField1FocusLost
+    }//GEN-LAST:event_updateFirstNameTextFieldFocusGained
 
-    private void firstNameTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstNameTextField1ActionPerformed
+    private void updateFirstNameTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_updateFirstNameTextFieldFocusLost
         // TODO add your handling code here:
-    }//GEN-LAST:event_firstNameTextField1ActionPerformed
+    }//GEN-LAST:event_updateFirstNameTextFieldFocusLost
 
-    private void calcCostOfStayingButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcCostOfStayingButton1ActionPerformed
+    private void updateFirstNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateFirstNameTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_calcCostOfStayingButton1ActionPerformed
+    }//GEN-LAST:event_updateFirstNameTextFieldActionPerformed
+
+    private void updateCalcCostOfStayingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateCalcCostOfStayingButtonActionPerformed
+
+        Validation validater = new Validation(this);
+        if (validater.isUpdateCalcCostOfStayingButtonAvailable()) {
+            // JCalender로 선택한 날짜를 받아온다.
+            checkInDate = getUpdateCheckInDate();
+            checkOutDate = getUpdateCheckOutDate();
+            numberOfGuests = getUpdateNumberOfGuests(); // 선택된 투숙객 수를 받아온다.
+            // 4명을 초과하면 초과 인원당 10,000원의 추가 금액을 계산하는 calcAlphaCost(int numberOfGuests)의 인자값
+            roomNumber = getUpdateRoomNumber(); // 방 번호를 받아온다.
+            updateCalcCostOfStaying(); // 숙박 일수 * 방 가격 + calcAlphaCost()
+
+            updateCostOfStayingTextField.setText(Integer.toString(getUpdateCostOfStaying())); // 계산 결과를 TextField에 전달
+        }
+    }//GEN-LAST:event_updateCalcCostOfStayingButtonActionPerformed
 
     public void loadReservationData() {
         ArrayList<BookingInfo> bookingInfo = new ArrayList<>();
@@ -1421,8 +1564,8 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
 
             // 테이블 모델 업데이트
             reservationTableModel.setDataVector(data, new Object[]{
-                "No", "이름", "전화번호", "우편번호", "주소", "체크인 날짜", "체크아웃 날짜",
-                "인원수", "방번호", "숙박비", "체크인"
+                "고유번호", "이름", "전화번호", "우편번호", "주소", "체크인 날짜", "체크아웃 날짜",
+                "인원수", "방번호", "숙박비", "상태"
             });
         } catch (IOException e) {
         }
@@ -1439,10 +1582,10 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
 
         return "";
     }
-        
+    
     private int getPreviousIndex() throws IOException {
         
-        int previousIndex = 0;
+        int previousIndex = 1;
         String[] columns = null;
         boolean isFirstData = true;
         
@@ -1483,13 +1626,14 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
         numberOfGuests = getNumberOfGuests();
         roomNumber = getRoomNumber();
         costOfStaying = getCostOfStaying();
-        String checkInStatus = "N";
-        String inputData = String.format("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t",
+        String checkInStatus = "N"; // 체크인: Y, 체크아웃: O, 예약 취소: D
+        
+        String inputData = String.format("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t", 
                                         index, 
                                         name, phoneNumber, 
                                         zipNo, address, 
                                         checkInDate, checkOutDate, 
-                                        numberOfGuests, roomNumber,
+                                        numberOfGuests, roomNumber, 
                                         costOfStaying, 
                                         checkInStatus);
         
@@ -1555,6 +1699,16 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
         return daysBetween;
     }
     
+        private long updateCalcDaysBetween() {
+        
+        LocalDate startDate = LocalDate.parse(checkInDate, formatter);
+        LocalDate endDate = LocalDate.parse(checkOutDate, formatter);
+        long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
+        ChronoUnit.DAYS.between(startDate, endDate);
+        
+        return daysBetween;
+    }
+    
     private String extractRoomGrade(String roomNumber) {
         if (roomNumber == null || roomNumber.isEmpty()) {
             
@@ -1567,10 +1721,15 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
             return roomNumber.substring(0, 2);
         }
     }
-        
+    
     private void calcCostOfStaying() {
         
         costOfStaying = (int)calcDaysBetween() * roomPricing(getRoomGrade()) + calcAlphaCost(getNumberOfGuests());
+    }
+    
+    private void updateCalcCostOfStaying() {
+        
+        costOfStaying = (int)calcDaysBetween() * roomPricing(getUpdateRoomGrade()) + calcAlphaCost(getUpdateNumberOfGuests());
     }
     
     private String reWriteLine(String[] columns) {
@@ -1620,84 +1779,76 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel addressLabel;
     private javax.swing.JLabel addressLabel1;
-    private javax.swing.JLabel addressLabel2;
     private javax.swing.JDialog addressSearchingDialog;
     private javax.swing.JTextField addressSearchingTextField;
     private javax.swing.JTable addressTable;
     private javax.swing.JButton calcCostOfStayingButton;
-    private javax.swing.JButton calcCostOfStayingButton1;
     private javax.swing.JButton callAddressSearchingDialogButton;
-    private javax.swing.JButton callAddressSearchingDialogButton1;
     private javax.swing.JButton callRegistDialogButton;
     private com.toedter.calendar.JDateChooser checkInDateChooser;
-    private com.toedter.calendar.JDateChooser checkInDateChooser1;
     private javax.swing.JLabel checkInLabel;
     private javax.swing.JLabel checkInLabel1;
     private com.toedter.calendar.JDateChooser checkOutDateChooser;
-    private com.toedter.calendar.JDateChooser checkOutDateChooser1;
     private javax.swing.JLabel checkOutLabel;
     private javax.swing.JLabel checkOutLabel1;
     private javax.swing.JLabel costOfStayingLabel;
     private javax.swing.JLabel costOfStayingLabel1;
     private javax.swing.JTextField costOfStayingTextField;
-    private javax.swing.JTextField costOfStayingTextField1;
     private javax.swing.JLabel creditCardInfoLabel;
     private javax.swing.JLabel creditCardInfoLabel1;
     private javax.swing.JTextField defaultPhoneTextField;
-    private javax.swing.JTextField defaultPhoneTextField1;
     private javax.swing.JButton delete;
     private javax.swing.JDialog deleteDialog;
     private javax.swing.JButton deleteOkButton;
     private javax.swing.JButton disposeButton;
     private javax.swing.JButton disposeButton1;
     private javax.swing.JButton disposeButton2;
-    private javax.swing.JButton disposeButton3;
     private javax.swing.JTextField firstNameTextField;
-    private javax.swing.JTextField firstNameTextField1;
-    private javax.swing.JMenuItem infoMenuItem;
-    private javax.swing.JButton inquiry;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField lastNameTextField;
-    private javax.swing.JTextField lastNameTextField1;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JLabel nameLabel1;
     private javax.swing.JComboBox<String> numberOfGuestsComboBox;
-    private javax.swing.JComboBox<String> numberOfGuestsComboBox1;
     private javax.swing.JLabel numberOfPeopleLabel;
     private javax.swing.JLabel numberOfPeopleLabel1;
     private javax.swing.JLabel phoneLabel;
     private javax.swing.JLabel phoneLabel1;
-    private javax.swing.JMenu programInfo;
     private javax.swing.JButton registButton;
-    private javax.swing.JButton registButton1;
     private javax.swing.JButton registCreditCardButton;
-    private javax.swing.JButton registCreditCardButton1;
     private javax.swing.JDialog registDialog;
     private javax.swing.JTable reservationTable;
     private javax.swing.JLabel roadAddrPart1Label;
-    private javax.swing.JLabel roadAddrPart1Label1;
     private javax.swing.JLabel roadAddrPart2Label;
-    private javax.swing.JLabel roadAddrPart2Label1;
     private javax.swing.JLabel roomLabel;
     private javax.swing.JLabel roomLabel1;
     private javax.swing.JTextField roomNumberTextField;
-    private javax.swing.JTextField roomNumberTextField1;
     private javax.swing.JButton searchAddressButton;
     private javax.swing.JTextField secondPhoneTextField;
-    private javax.swing.JTextField secondPhoneTextField1;
     private javax.swing.JButton selectAddressButton;
     private javax.swing.JButton setInvisibleDialogButton;
     private javax.swing.JTextField thirdPhoneTextField;
-    private javax.swing.JTextField thirdPhoneTextField1;
     private javax.swing.JButton update;
+    private javax.swing.JButton updateButton;
+    private javax.swing.JButton updateCalcCostOfStayingButton;
+    private com.toedter.calendar.JDateChooser updateCheckInDateChooser;
+    private com.toedter.calendar.JDateChooser updateCheckOutDateChooser;
+    private javax.swing.JTextField updateCostOfStayingTextField;
+    private javax.swing.JTextField updateDefaultPhoneTextField;
     private javax.swing.JDialog updateDialog;
+    private javax.swing.JTextField updateFirstNameTextField;
+    private javax.swing.JButton updateInvisibleButton;
+    private javax.swing.JTextField updateLastNameTextField;
+    private javax.swing.JComboBox<String> updateNumberOfGuestsComboBox;
+    private javax.swing.JButton updateRegistCreditCardButton;
+    private javax.swing.JTextField updateRoomNumberTextField;
+    private javax.swing.JTextField updateSecondPhoneTextField;
+    private javax.swing.JTextField updateThirdPhoneTextField;
     private javax.swing.JLabel warningLabel;
     private javax.swing.JLabel wonLabel;
     private javax.swing.JLabel wonLabel1;
     private javax.swing.JLabel zipNoLabel;
-    private javax.swing.JLabel zipNoLabel1;
     // End of variables declaration//GEN-END:variables
 }
