@@ -5,6 +5,7 @@ C:\hotel-management-system\Hms\src\main\java\deu\hms\restaurant\WriteServiceList
 C:\hotel-management-system\Hms\src\main\java\deu\hms\restaurant\WriteReservation.java
 C:\hotel-management-system\Hms\src\main\java\deu\hms\checkin\Checkin.java
 C:\hotel-management-system\Hms\src\main\java\deu\hms\reservation\FileManagement.java
+C:\hotel-management-system\Hms\src\main\java\deu\hms\checkin\SpecialRequestsList.java
 C:\hotel-management-system\Hms\src\main\java\deu\hms\login\MasterFrame.java
 C:\hotel-management-system\Hms\src\main\java\deu\hms\restaurant\ServiceRvFrame.java
 C:\hotel-management-system\Hms\src\main\java\deu\hms\restaurant\RestaurantFrame.java
@@ -12,6 +13,7 @@ C:\hotel-management-system\Hms\src\main\java\deu\hms\checkin\LoadUserList.java
 C:\hotel-management-system\Hms\src\main\java\deu\hms\reservation\BookingInfo.java
 C:\hotel-management-system\Hms\src\main\java\deu\hms\restaurant\LoadServiceList.java
 C:\hotel-management-system\Hms\src\main\java\deu\hms\restaurant\ServiceListInfo.java
+C:\hotel-management-system\Hms\src\main\java\deu\hms\checkin\LoadSpecialRequestsList.java
 C:\hotel-management-system\Hms\src\main\java\deu\hms\reservation\ReservationManagementJFrame.java
 C:\hotel-management-system\Hms\src\main\java\deu\hms\reservation\Validation.java
 C:\hotel-management-system\Hms\src\main\java\deu\hms\Hms.java

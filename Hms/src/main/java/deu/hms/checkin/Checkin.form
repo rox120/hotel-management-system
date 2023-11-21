@@ -211,6 +211,9 @@
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ReservationListTableMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -254,6 +257,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="SpecialRequests">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SpecialRequestsActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="CheckoutButton">
       <Properties>

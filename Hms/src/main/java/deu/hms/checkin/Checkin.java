@@ -40,10 +40,12 @@ public class Checkin extends javax.swing.JFrame {
     public Checkin() {
         initComponents();//초기화
         setLocationRelativeTo(null);//창 띄울때 가운데에서 띄움
+        //setSpecialRequestsList();//특별요청리스트를 고객수만큼 생성(미완성)
     }
     private final String path = System.getProperty("user.dir");
     private final String filePath = path + "/reservationInfoList.txt";
-    
+    String path2 = System.getProperty("user.dir");
+    String filePath2 = path2 + "/specialRequestsList.txt";
     public void serchReservationData() {//예약자 검색
         ArrayList<UserInfoList> userInfo = new ArrayList<>();
         DefaultTableModel reservationTableModel = (DefaultTableModel) ReservationListTable.getModel();
@@ -89,13 +91,93 @@ public class Checkin extends javax.swing.JFrame {
                 }
             }
         }
-            // 테이블 모델 업데이트 (질문)
+            // 테이블 모델 업데이트
             reservationTableModel.setDataVector(data, new Object[]{
                 "고유번호", "고객명", "객실호수", "전화번호", "지불유형",
                 "객실요금", "예약", "체크인"
             });
         } catch (IOException e) {
         }
+    }
+    public void setSpecialRequestsList(){//미완성
+        //userinfo.size 사용하기위해서
+        ArrayList<UserInfoList> userInfo = new ArrayList<>();
+        LoadUserList fileMgmt = new LoadUserList();
+        try{
+            userInfo = fileMgmt.returnUserInfo();}
+        catch (IOException e) {
+        }
+        ArrayList<SpecialRequestsList> SR = new ArrayList<>();
+        LoadSpecialRequestsList fileMgmt2 = new LoadSpecialRequestsList();
+        try{
+        SR = fileMgmt2.returnSpecialRequestsList();
+        int j=0;
+        // 데이터를 담을 2차원 배열 생성
+        String[][] data = new String[userInfo.size()][2];
+        
+        // 2차원 배열에 데이터 채우기
+        for (int i = 0; i < userInfo.size(); ++i) {
+            data[j][0] = SR.get(i).getNO();
+            data[j][1] = SR.get(i).getSpecialRequest();
+            System.out.println(data[j][0]);
+            j++;
+        }
+        }
+        catch (IOException e) {
+        }
+        for (int i = 1; i < userInfo.size(); i++) {
+            //if(){
+            String inputData = String.format("%s\t%s\t", 
+                                        Integer.toString(i),"");
+            try (FileWriter fileWriter = new FileWriter(filePath2, true);
+                    BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+
+                    //bufferedWriter.write(inputData);
+                    //bufferedWriter.newLine();
+
+                    bufferedWriter.flush();
+                    bufferedWriter.close();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            //}
+        }
+        
+    }
+    public String getSpecialRequest(){//선택된 셀의 특별요청을 리턴하는 함수
+        Object targetIndex;
+        int selectedRow = ReservationListTable.getSelectedRow();
+        targetIndex = ReservationListTable.getValueAt(selectedRow, 0);
+        String[] columns = null;
+        String SR=""; // 리턴할 데이터
+
+        try {
+            File file = new File(filePath2);
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            StringBuilder sb = new StringBuilder();
+
+            // 파일의 내용을 읽어오면서 리턴할 부분을 찾음
+            String line;
+            int currentIndex = 1;
+            while ((line = br.readLine()) != null) {
+                if (currentIndex == Integer.parseInt((String) targetIndex)) {
+                    // 특정 행일 경우, 리턴할 데이터로 변경
+                    columns = line.split("\t");
+                    SR=columns[1];
+                    sb.append(line).append("\n");
+                } else {
+                    // 나머지 행은 그대로 유지
+                    sb.append(line).append("\n");
+                }
+                ++currentIndex;
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        return SR;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -172,6 +254,11 @@ public class Checkin extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        ReservationListTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ReservationListTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(ReservationListTable);
         if (ReservationListTable.getColumnModel().getColumnCount() > 0) {
             ReservationListTable.getColumnModel().getColumn(0).setResizable(false);
@@ -215,6 +302,12 @@ public class Checkin extends javax.swing.JFrame {
         jLabel2.setText("예약자 명단");
 
         jLabel3.setText("특이사항");
+
+        SpecialRequests.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SpecialRequestsActionPerformed(evt);
+            }
+        });
 
         CheckoutButton.setText("체크아웃");
         CheckoutButton.addActionListener(new java.awt.event.ActionListener() {
@@ -314,7 +407,7 @@ public class Checkin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CheckinButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckinButtonActionPerformed
-        // TODO 예 -> 데이터베이스에서 선택한 예약 정보 삭제:
+
         Object targetIndex;
         int selectedRow = ReservationListTable.getSelectedRow();
         targetIndex = ReservationListTable.getValueAt(selectedRow, 0);
@@ -359,11 +452,17 @@ public class Checkin extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_CheckinButtonActionPerformed
-    private String reWriteLine(String[] columns) {
+    private String reWriteLine(String[] columns) {//유저리스트
         String line = String.format("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t", 
                                     columns[0], columns[1], columns[2], columns[3],
                                     columns[4], columns[5], columns[6], columns[7],
                                     columns[8], columns[9], columns[10]);
+        
+        return line;
+    }
+    private String reWriteLine2(String[] columns) {//요청사항
+        String line = String.format("%s\t%s\t", 
+                                    columns[0], columns[1]);
         
         return line;
     }
@@ -388,9 +487,50 @@ public class Checkin extends javax.swing.JFrame {
         //MF.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_BackButtonActionPerformed
-
+    
     private void SpecialRequestsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SpecialRequestsButtonActionPerformed
         // TODO add your handling code here:
+        Object targetIndex;
+        int selectedRow = ReservationListTable.getSelectedRow();
+        targetIndex = ReservationListTable.getValueAt(selectedRow, 0);
+        String[] columns = null;
+    
+        String replacementData = SpecialRequests.getText(); // 수정할 데이터
+
+        try {
+            File file = new File(filePath2);
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            StringBuilder sb = new StringBuilder();
+
+            // 파일의 내용을 읽어오면서 수정할 부분을 찾음
+            String line;
+            int currentIndex = 1;
+            while ((line = br.readLine()) != null) {
+                if (currentIndex == Integer.parseInt((String) targetIndex)) {
+                    System.out.println("aa");
+                    // 특정 행일 경우, 수정할 데이터로 변경
+                    columns = line.split("\t");
+                    columns[1] = replacementData;
+                    line = reWriteLine2(columns);
+                    sb.append(line).append("\n");
+                } else {
+                    // 나머지 행은 그대로 유지
+                    sb.append(line).append("\n");
+                }
+                ++currentIndex;
+            }
+            br.close();
+
+            // 수정된 내용을 파일에 다시 쓰고 저장
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            writer.write(sb.toString());
+            writer.flush();
+            writer.close();
+
+            System.out.println("파일 내용이 수정되었습니다.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         
     }//GEN-LAST:event_SpecialRequestsButtonActionPerformed
     private String DayTime;
@@ -405,8 +545,7 @@ public class Checkin extends javax.swing.JFrame {
     }
     
     private void CheckoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckoutButtonActionPerformed
-        // TODO 예 -> 데이터베이스에서 선택한 예약 정보 삭제:
-        
+
         Object targetIndex;
         int selectedRow = ReservationListTable.getSelectedRow();
         targetIndex = ReservationListTable.getValueAt(selectedRow, 0);
@@ -450,6 +589,7 @@ public class Checkin extends javax.swing.JFrame {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }//GEN-LAST:event_CheckoutButtonActionPerformed
 
     private void ReservationModificationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReservationModificationButtonActionPerformed
@@ -465,6 +605,15 @@ public class Checkin extends javax.swing.JFrame {
         registDialog.setLocationRelativeTo(this);
         */
     }//GEN-LAST:event_ReservationModificationButtonActionPerformed
+
+    private void ReservationListTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReservationListTableMouseClicked
+        // 선택된 셀의 특별요청을 텍스트필드에 뛰우는 함수
+        SpecialRequests.setText(getSpecialRequest());
+    }//GEN-LAST:event_ReservationListTableMouseClicked
+
+    private void SpecialRequestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SpecialRequestsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SpecialRequestsActionPerformed
 
     /**
      * @param args the command line arguments
