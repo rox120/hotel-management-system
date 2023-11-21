@@ -541,9 +541,18 @@ public class Checkin extends javax.swing.JFrame {
 
     public void setDayTime() {//DayTime을 현재시간으로 설정
         LocalDateTime now = LocalDateTime.now();
-        this.DayTime = now.format(DateTimeFormatter.ofPattern("yyyy/MM/dd/HH/mm/ss"));
+        this.DayTime = now.format(DateTimeFormatter.ofPattern("HH"));
     }
-    
+    public int AdditionalCost(){
+        int additionalcost=0;
+        setDayTime();
+        //2023-11-23
+        String time = getDayTime();
+        if(Integer.parseInt(time)>=11){//현재시간이 11시를 넘으면
+            additionalcost = 10000;//추가요금을 10000원으로 변경
+        }
+        return additionalcost;
+}
     private void CheckoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckoutButtonActionPerformed
 
         Object targetIndex;
@@ -552,7 +561,7 @@ public class Checkin extends javax.swing.JFrame {
         String[] columns = null;
         
         String replacementData = "O"; // 수정할 데이터를 지정하세요
-
+        
         try {
             File file = new File(filePath);
             BufferedReader br = new BufferedReader(new FileReader(file));
@@ -567,6 +576,7 @@ public class Checkin extends javax.swing.JFrame {
                     // 특정 행일 경우, 수정할 데이터로 변경
                     columns = line.split("\t");
                     columns[columns.length - 1] = replacementData;
+                    columns[columns.length - 2] = Integer.toString(Integer.parseInt(columns[columns.length - 2])+AdditionalCost());
                     line = reWriteLine(columns);
                     
                     sb.append(line).append("\n");
