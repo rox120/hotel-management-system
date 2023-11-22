@@ -1493,17 +1493,18 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
         
+        // TODO 기존 정보와 바뀐 게 있으면 등록
         Object targetIndex;
         int selectedRow = reservationTable.getSelectedRow();
         targetIndex = reservationTable.getValueAt(selectedRow, 0);
         String[] columns;
         String[] phones;
-        
+
         try {
             File file = new File(filePath);
             BufferedReader br = new BufferedReader(new FileReader(file));
             StringBuilder sb = new StringBuilder();
-            
+
             // 파일의 내용을 읽어오면서 수정할 부분을 찾음
             String line;
             int currentIndex = 1;
@@ -1512,10 +1513,9 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
                     // 특정 행일 경우, 수정할 데이터로 변경
                     columns = line.split("\t"); // 데이터를 구분해서 String 배열에 저장
                     phones = columns[2].split("-");
-                    
+
                     if (updateCostOfStayingTextField.getText().equals("0")){
                         JOptionPane.showMessageDialog(this, "먼저 금액을 확인하십시오.", "경고", JOptionPane.WARNING_MESSAGE);
-                        sb.append(line).append( System.lineSeparator());
                     } else {
                         if (!columns[1].substring(0, 1).equals(updateLastNameTextField.getText())) {
                             columns[1] = updateLastNameTextField.getText() + updateFirstNameTextField.getText();
@@ -1544,21 +1544,17 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
                         if (!columns[9].equals(updateCostOfStayingTextField.getText())) {
                             columns[9] = updateCostOfStayingTextField.getText();
                         }
-                        if (!columns[10].equals(getUpdatePaymentMethod())) {
-                            columns[10] = getUpdatePaymentMethod();
-                        }
-                        
+
                         line = reWriteLine(columns);
                         sb.append(line).append(System.lineSeparator());
-                        
-
-                        
                         updateDialog.setVisible(false);
                     }
+                } else {
+                    // 나머지 행은 그대로 유지
+                    sb.append(line).append( System.lineSeparator());
                 }
                 ++currentIndex;
             }
-            
             br.close();
             
             // 수정된 내용을 파일에 다시 쓰고 저장
@@ -1568,6 +1564,7 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
             writer.close();
             
             loadReservationData();
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
