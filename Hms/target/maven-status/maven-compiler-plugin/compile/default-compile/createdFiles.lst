@@ -1,5 +1,6 @@
 deu\hms\login\UserFrame$4.class
 deu\hms\login\UserFrame.class
+deu\hms\checkin\LoadSpecialRequestsList.class
 deu\hms\restaurant\RestaurantFrame$6.class
 deu\hms\reservation\ReservationManagementJFrame$30.class
 deu\hms\reservation\BookingInfo.class
@@ -15,7 +16,7 @@ deu\hms\reservation\ReservationManagementJFrame$28.class
 deu\hms\reservation\ReservationManagementJFrame$4.class
 deu\hms\restaurant\RoomServiceFrame$4.class
 deu\hms\checkin\Checkin$3.class
-deu\hms\reservation\ReservationManagementJFrame$33.class
+deu\hms\checkin\Checkin$11.class
 deu\hms\login\LoginFrame$2.class
 deu\hms\reservation\ReservationManagementJFrame$13.class
 deu\hms\restaurant\ServiceListInfo.class
@@ -36,6 +37,7 @@ deu\hms\reservation\ReservationManagementJFrame$19.class
 deu\hms\reservation\ReservationManagementJFrame$5.class
 deu\hms\restaurant\RestaurantFrame$11.class
 deu\hms\restaurant\RoomServiceFrame$5.class
+deu\hms\checkin\Checkin$12.class
 deu\hms\login\LoginFrame.class
 deu\hms\restaurant\RoomServiceFrame.class
 deu\hms\checkin\Checkin$6.class
@@ -57,7 +59,6 @@ deu\hms\reservation\ReservationManagementJFrame$17.class
 deu\hms\reservation\ReservationManagementJFrame$14.class
 deu\hms\reservation\ReservationManagementJFrame$24.class
 deu\hms\checkin\Checkin$10.class
-deu\hms\reservation\ReservationManagementJFrame$34.class
 deu\hms\restaurant\RestaurantFrame$2.class
 deu\hms\reservation\ReservationManagementJFrame$11.class
 deu\hms\restaurant\RoomServiceFrame$6.class
@@ -65,6 +66,7 @@ deu\hms\restaurant\RoomServiceFrame$3.class
 deu\hms\reservation\ReservationManagementJFrame$21.class
 deu\hms\reservation\ReservationManagementJFrame$31.class
 deu\hms\checkin\Checkin$1.class
+deu\hms\checkin\SpecialRequestsList.class
 deu\hms\login\MasterFrame$1.class
 deu\hms\login\MasterFrame.class
 deu\hms\restaurant\LoadServiceList.class
@@ -75,7 +77,6 @@ deu\hms\checkin\Checkin$7.class
 deu\hms\restaurant\RestaurantFrame$12.class
 deu\hms\reservation\FileManagement.class
 deu\hms\restaurant\WriteReservation.class
-deu\hms\reservation\ReservationManagementJFrame$32.class
 deu\hms\reservation\ReservationManagementJFrame$8.class
 deu\hms\checkin\Checkin$9.class
 deu\hms\restaurant\RoomServiceFrame$1.class
