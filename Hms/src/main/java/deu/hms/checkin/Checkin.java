@@ -4,12 +4,10 @@
  */
 package deu.hms.checkin;
 
-
 /**
  *
  * @author 장성열
  */
-
 import deu.hms.login.MasterFrame;
 import deu.hms.login.UserFrame;
 import deu.hms.reservation.BookingInfo;
@@ -42,142 +40,100 @@ public class Checkin extends javax.swing.JFrame {
         setLocationRelativeTo(null);//창 띄울때 가운데에서 띄움
     }
     private final String path = System.getProperty("user.dir");
-    private final String filePath = path + "/reservationInfoList.txt";
+    private final String filePath = path + "/clientInfo.txt";
     String path2 = System.getProperty("user.dir");
     String filePath2 = path2 + "/specialRequestsList.txt";
     //String[] PreviousStateCheckin;
     //String[] PreviousStateReservation;
-    
+
     public void serchReservationData() {//예약자 검색
         ArrayList<UserInfoList> userInfo = new ArrayList<>();
         DefaultTableModel reservationTableModel = (DefaultTableModel) ReservationListTable.getModel();
-        
+
         try {
             LoadUserList fileMgmt = new LoadUserList();
             userInfo = fileMgmt.returnUserInfo();
-            int j=0;
+            int j = 0;
             // 데이터를 담을 2차원 배열 생성
             Object[][] data = new Object[userInfo.size()][11];
-            
+
             // 2차원 배열에 데이터 채우기
-            if (SerchComboBox.getSelectedIndex()==0) { //고객명일 경우
-            //JOptionPane.showMessageDialog(null,"0");
-            
-            for (int i = 0; i < userInfo.size(); ++i) {
-                if(userInfo.get(i).getName().equals(SerchTextField.getText())){
-                data[j][0] = userInfo.get(i).getIndex();
-                data[j][1] = userInfo.get(i).getName();
-                data[j][2] = userInfo.get(i).getRoomNumber();
-                data[j][3] = userInfo.get(i).getPhone();
-                data[j][4] = userInfo.get(i).getPhone(); //지불유형
-                data[j][5] = userInfo.get(i).getCostOfStaying();
-//                System.out.println(userInfo.get(i).getCheckInStatus());
-                /*if(userInfo.get(i).getCheckInStatus().equals("N") || userInfo.get(i).getCheckInStatus().equals("D")){
-                    PreviousStateReservation[i]=userInfo.get(i).getCheckInStatus();
-                    data[j][6] = PreviousStateReservation[i];
+            if (SerchComboBox.getSelectedIndex() == 0) { //고객명일 경우
+                //JOptionPane.showMessageDialog(null,"0");
+
+                for (int i = 0; i < userInfo.size(); ++i) {
+                    if (userInfo.get(i).getName().equals(SerchTextField.getText())) {
+                        data[j][0] = userInfo.get(i).getIndex();        //고유번호
+                        data[j][1] = userInfo.get(i).getName();         //고객명
+                        data[j][2] = userInfo.get(i).getRoomNumber();   //방번호
+                        data[j][3] = userInfo.get(i).getPhone();        //전화번호
+                        data[j][4] = userInfo.get(i).getPaymentMethod();//지불유형
+                        data[j][5] = userInfo.get(i).getCostOfStaying();//객실요금
+                        data[j][6] = userInfo.get(i).getCheckInStatus();//예약/체크인
+                        j++;
+                    }
                 }
-                else if(PreviousStateReservation[i] == null){
-                    data[j][6] = "-";
-                }
-                else{
-                    data[j][6] = PreviousStateReservation[i];
-                }
-                if(userInfo.get(i).getCheckInStatus().equals("Y") || userInfo.get(i).getCheckInStatus().equals("O")){
-                    PreviousStateCheckin[i]=userInfo.get(i).getCheckInStatus();
-                    data[j][7] = PreviousStateCheckin[i];
-                }
-                else if(PreviousStateCheckin[i]==null){
-                    data[j][7] = "-";
-                }
-                else{
-                    data[j][7] = PreviousStateCheckin[i];
-                }*/
-                data[j][6]=userInfo.get(i).getCheckInStatus();
-                //data[j][7]=userInfo.get(i).getCheckInStatus();
-                j++;
+            } else if (SerchComboBox.getSelectedIndex() == 1) { //고유번호일 경우
+                for (int i = 0; i < userInfo.size(); ++i) {
+                    if (userInfo.get(i).getIndex().equals(SerchTextField.getText())) {
+                        data[j][0] = userInfo.get(i).getIndex();        //고유번호
+                        data[j][1] = userInfo.get(i).getName();         //고객명
+                        data[j][2] = userInfo.get(i).getRoomNumber();   //방번호
+                        data[j][3] = userInfo.get(i).getPhone();        //전화번호
+                        data[j][4] = userInfo.get(i).getPaymentMethod();//지불유형
+                        data[j][5] = userInfo.get(i).getCostOfStaying();//객실요금
+                        data[j][6] = userInfo.get(i).getCheckInStatus();//예약/체크인
+                        j++;
+                    }
                 }
             }
-            }
-        else if(SerchComboBox.getSelectedIndex()==1){ //고유번호일 경우
-            for (int i = 0; i < userInfo.size(); ++i) {
-                if(userInfo.get(i).getName().equals(SerchTextField.getText())){
-                data[j][0] = userInfo.get(i).getIndex();
-                data[j][1] = userInfo.get(i).getName();
-                data[j][2] = userInfo.get(i).getRoomNumber();
-                data[j][3] = userInfo.get(i).getPhone();
-                data[j][4] = userInfo.get(i).getPhone(); //지불유형
-                data[j][5] = userInfo.get(i).getCostOfStaying();
-                /*
-                if(userInfo.get(i).getCheckInStatus().equals("N") || userInfo.get(i).getCheckInStatus().equals("D")) {
-                    PreviousStateReservation[i] = userInfo.get(i).getCheckInStatus();
-                }
-                else if(PreviousStateReservation[i].equals("")) {
-                    PreviousStateReservation[i] = "-";
-                }
-                data[j][6] = PreviousStateReservation[i];// 예약
-                PreviousStateCheckin[i] = "-";
-                if(userInfo.get(i).getCheckInStatus().equals("Y") || userInfo.get(i).getCheckInStatus().equals("O")) {
-                    PreviousStateCheckin[i] = userInfo.get(i).getCheckInStatus();
-                }
-                else if(PreviousStateCheckin[i].equals("")) {
-                    PreviousStateCheckin[i] = "-";
-                }
-                data[j][7] = PreviousStateCheckin[i];*/
-                data[j][6]=userInfo.get(i).getCheckInStatus();
-                //data[j][7]=userInfo.get(i).getCheckInStatus();
-                j++;
-                }
-            }
-        }
             // 테이블 모델 업데이트
             reservationTableModel.setDataVector(data, new Object[]{
                 "고유번호", "고객명", "객실호수", "전화번호", "지불유형",
                 "객실요금", "예약/체크인"
             });
             SetTableWidth();
-        }
-        catch (IOException e) {
-        }
-        
-    }
-    
-    public void addSRList(int x,int y){ //x부터 y-1까지 특이사항 리스트를 생성(임시코드)
-    for (int i = x; i < y; i++) {
-            //if(){
-            String inputData = String.format("%s\t%s\t", 
-                                        Integer.toString(i),"");
-            try (FileWriter fileWriter = new FileWriter(filePath2, true);
-                    BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
-
-                    bufferedWriter.write(inputData);
-                    bufferedWriter.newLine();
-
-                    bufferedWriter.flush();
-                    bufferedWriter.close();
-
         } catch (IOException e) {
-                    e.printStackTrace();
+        }
+
+    }
+
+    public void addSRList(int x, int y) { //x부터 y-1까지 특이사항 리스트를 생성(임시코드)
+        for (int i = x; i < y; i++) {
+            //if(){
+            String inputData = String.format("%s\t%s\t",
+                    Integer.toString(i), "");
+            try (FileWriter fileWriter = new FileWriter(filePath2, true); BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+
+                bufferedWriter.write(inputData);
+                bufferedWriter.newLine();
+
+                bufferedWriter.flush();
+                bufferedWriter.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
+
+    public void SetTableWidth() { //ReservationListTable의 셀 너비 설정
+        ReservationListTable.getColumn("고유번호").setPreferredWidth(65);
+        ReservationListTable.getColumn("고객명").setPreferredWidth(65);
+        ReservationListTable.getColumn("객실호수").setPreferredWidth(65);
+        ReservationListTable.getColumn("전화번호").setPreferredWidth(130);
+        ReservationListTable.getColumn("지불유형").setPreferredWidth(65);
+        ReservationListTable.getColumn("객실요금").setPreferredWidth(65);
+        ReservationListTable.getColumn("예약/체크인").setPreferredWidth(80);
     }
-    
-    public void SetTableWidth(){//ReservationListTable의 셀 너비 설정
-    ReservationListTable.getColumn("고유번호").setPreferredWidth(65);
-    ReservationListTable.getColumn("고객명").setPreferredWidth(65);
-    ReservationListTable.getColumn("객실호수").setPreferredWidth(65);
-    ReservationListTable.getColumn("전화번호").setPreferredWidth(130);
-    ReservationListTable.getColumn("지불유형").setPreferredWidth(65);
-    ReservationListTable.getColumn("객실요금").setPreferredWidth(65);
-    ReservationListTable.getColumn("예약/체크인").setPreferredWidth(80);
-    //ReservationListTable.getColumn("체크인").setPreferredWidth(50);
-    }
-    public String getSpecialRequest(){//선택된 셀의 특별요청을 리턴하는 함수
-        
+
+    public String getSpecialRequest() { //선택된 셀의 특별요청을 리턴하는 함수
+
         Object targetIndex;
         int selectedRow = ReservationListTable.getSelectedRow();
         targetIndex = ReservationListTable.getValueAt(selectedRow, 0);
         String[] columns = null;
-        String SR=""; // 리턴할 데이터
+        String SR = ""; // 특이사항을 저장하여 리턴하는 변수
 
         try {
             File file = new File(filePath2);
@@ -191,7 +147,7 @@ public class Checkin extends javax.swing.JFrame {
                 if (currentIndex == Integer.parseInt((String) targetIndex)) {
                     // 특정 행일 경우, 리턴할 데이터로 변경
                     columns = line.split("\t");
-                    SR=columns[1];
+                    SR = columns[1];
                     sb.append(line).append("\n");
                 } else {
                     // 나머지 행은 그대로 유지
@@ -203,9 +159,10 @@ public class Checkin extends javax.swing.JFrame {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
         return SR;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -433,8 +390,8 @@ public class Checkin extends javax.swing.JFrame {
         int selectedRow = ReservationListTable.getSelectedRow();
         targetIndex = ReservationListTable.getValueAt(selectedRow, 0);
         String[] columns = null;
-        
-        String replacementData = "Y"; // 체크인유무를 Y로 변경
+
+        String replacementData = "체크인"; // 체크인유무를 "체크인"으로 변경
 
         try {
             File file = new File(filePath);
@@ -451,7 +408,7 @@ public class Checkin extends javax.swing.JFrame {
                     columns[columns.length - 1] = replacementData;//체크인유무를 변경
                     line = reWriteLine(columns);
                     sb.append(line).append("\n");
-                
+
                 } else {
                     // 나머지 행은 그대로 유지
                     sb.append(line).append("\n");
@@ -471,46 +428,47 @@ public class Checkin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_CheckinButtonActionPerformed
     private String reWriteLine(String[] columns) {//유저리스트
-        String line = String.format("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t", 
-                                    columns[0], columns[1], columns[2], columns[3],
-                                    columns[4], columns[5], columns[6], columns[7],
-                                    columns[8], columns[9], columns[10]);
-        
+        String line = String.format("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t",
+                columns[0], columns[1], columns[2], columns[3],
+                columns[4], columns[5], columns[6], columns[7],
+                columns[8], columns[9], columns[10],columns[11]);
+
         return line;
     }
+
     private String reWriteLine2(String[] columns) {//요청사항
-        String line = String.format("%s\t%s\t", 
-                                    columns[0], columns[1]);
-        
+        String line = String.format("%s\t%s\t",
+                columns[0], columns[1]);
+
         return line;
     }
     private void SerchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SerchButtonActionPerformed
         // TODO add your handling code here:
-        serchReservationData();        
+        serchReservationData();
     }//GEN-LAST:event_SerchButtonActionPerformed
 
     private void SerchComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SerchComboBoxActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_SerchComboBoxActionPerformed
 
     private void SerchTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SerchTextFieldActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_SerchTextFieldActionPerformed
 
     private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
         // TODO add your handling code here:
         setVisible(false);
     }//GEN-LAST:event_BackButtonActionPerformed
-    
+
     private void SpecialRequestsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SpecialRequestsButtonActionPerformed
         // TODO add your handling code here:
         Object targetIndex;
         int selectedRow = ReservationListTable.getSelectedRow();
         targetIndex = ReservationListTable.getValueAt(selectedRow, 0);
         String[] columns = null;
-    
+
         String replacementData = SpecialRequests.getText(); // 수정할 데이터
 
         try {
@@ -545,7 +503,7 @@ public class Checkin extends javax.swing.JFrame {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
     }//GEN-LAST:event_SpecialRequestsButtonActionPerformed
     private String DayTime;
 
@@ -557,25 +515,26 @@ public class Checkin extends javax.swing.JFrame {
         LocalDateTime now = LocalDateTime.now();
         this.DayTime = now.format(DateTimeFormatter.ofPattern("HH"));
     }
-    public int AdditionalCost(){
-        int additionalcost=0;
+
+    public int AdditionalCost() {
+        int additionalcost = 0;
         setDayTime();
         //2023-11-23
         String time = getDayTime();
-        if(Integer.parseInt(time)>=11){//현재시간이 11시를 넘으면
+        if (Integer.parseInt(time) >= 11) {//현재시간이 11시를 넘으면
             additionalcost = 10000;//추가요금을 10000원으로 변경
         }
         return additionalcost;
-}
+    }
     private void CheckoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckoutButtonActionPerformed
         //체크아웃 버튼
         Object targetIndex;
         int selectedRow = ReservationListTable.getSelectedRow();
         targetIndex = ReservationListTable.getValueAt(selectedRow, 0);
         String[] columns = null;
-        
-        String replacementData = "O"; // 수정할 데이터를 지정하세요
-        
+
+        String replacementData = "체크아웃"; // 체크인유무를 "체크아웃으로 변경
+        String Price="0";
         try {
             File file = new File(filePath);
             BufferedReader br = new BufferedReader(new FileReader(file));
@@ -588,13 +547,14 @@ public class Checkin extends javax.swing.JFrame {
                 if (currentIndex == Integer.parseInt((String) targetIndex)) {
                     // 특정 행일 경우, 수정할 데이터로 변경
                     columns = line.split("\t");
-                    if(!columns[columns.length - 1].equals("O")){
+                    if (!columns[columns.length - 1].equals("O")) {
                         // 11시를 넘겨서 체크아웃시 객실요금 추가
-                        columns[columns.length - 2] = Integer.toString(Integer.parseInt(columns[columns.length - 2])+AdditionalCost());
+                        columns[columns.length - 3] = Integer.toString(Integer.parseInt(columns[columns.length - 3]) + AdditionalCost());
                         columns[columns.length - 1] = replacementData;
+                        Price = columns[9];
                     }
                     line = reWriteLine(columns);
-                    
+
                     sb.append(line).append("\n");
                 } else {
                     // 나머지 행은 그대로 유지
@@ -611,6 +571,7 @@ public class Checkin extends javax.swing.JFrame {
             writer.close();
 
             serchReservationData();
+            JOptionPane.showMessageDialog(null,"요금은 "+Price+"원 입니다");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -657,6 +618,18 @@ public class Checkin extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Checkin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

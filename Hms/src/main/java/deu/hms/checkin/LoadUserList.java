@@ -31,7 +31,7 @@ public class LoadUserList {
     private ArrayList<UserInfoList> UserInfo = new ArrayList<>();
     
     private final String path = System.getProperty("user.dir");
-    private final String filePath = path + "/reservationInfoList.txt";
+    private final String filePath = path + "/clientInfo.txt";
     
     public LoadUserList(){
         readUserFileData(filePath);
@@ -61,7 +61,7 @@ public class LoadUserList {
         for (int i = 0; i < readUserInfo.size(); i++) {
             line = readUserInfo.get(i);
             String[] str = line.split("\t");
-            UserInfo.add(new UserInfoList(str[0], str[1], str[2], str[3], str[4], str[5], str[6], str[7], str[8], str[9], str[10]));
+            UserInfo.add(new UserInfoList(str[0], str[1], str[2], str[3], str[4], str[5], str[6], str[7], str[8], str[9], str[10],str[11]));
         }
     }
     
