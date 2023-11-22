@@ -49,11 +49,13 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
     private String roomNumber;
     private String roomGrade;
     private int costOfStaying;
+    private String paymentMethod;
     private final String path = System.getProperty("user.dir");
-    private final String filePath = path + "/reservationInfoList.txt";
+    private final String fileName = "/clientInfo.txt";
+    private final String filePath = path + fileName;
     
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     
     public JDialog getRegistDialog() {
         return registDialog;
@@ -144,6 +146,17 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
         return costOfStaying;
     }
     
+    public String getPaymentMethod() {
+        
+        if (cardRadioButton.isSelected()) {
+            return "카드";
+        } else if (cashRadioButton.isSelected()) {
+            return "현금";
+        } else {
+            return "";
+        }
+    }
+    
     public String getUpdateLastName() {
         
         return updateLastNameTextField.getText();
@@ -206,6 +219,22 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
         return costOfStaying;
     }
     
+    public String getUpdatePaymentMethod() {
+        
+        if (updateCardRadioButton.isSelected()) {
+            return "카드";
+        } else if (updateCashRadioButton.isSelected()) {
+            return "현금";
+        } else {
+            return "";
+        }
+    }
+    
+    public String getFilePath() {
+        
+        return filePath;
+    }
+        
     public ReservationManagementJFrame() {
         initComponents();
         setLocationRelativeTo(null);
@@ -251,6 +280,8 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
         lastNameTextField = new javax.swing.JTextField();
         phoneLabel = new javax.swing.JLabel();
         addressLabel = new javax.swing.JLabel();
+        cardRadioButton = new javax.swing.JRadioButton();
+        cashRadioButton = new javax.swing.JRadioButton();
         addressSearchingDialog = new javax.swing.JDialog();
         addressLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -288,6 +319,10 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
         updateSecondPhoneTextField = new javax.swing.JTextField();
         updateThirdPhoneTextField = new javax.swing.JTextField();
         wonLabel1 = new javax.swing.JLabel();
+        updateCashRadioButton = new javax.swing.JRadioButton();
+        updateCardRadioButton = new javax.swing.JRadioButton();
+        paymentMethodGroup = new javax.swing.ButtonGroup();
+        updatePaymentMethodGroup = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
         reservationTable = new javax.swing.JTable();
         callRegistDialogButton = new javax.swing.JButton();
@@ -314,6 +349,7 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
         checkOutLabel.setText("체크아웃");
 
         registCreditCardButton.setText("카드 등록");
+        registCreditCardButton.setEnabled(false);
 
         firstNameTextField.setText("이름");
         firstNameTextField.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -404,6 +440,21 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
         addressLabel.setText("주소");
         addressLabel.setToolTipText("");
 
+        paymentMethodGroup.add(cardRadioButton);
+        cardRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cardRadioButtonActionPerformed(evt);
+            }
+        });
+
+        paymentMethodGroup.add(cashRadioButton);
+        cashRadioButton.setText("현금");
+        cashRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cashRadioButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout registDialogLayout = new javax.swing.GroupLayout(registDialog.getContentPane());
         registDialog.getContentPane().setLayout(registDialogLayout);
         registDialogLayout.setHorizontalGroup(
@@ -412,10 +463,10 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
                 .addGap(42, 42, 42)
                 .addGroup(registDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(registDialogLayout.createSequentialGroup()
-                        .addGroup(registDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(registDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, registDialogLayout.createSequentialGroup()
                                 .addComponent(checkInLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(57, 57, 57)
                                 .addComponent(checkInDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(registDialogLayout.createSequentialGroup()
                                 .addGroup(registDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -423,23 +474,30 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
                                     .addComponent(costOfStayingLabel)
                                     .addComponent(creditCardInfoLabel))
                                 .addGap(18, 18, 18)
-                                .addGroup(registDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(checkOutDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(costOfStayingTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(registCreditCardButton))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(wonLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(registDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(registDialogLayout.createSequentialGroup()
+                                        .addGroup(registDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(checkOutDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(costOfStayingTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(wonLabel))
+                                    .addGroup(registDialogLayout.createSequentialGroup()
+                                        .addComponent(cardRadioButton)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(registCreditCardButton)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(cashRadioButton)))))
+                        .addGap(30, 30, 30)
                         .addGroup(registDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(registDialogLayout.createSequentialGroup()
                                 .addComponent(numberOfGuestsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(numberOfPeopleLabel))
-                            .addComponent(calcCostOfStayingButton)
                             .addGroup(registDialogLayout.createSequentialGroup()
                                 .addComponent(roomNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(roomLabel))))
+                                .addComponent(roomLabel))
+                            .addComponent(calcCostOfStayingButton)))
                     .addComponent(phoneLabel)
                     .addComponent(nameLabel)
                     .addGroup(registDialogLayout.createSequentialGroup()
@@ -523,15 +581,20 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
                     .addComponent(wonLabel)
                     .addComponent(calcCostOfStayingButton))
                 .addGap(18, 18, 18)
-                .addGroup(registDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(creditCardInfoLabel)
-                    .addComponent(registCreditCardButton))
+                .addGroup(registDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cardRadioButton, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(registDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(creditCardInfoLabel)
+                        .addComponent(registCreditCardButton)
+                        .addComponent(cashRadioButton)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(registDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(disposeButton1)
                     .addComponent(registButton))
                 .addContainerGap(143, Short.MAX_VALUE))
         );
+
+        creditCardInfoLabel.getAccessibleContext().setAccessibleName("결제 수단");
 
         addressLabel1.setText("주소");
 
@@ -771,7 +834,6 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
         );
 
         updateDialog.setMinimumSize(new java.awt.Dimension(520, 400));
-        updateDialog.setPreferredSize(new java.awt.Dimension(520, 400));
         updateDialog.setSize(new java.awt.Dimension(520, 400));
 
         updateButton.setText("등록");
@@ -831,6 +893,7 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
         checkOutLabel1.setText("체크아웃");
 
         updateRegistCreditCardButton.setText("카드 등록");
+        updateRegistCreditCardButton.setEnabled(false);
 
         phoneLabel1.setText("전화번호");
 
@@ -869,6 +932,21 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
 
         wonLabel1.setText("원");
 
+        updatePaymentMethodGroup.add(updateCashRadioButton);
+        updateCashRadioButton.setText("현금");
+        updateCashRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateCashRadioButtonActionPerformed(evt);
+            }
+        });
+
+        updatePaymentMethodGroup.add(updateCardRadioButton);
+        updateCardRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateCardRadioButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout updateDialogLayout = new javax.swing.GroupLayout(updateDialog.getContentPane());
         updateDialog.getContentPane().setLayout(updateDialogLayout);
         updateDialogLayout.setHorizontalGroup(
@@ -879,24 +957,31 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
                     .addGroup(updateDialogLayout.createSequentialGroup()
                         .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(updateDialogLayout.createSequentialGroup()
-                                .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, updateDialogLayout.createSequentialGroup()
-                                        .addComponent(checkInLabel1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(updateCheckInDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(updateDialogLayout.createSequentialGroup()
+                                .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, updateDialogLayout.createSequentialGroup()
                                         .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(checkOutLabel1)
                                             .addComponent(costOfStayingLabel1)
                                             .addComponent(creditCardInfoLabel1))
-                                        .addGap(18, 18, 18)
+                                        .addGap(18, 18, 18))
+                                    .addGroup(updateDialogLayout.createSequentialGroup()
+                                        .addComponent(checkInLabel1)
+                                        .addGap(58, 58, 58)))
+                                .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(updateCheckInDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(updateDialogLayout.createSequentialGroup()
                                         .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(updateCheckOutDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(updateCostOfStayingTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(updateRegistCreditCardButton))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(wonLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(updateCostOfStayingTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(wonLabel1))
+                                    .addGroup(updateDialogLayout.createSequentialGroup()
+                                        .addComponent(updateCardRadioButton)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(updateRegistCreditCardButton)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(updateCashRadioButton)))
+                                .addGap(30, 30, 30)
                                 .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(updateDialogLayout.createSequentialGroup()
                                         .addComponent(updateNumberOfGuestsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -912,7 +997,7 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
                                 .addComponent(updateButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(updateInvisibleButton)))
-                        .addGap(0, 134, Short.MAX_VALUE))
+                        .addGap(0, 104, Short.MAX_VALUE))
                     .addGroup(updateDialogLayout.createSequentialGroup()
                         .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(updateDialogLayout.createSequentialGroup()
@@ -974,7 +1059,9 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(creditCardInfoLabel1)
-                    .addComponent(updateRegistCreditCardButton))
+                    .addComponent(updateRegistCreditCardButton)
+                    .addComponent(updateCashRadioButton)
+                    .addComponent(updateCardRadioButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(updateInvisibleButton)
@@ -987,17 +1074,17 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
 
         reservationTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "No", "이름", "전화번호", "우편번호", "주소", "체크인 날짜", "체크아웃 날짜", "인원수", "호실", "숙박비", "체크인"
+                "No", "이름", "전화번호", "우편번호", "주소", "체크인 날짜", "체크아웃 날짜", "인원수", "호실", "숙박비", "결제 수단", "체크인"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1022,12 +1109,10 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
             reservationTable.getColumnModel().getColumn(8).setMinWidth(55);
             reservationTable.getColumnModel().getColumn(8).setPreferredWidth(55);
             reservationTable.getColumnModel().getColumn(8).setMaxWidth(55);
-            reservationTable.getColumnModel().getColumn(9).setMinWidth(100);
             reservationTable.getColumnModel().getColumn(9).setPreferredWidth(100);
-            reservationTable.getColumnModel().getColumn(9).setMaxWidth(100);
-            reservationTable.getColumnModel().getColumn(10).setMinWidth(55);
-            reservationTable.getColumnModel().getColumn(10).setPreferredWidth(55);
-            reservationTable.getColumnModel().getColumn(10).setMaxWidth(55);
+            reservationTable.getColumnModel().getColumn(11).setMinWidth(55);
+            reservationTable.getColumnModel().getColumn(11).setPreferredWidth(55);
+            reservationTable.getColumnModel().getColumn(11).setMaxWidth(55);
         }
 
         callRegistDialogButton.setText("등록");
@@ -1156,6 +1241,7 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
                     updateNumberOfGuestsComboBox.setSelectedIndex(Integer.parseInt(columns[7]));
                     updateRoomNumberTextField.setText(columns[8]);
                     updateCostOfStayingTextField.setText("0");
+                    
                 }
                 ++currentIndex;
             }
@@ -1406,7 +1492,7 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_disposeButton2ActionPerformed
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
-        // TODO 기존 정보와 바뀐 게 있으면 등록
+        
         Object targetIndex;
         int selectedRow = reservationTable.getSelectedRow();
         targetIndex = reservationTable.getValueAt(selectedRow, 0);
@@ -1429,6 +1515,7 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
                     
                     if (updateCostOfStayingTextField.getText().equals("0")){
                         JOptionPane.showMessageDialog(this, "먼저 금액을 확인하십시오.", "경고", JOptionPane.WARNING_MESSAGE);
+                        sb.append(line).append( System.lineSeparator());
                     } else {
                         if (!columns[1].substring(0, 1).equals(updateLastNameTextField.getText())) {
                             columns[1] = updateLastNameTextField.getText() + updateFirstNameTextField.getText();
@@ -1457,25 +1544,29 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
                         if (!columns[9].equals(updateCostOfStayingTextField.getText())) {
                             columns[9] = updateCostOfStayingTextField.getText();
                         }
+                        if (!columns[10].equals(getUpdatePaymentMethod())) {
+                            columns[10] = getUpdatePaymentMethod();
+                        }
                         
                         line = reWriteLine(columns);
                         sb.append(line).append(System.lineSeparator());
+                        
+
+                        
                         updateDialog.setVisible(false);
                     }
-                } else {
-                    // 나머지 행은 그대로 유지
-                    sb.append(line).append( System.lineSeparator());
                 }
                 ++currentIndex;
             }
+            
             br.close();
-
+            
             // 수정된 내용을 파일에 다시 쓰고 저장
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
             writer.write(sb.toString());
             writer.flush();
             writer.close();
-
+            
             loadReservationData();
         } catch (IOException e) {
             e.printStackTrace();
@@ -1535,6 +1626,26 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_updateCalcCostOfStayingButtonActionPerformed
 
+    private void cardRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardRadioButtonActionPerformed
+        
+        registCreditCardButton.setEnabled(true);
+    }//GEN-LAST:event_cardRadioButtonActionPerformed
+
+    private void cashRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cashRadioButtonActionPerformed
+        
+        registCreditCardButton.setEnabled(false);
+    }//GEN-LAST:event_cashRadioButtonActionPerformed
+
+    private void updateCardRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateCardRadioButtonActionPerformed
+        
+        updateRegistCreditCardButton.setEnabled(true);
+    }//GEN-LAST:event_updateCardRadioButtonActionPerformed
+
+    private void updateCashRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateCashRadioButtonActionPerformed
+        
+        updateRegistCreditCardButton.setEnabled(false);
+    }//GEN-LAST:event_updateCashRadioButtonActionPerformed
+
     public void loadReservationData() {
         ArrayList<BookingInfo> bookingInfo = new ArrayList<>();
         DefaultTableModel reservationTableModel = (DefaultTableModel) reservationTable.getModel();
@@ -1545,7 +1656,7 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
             bookingInfo = fileMgmt.returnBookingInfo();
 
             // 데이터를 담을 2차원 배열 생성
-            Object[][] data = new Object[bookingInfo.size()][11];
+            Object[][] data = new Object[bookingInfo.size()][12];
 
             // 2차원 배열에 데이터 채우기
             for (int i = 0; i < bookingInfo.size(); ++i) {
@@ -1559,13 +1670,14 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
                 data[i][7] = bookingInfo.get(i).getNumberOfGuests();
                 data[i][8] = bookingInfo.get(i).getRoomNumber();
                 data[i][9] = bookingInfo.get(i).getCostOfStaying();
-                data[i][10] = bookingInfo.get(i).getCheckInStatus();
+                data[i][10] = bookingInfo.get(i).getPaymentMethod();
+                data[i][11] = bookingInfo.get(i).getCheckInStatus();
             }
 
             // 테이블 모델 업데이트
             reservationTableModel.setDataVector(data, new Object[]{
                 "고유번호", "이름", "전화번호", "우편번호", "주소", "체크인 날짜", "체크아웃 날짜",
-                "인원수", "방번호", "숙박비", "상태"
+                "인원수", "방번호", "숙박비", "결제 수단", "상태"
             });
         } catch (IOException e) {
         }
@@ -1626,15 +1738,16 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
         numberOfGuests = getNumberOfGuests();
         roomNumber = getRoomNumber();
         costOfStaying = getCostOfStaying();
+        paymentMethod = getPaymentMethod();
         String checkInStatus = "N"; // 체크인: Y, 체크아웃: O, 예약 취소: D
         
-        String inputData = String.format("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t", 
+        String inputData = String.format("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t", 
                                         index, 
                                         name, phoneNumber, 
                                         zipNo, address, 
                                         checkInDate, checkOutDate, 
                                         numberOfGuests, roomNumber, 
-                                        costOfStaying, 
+                                        costOfStaying, paymentMethod, 
                                         checkInStatus);
         
         return inputData;
@@ -1653,6 +1766,8 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
         checkOutDateChooser.setDate(null);
         numberOfGuestsComboBox.setSelectedIndex(0);
         roomNumberTextField.setText(null);
+        cardRadioButton.setSelected(false);
+        cashRadioButton.setSelected(false);
         costOfStayingTextField.setText("0");
     }
     
@@ -1733,10 +1848,10 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
     }
     
     private String reWriteLine(String[] columns) {
-        String line = String.format("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t", 
+        String line = String.format("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t", 
                                     columns[0], columns[1], columns[2], columns[3],
                                     columns[4], columns[5], columns[6], columns[7],
-                                    columns[8], columns[9], columns[10]);
+                                    columns[8], columns[9], columns[10], columns[11]);
         
         return line;
     }
@@ -1785,6 +1900,8 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
     private javax.swing.JButton calcCostOfStayingButton;
     private javax.swing.JButton callAddressSearchingDialogButton;
     private javax.swing.JButton callRegistDialogButton;
+    private javax.swing.JRadioButton cardRadioButton;
+    private javax.swing.JRadioButton cashRadioButton;
     private com.toedter.calendar.JDateChooser checkInDateChooser;
     private javax.swing.JLabel checkInLabel;
     private javax.swing.JLabel checkInLabel1;
@@ -1814,6 +1931,7 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> numberOfGuestsComboBox;
     private javax.swing.JLabel numberOfPeopleLabel;
     private javax.swing.JLabel numberOfPeopleLabel1;
+    private javax.swing.ButtonGroup paymentMethodGroup;
     private javax.swing.JLabel phoneLabel;
     private javax.swing.JLabel phoneLabel1;
     private javax.swing.JButton registButton;
@@ -1833,6 +1951,8 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
     private javax.swing.JButton update;
     private javax.swing.JButton updateButton;
     private javax.swing.JButton updateCalcCostOfStayingButton;
+    private javax.swing.JRadioButton updateCardRadioButton;
+    private javax.swing.JRadioButton updateCashRadioButton;
     private com.toedter.calendar.JDateChooser updateCheckInDateChooser;
     private com.toedter.calendar.JDateChooser updateCheckOutDateChooser;
     private javax.swing.JTextField updateCostOfStayingTextField;
@@ -1842,6 +1962,7 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
     private javax.swing.JButton updateInvisibleButton;
     private javax.swing.JTextField updateLastNameTextField;
     private javax.swing.JComboBox<String> updateNumberOfGuestsComboBox;
+    private javax.swing.ButtonGroup updatePaymentMethodGroup;
     private javax.swing.JButton updateRegistCreditCardButton;
     private javax.swing.JTextField updateRoomNumberTextField;
     private javax.swing.JTextField updateSecondPhoneTextField;

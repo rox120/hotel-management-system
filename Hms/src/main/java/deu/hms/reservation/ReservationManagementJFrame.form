@@ -19,10 +19,10 @@
                   <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="checkInLabel" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
                                   <Component id="checkInDateChooser" min="-2" pref="130" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
@@ -32,28 +32,38 @@
                                       <Component id="creditCardInfoLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="checkOutDateChooser" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="costOfStayingTextField" alignment="0" min="-2" pref="130" max="-2" attributes="0"/>
-                                      <Component id="registCreditCardButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="checkOutDateChooser" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="costOfStayingTextField" alignment="0" min="-2" pref="130" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="wonLabel" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="cardRadioButton" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="registCreditCardButton" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="cashRadioButton" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="wonLabel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="numberOfGuestsComboBox" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="numberOfPeopleLabel" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="calcCostOfStayingButton" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="roomNumberTextField" min="-2" pref="72" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="roomLabel" min="-2" max="-2" attributes="0"/>
                               </Group>
+                              <Component id="calcCostOfStayingButton" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Component id="phoneLabel" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -166,9 +176,13 @@
                       <Component id="calcCostOfStayingButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="creditCardInfoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="registCreditCardButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="cardRadioButton" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="creditCardInfoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="registCreditCardButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cashRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -200,6 +214,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="&#xc2e0;&#xc6a9;&#xce74;&#xb4dc; &#xc815;&#xbcf4;"/>
           </Properties>
+          <AccessibilityProperties>
+            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="&#xacb0;&#xc81c; &#xc218;&#xb2e8;"/>
+          </AccessibilityProperties>
         </Component>
         <Component class="javax.swing.JLabel" name="checkOutLabel">
           <Properties>
@@ -209,6 +226,7 @@
         <Component class="javax.swing.JButton" name="registCreditCardButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#xce74;&#xb4dc; &#xb4f1;&#xb85d;"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="firstNameTextField">
@@ -348,6 +366,27 @@
             <Property name="text" type="java.lang.String" value="&#xc8fc;&#xc18c;"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JRadioButton" name="cardRadioButton">
+          <Properties>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="paymentMethodGroup"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cardRadioButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JRadioButton" name="cashRadioButton">
+          <Properties>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="paymentMethodGroup"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="&#xd604;&#xae08;"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cashRadioButtonActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -537,9 +576,6 @@
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[520, 400]"/>
         </Property>
-        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[520, 400]"/>
-        </Property>
         <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[520, 400]"/>
         </Property>
@@ -554,12 +590,7 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="checkInLabel1" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="updateCheckInDateChooser" min="-2" pref="130" max="-2" attributes="0"/>
-                                      </Group>
+                                  <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="1" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="checkOutLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -567,16 +598,31 @@
                                               <Component id="creditCardInfoLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="checkInLabel1" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="updateCheckInDateChooser" min="-2" pref="130" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                               <Component id="updateCheckOutDateChooser" alignment="0" max="32767" attributes="0"/>
                                               <Component id="updateCostOfStayingTextField" alignment="0" min="-2" pref="130" max="-2" attributes="0"/>
-                                              <Component id="updateRegistCreditCardButton" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="wonLabel1" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="updateCardRadioButton" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="updateRegistCreditCardButton" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="updateCashRadioButton" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="wonLabel1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="updateNumberOfGuestsComboBox" min="-2" max="-2" attributes="0"/>
@@ -598,7 +644,7 @@
                                   <Component id="updateInvisibleButton" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="0" pref="134" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="104" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -682,6 +728,8 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="creditCardInfoLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="updateRegistCreditCardButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="updateCashRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="updateCardRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -781,6 +829,7 @@
         <Component class="javax.swing.JButton" name="updateRegistCreditCardButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#xce74;&#xb4dc; &#xb4f1;&#xb85d;"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="phoneLabel1">
@@ -842,12 +891,37 @@
             <Property name="text" type="java.lang.String" value="&#xc6d0;"/>
           </Properties>
         </Component>
+        <Component class="javax.swing.JRadioButton" name="updateCashRadioButton">
+          <Properties>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="updatePaymentMethodGroup"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="&#xd604;&#xae08;"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updateCashRadioButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JRadioButton" name="updateCardRadioButton">
+          <Properties>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="updatePaymentMethodGroup"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updateCardRadioButtonActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.ButtonGroup" name="paymentMethodGroup">
+    </Component>
+    <Component class="javax.swing.ButtonGroup" name="updatePaymentMethodGroup">
+    </Component>
     <Menu class="javax.swing.JMenuBar" name="menuBar">
       <Properties>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-          <Color id="Default Cursor"/>
+          <Color id="&#xae30;&#xbcf8; &#xcee4;&#xc11c;"/>
         </Property>
       </Properties>
     </Menu>
@@ -917,7 +991,7 @@
         <Component class="javax.swing.JTable" name="reservationTable">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="11" rowCount="4">
+              <Table columnCount="12" rowCount="4">
                 <Column editable="false" title="No" type="java.lang.Object"/>
                 <Column editable="false" title="&#xc774;&#xb984;" type="java.lang.Object"/>
                 <Column editable="false" title="&#xc804;&#xd654;&#xbc88;&#xd638;" type="java.lang.Object"/>
@@ -928,6 +1002,7 @@
                 <Column editable="false" title="&#xc778;&#xc6d0;&#xc218;" type="java.lang.Object"/>
                 <Column editable="false" title="&#xd638;&#xc2e4;" type="java.lang.Object"/>
                 <Column editable="false" title="&#xc219;&#xbc15;&#xbe44;" type="java.lang.Object"/>
+                <Column editable="false" title="&#xacb0;&#xc81c; &#xc218;&#xb2e8;" type="java.lang.Object"/>
                 <Column editable="false" title="&#xccb4;&#xd06c;&#xc778;" type="java.lang.Object"/>
               </Table>
             </Property>
@@ -978,7 +1053,12 @@
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="100" minWidth="100" prefWidth="100" resizable="true">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="100" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
