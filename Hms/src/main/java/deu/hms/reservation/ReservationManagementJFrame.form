@@ -176,11 +176,13 @@
                       <Component id="calcCostOfStayingButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="creditCardInfoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="registCreditCardButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cashRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="cardRadioButton" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="creditCardInfoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="registCreditCardButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cashRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">

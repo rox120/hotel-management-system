@@ -54,8 +54,8 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
     private final String fileName = "/clientInfo.txt";
     private final String filePath = path + fileName;
     
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     
     public JDialog getRegistDialog() {
         return registDialog;
@@ -228,6 +228,11 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
         } else {
             return "";
         }
+    }
+    
+    public String getFilePath() {
+        
+        return filePath;
     }
         
     public ReservationManagementJFrame() {
@@ -576,11 +581,12 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
                     .addComponent(wonLabel)
                     .addComponent(calcCostOfStayingButton))
                 .addGap(18, 18, 18)
-                .addGroup(registDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(creditCardInfoLabel)
-                    .addComponent(registCreditCardButton)
-                    .addComponent(cashRadioButton)
-                    .addComponent(cardRadioButton))
+                .addGroup(registDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cardRadioButton, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(registDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(creditCardInfoLabel)
+                        .addComponent(registCreditCardButton)
+                        .addComponent(cashRadioButton)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(registDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(disposeButton1)
@@ -1509,6 +1515,7 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
                     
                     if (updateCostOfStayingTextField.getText().equals("0")){
                         JOptionPane.showMessageDialog(this, "먼저 금액을 확인하십시오.", "경고", JOptionPane.WARNING_MESSAGE);
+                        sb.append(line).append( System.lineSeparator());
                     } else {
                         if (!columns[1].substring(0, 1).equals(updateLastNameTextField.getText())) {
                             columns[1] = updateLastNameTextField.getText() + updateFirstNameTextField.getText();
@@ -1543,22 +1550,23 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
                         
                         line = reWriteLine(columns);
                         sb.append(line).append(System.lineSeparator());
+                        
+
+                        
                         updateDialog.setVisible(false);
                     }
-                } else {
-                    // 나머지 행은 그대로 유지
-                    sb.append(line).append( System.lineSeparator());
                 }
                 ++currentIndex;
             }
+            
             br.close();
-
+            
             // 수정된 내용을 파일에 다시 쓰고 저장
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
             writer.write(sb.toString());
             writer.flush();
             writer.close();
-
+            
             loadReservationData();
         } catch (IOException e) {
             e.printStackTrace();
