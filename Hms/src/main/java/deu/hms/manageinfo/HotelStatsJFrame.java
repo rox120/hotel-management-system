@@ -3,6 +3,9 @@ package deu.hms.manageinfo;
 import deu.hms.reservation.BookingInfo;
 import deu.hms.reservation.FileManagement;
 import deu.hms.reservation.ReservationManagementJFrame;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
@@ -13,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Hyunwoo
  */
-public class SettlementJFrame extends javax.swing.JFrame {
+public class HotelStatsJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form SettlementJFrame
@@ -62,7 +65,7 @@ public class SettlementJFrame extends javax.swing.JFrame {
         }
     }
     
-    public SettlementJFrame() {
+    public HotelStatsJFrame() {
         initComponents();
     }
 
@@ -76,7 +79,7 @@ public class SettlementJFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        settlementTable = new javax.swing.JTable();
+        statsTable = new javax.swing.JTable();
         inquiryStartDateChooser = new com.toedter.calendar.JDateChooser();
         inquiryEndDateChooser = new com.toedter.calendar.JDateChooser();
         fromLabel = new javax.swing.JLabel();
@@ -85,15 +88,12 @@ public class SettlementJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        settlementTable.setModel(new javax.swing.table.DefaultTableModel(
+        statsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
                 {null, null, null, null}
             },
             new String [] {
-                "투숙 인원", "예상 점유율", "객실 수익", "식품 수입"
+                "투숙 인원", "점유율", "객실 수익", "식품 수익"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -104,7 +104,7 @@ public class SettlementJFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(settlementTable);
+        jScrollPane1.setViewportView(statsTable);
 
         fromLabel.setText("부터");
 
@@ -155,40 +155,118 @@ public class SettlementJFrame extends javax.swing.JFrame {
 
     private void inquiryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inquiryButtonActionPerformed
         // TODO inquiryStartDateChooser~inquiryEndDateChooser
-        
+        loadStatsData();
     }//GEN-LAST:event_inquiryButtonActionPerformed
 
-    private int settlementThings() {
+    private ArrayList<Integer> hotelStats() {
         
+        ArrayList<Integer> hotelStatsArray = new ArrayList<>();
+        int numberOfGuests = 0;
+        int roomRevenue = 0;
+        int hotelOccupancy = 0;
+        int foodRevenue = 0;
         
+        setStartDateValue(getStartDate());
+        setEndDateValue(getEndDate());
         
-        ArrayList<BookingInfo> bookingInfo = new ArrayList<>();
+        ArrayList<BookingInfo> bookingInfo;
         try {
             FileManagement fileMgmt = new FileManagement();
             fileMgmt.readBookingFileData(reservationManager.getFilePath());
             fileMgmt.splitBookingFileData();
             bookingInfo = fileMgmt.returnBookingInfo();
-
-            // 데이터를 담을 2차원 배열 생성
-            Object[][] data = new Object[bookingInfo.size()][12];
-            int numberOfGuests = 0;
-            int futureOccupancy = 0;
-            int roomRevenue = 0;
-            int serviceRevenue = 0;
-
-            // 2차원 배열에 데이터 채우기
+            
             for (int i = 0; i < bookingInfo.size(); ++i) {
-                
-                     
-                data[i][5] = bookingInfo.get(i).getCheckInDate();
-                data[i][6] = bookingInfo.get(i).getCheckOutDate();
-                numberOfGuests += Integer.parseInt(bookingInfo.get(i).getNumberOfGuests());
-                roomRevenue += Integer.parseInt(bookingInfo.get(i).getCostOfStaying());
+                if (calcDateValue(bookingInfo.get(i).getCheckInDate()) >= startDateValue || 
+                        calcDateValue(bookingInfo.get(i).getCheckInDate()) <= endDateValue ||
+                        calcDateValue(bookingInfo.get(i).getCheckOutDate()) >= startDateValue ||
+                        calcDateValue(bookingInfo.get(i).getCheckOutDate()) <= endDateValue) { // 지정한 기간에 포함되면
+                    
+                    numberOfGuests += Integer.parseInt(bookingInfo.get(i).getNumberOfGuests());
+                    
+                    if (bookingInfo.get(i).getCheckInStatus().equals("예약") || 
+                            bookingInfo.get(i).getCheckInStatus().equals("체크인")) { // 지정한 기간에 예약된 상태거나 체크인 상태면
+                        
+                        ++hotelOccupancy; // 호텔의 방이 100개이므로 점유율은 해당 조건인 방 개수와 같다.
+                    }
+                    
+                    roomRevenue += Integer.parseInt(bookingInfo.get(i).getCostOfStaying());
+                }
             }
+            
+            File file = new File(System.getProperty("user.dir") + "/order_list.txt");
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String line;
+            String[] column;
+            
+            while ((line = br.readLine()) != null) {
+                
+                column = line.split("\t");
+                System.out.println(column[0]);
+                
+                if (calcOrderListDateValue(column[0]) >= startDateValue || calcOrderListDateValue(column[0]) <= endDateValue) {
+                    
+                    foodRevenue += Integer.parseInt(column[5]);
+                }
+            }
+            br.close();
+            
+            hotelStatsArray.add(numberOfGuests);
+            hotelStatsArray.add(hotelOccupancy);
+            hotelStatsArray.add(roomRevenue);
+            hotelStatsArray.add(foodRevenue);
+            
         } catch (IOException e) {
         }
         
-        return 0;
+        return hotelStatsArray;
+    }
+    
+    private int calcDateValue(String date) {
+        
+        int dateValue = 0;
+        String[] dateValues = date.split("-");
+        
+        for (int i = 0; i < dateValues.length; ++i) {
+            
+            dateValue += Integer.parseInt(dateValues[i]);
+        }
+        
+        return dateValue;
+    }
+    
+    private int calcOrderListDateValue(String date) {
+        
+        int dataValue = 0;
+        String[] dateValues = date.split("/");
+        
+        for (int i = 0; i < 3; ++i) {
+            
+            dataValue += Integer.parseInt(dateValues[i]);
+        }
+        
+        return dataValue;
+    }
+    
+    private void loadStatsData() {
+        
+        ArrayList<Integer> hotelStatsArray = hotelStats();
+        DefaultTableModel statsTableModel = (DefaultTableModel) statsTable.getModel();
+        
+        // 데이터를 담을 2차원 배열 생성
+        Object[][] data = new Object[hotelStatsArray.size()][4];
+        
+        // 2차원 배열에 데이터 채우기
+        for (int i = 0; i < hotelStatsArray.size() / 4; ++i) {
+            data[i][0] = hotelStatsArray.get(i);
+            data[i][1] = hotelStatsArray.get(i + 1);
+            data[i][2] = hotelStatsArray.get(i + 2);
+            data[i][3] = hotelStatsArray.get(i + 3);
+        }
+        // 테이블 모델 업데이트
+        statsTableModel.setDataVector(data, new Object[]{
+            "투숙 인원", "점유율", "객실 수익", "식품 수익"
+        });
     }
     
     /**
@@ -208,20 +286,21 @@ public class SettlementJFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SettlementJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HotelStatsJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SettlementJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HotelStatsJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SettlementJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HotelStatsJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SettlementJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HotelStatsJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SettlementJFrame().setVisible(true);
+                new HotelStatsJFrame().setVisible(true);
             }
         });
     }
@@ -232,7 +311,7 @@ public class SettlementJFrame extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser inquiryEndDateChooser;
     private com.toedter.calendar.JDateChooser inquiryStartDateChooser;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable settlementTable;
+    private javax.swing.JTable statsTable;
     private javax.swing.JLabel toLabel;
     // End of variables declaration//GEN-END:variables
 }
