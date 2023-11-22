@@ -7,6 +7,7 @@ package deu.hms.login;
 import deu.hms.reservation.ReservationManagementJFrame;
 import deu.hms.restaurant.RestaurantFrame;
 import deu.hms.restaurant.RoomServiceFrame;
+import deu.hms.manageinfo.HotelManageInfoFrame;
 
 /**
  *
@@ -41,7 +42,7 @@ public class MasterFrame extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        hotelInfoButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -81,7 +82,12 @@ public class MasterFrame extends javax.swing.JFrame {
 
         jButton5.setText("보고서");
 
-        jButton6.setText("호텔 정보");
+        hotelInfoButton.setText("호텔 정보");
+        hotelInfoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hotelInfoButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -102,7 +108,7 @@ public class MasterFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(Restaurant, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(hotelInfoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(RoomService, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -137,7 +143,7 @@ public class MasterFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(Restaurant, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(hotelInfoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
@@ -160,6 +166,12 @@ public class MasterFrame extends javax.swing.JFrame {
         RestaurantFrame RS = new RestaurantFrame();
         RS.setVisible(true);
     }//GEN-LAST:event_RestaurantActionPerformed
+
+    private void hotelInfoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hotelInfoButtonActionPerformed
+        // TODO add your handling code here:
+        HotelManageInfoFrame HMID = new HotelManageInfoFrame();
+        HMID.setVisible(true);
+    }//GEN-LAST:event_hotelInfoButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -199,12 +211,12 @@ public class MasterFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Restaurant;
     private javax.swing.JButton RoomService;
+    private javax.swing.JButton hotelInfoButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
