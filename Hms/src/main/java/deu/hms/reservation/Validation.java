@@ -75,6 +75,12 @@ public class Validation {
             return false;
         }
         
+        if (!isPaymentMethodChecked()) {
+            
+            JOptionPane.showMessageDialog(reservationManager.getRegistDialog(), "결제 수단을 선택하십시오.", "경고", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        
         return true;
     }
     
@@ -109,6 +115,11 @@ public class Validation {
     private boolean isRoomNumberFilled() {
         
         return reservationManager.getRoomNumber().length() > 0;
+    }
+    
+    private boolean isPaymentMethodChecked() {
+        
+        return reservationManager.getPaymentMethod().length() > 0;
     }
     
     public boolean isUpdateCalcCostOfStayingButtonAvailable() {
@@ -166,6 +177,12 @@ public class Validation {
             return false;
         }
         
+        if (!isUpdatePaymentMethodChecked()) {
+            
+            JOptionPane.showMessageDialog(reservationManager.getUpdateDialog(), "결제 수단을 선택하십시오.", "경고", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        
         return true;
     }
     
@@ -195,5 +212,10 @@ public class Validation {
     private boolean isUpdateRoomNumberFilled() {
         
         return reservationManager.getUpdateRoomNumber().length() > 0;
+    }
+    
+    private boolean isUpdatePaymentMethodChecked() {
+        
+        return reservationManager.getUpdatePaymentMethod().length() > 0;
     }
 }

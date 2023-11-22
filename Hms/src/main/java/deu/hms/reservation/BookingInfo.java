@@ -16,9 +16,10 @@ public class BookingInfo {
     private String numberOfGuests;
     private String roomNumber;
     private String costOfStaying;
+    private String paymentMethod;
     private String checkInStatus;
     
-    public BookingInfo (String index, String name, String phoneNumber, String zipNo, String address, String checkInDate, String checkOutDate, String numberOfGuests, String roomNumber, String costOfStaying, String checkInStatus) {
+    public BookingInfo (String index, String name, String phoneNumber, String zipNo, String address, String checkInDate, String checkOutDate, String numberOfGuests, String roomNumber, String costOfStaying, String paymentMethod, String checkInStatus) {
         
         this.index = index;
         this.name = name;
@@ -30,6 +31,7 @@ public class BookingInfo {
         this.numberOfGuests = numberOfGuests;
         this.roomNumber = roomNumber;
         this.costOfStaying = costOfStaying;
+        this.paymentMethod = paymentMethod;
         this.checkInStatus = checkInStatus;
     }
 
@@ -71,6 +73,10 @@ public class BookingInfo {
 
     public String getCostOfStaying() {
         return costOfStaying;
+    }
+    
+    public String getPaymentMethod() {
+        return paymentMethod;
     }
     
     public String getCheckInStatus() {
@@ -115,6 +121,10 @@ public class BookingInfo {
 
     public void setCostOfStaying(String costOfStaying) {
         this.costOfStaying = costOfStaying;
+    }
+    
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
     
     public void setCheckInStatus(String checkInStatus) {
