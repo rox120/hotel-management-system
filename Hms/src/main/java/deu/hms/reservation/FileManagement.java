@@ -36,9 +36,10 @@ public class FileManagement {
         String line;
 
         for (int i = 0; i < readBookingInfo.size(); i++) {
+            
             line = readBookingInfo.get(i);
             String[] str = line.split("\t");
-            bookingInfo.add(new BookingInfo(str[0], str[1], str[2], str[3], str[4], str[5], str[6], str[7], str[8], str[9], str[10]));
+            bookingInfo.add(new BookingInfo(str[0], str[1], str[2], str[3], str[4], str[5], str[6], str[7], str[8], str[9], str[10], str[11]));
         }
     }
     
