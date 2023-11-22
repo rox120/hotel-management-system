@@ -35,7 +35,7 @@ public class text_reader {
         
         int resultcode = -1;
         String paths = System.getProperty("user.dir");
-        File userfile = new File(paths+"/test_users.txt");
+        File userfile = new File(paths+"/user_list.txt");
         
         try{
             readFile(userfile);

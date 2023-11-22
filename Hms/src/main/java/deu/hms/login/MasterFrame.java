@@ -52,7 +52,7 @@ public class MasterFrame extends javax.swing.JFrame {
 
         jLabel1.setText("고객관리");
 
-        jButton1.setText("예약정보");
+        jButton1.setText("예약관리");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
