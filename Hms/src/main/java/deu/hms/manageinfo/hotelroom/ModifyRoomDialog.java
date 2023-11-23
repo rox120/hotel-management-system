@@ -74,6 +74,7 @@ public class ModifyRoomDialog extends JDialog {
         add(classComboBox);
         add(priceTextField);
         
+        //add actionListener of classComboBox
         classComboBox.addActionListener(new ActionListener() {
            @Override
             public void actionPerformed(ActionEvent e) {
@@ -88,6 +89,7 @@ public class ModifyRoomDialog extends JDialog {
         confirmButton.setBounds(300, 80, 100, 30);
         cancelButton.setBounds(150,80,100,30);
         
+        ////add actionListener of confirmButton
         confirmButton.addActionListener(new ActionListener() {
             
             @Override

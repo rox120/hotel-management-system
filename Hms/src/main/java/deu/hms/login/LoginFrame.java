@@ -156,26 +156,38 @@ public class LoginFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    // Login Button Function
+    // 버튼을 누르면 IdInput과 PwInput 안의 값으로 로그인 시도 
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
         // TODO add your handling code here:
         String inputUId = IdInput.getText();
+        //passwordField는 char 배열에 담음 
         char[] uPwChar = PwInput.getPassword();
         String inputUPw = new String(uPwChar);
+        //text_reader 객체 생성 
         text_reader tr = new text_reader();
+        // text_reader 객체 안의 checkUsrIdPw 메소드 실행 
+         //checkUsrIdPw는 resultcode를 반환 , results 변수에 저장 
         int results = tr.checkUsrIdPw(inputUId,inputUPw);
-        //check admin or staff
-        if(results == 1) {
-            MasterFrame mf = new MasterFrame();
-            mf.setVisible(true);
-            dispose();
-        } else if(results == 0) {
-            UserFrame uf = new UserFrame();
-            uf.setVisible(true);
-            dispose();
-        } else {
-            JOptionPane.showConfirmDialog(this, "유저를 찾을수 없습니다 ", "Login Error", JOptionPane.DEFAULT_OPTION);
-
+       
+        // 반환된 값을 통해  파일안에 사용자가 존재 여부  확인 
+        // 값이 1이면 관리자, 0이면 일반유저 , 그 외에는 로그인 실패 
+        // 관리자는 MasterFrame 객체 생성 , 일반 유저는 UserFrame 객체 생성 
+        // 둘다 객체가 생성된후 Frame객체가 보이게 설정하고 현제 LoginFrame 객체 종료
+        // 로그인 실패할 경우, 경고 다이얼로그 창이 띄어짐 
+        switch (results) {
+            case 1:
+                MasterFrame mf = new MasterFrame();
+                mf.setVisible(true);
+                dispose();
+                break;
+            case 0:
+                UserFrame uf = new UserFrame();
+                uf.setVisible(true);
+                dispose();
+                break;
+            default:
+                JOptionPane.showConfirmDialog(this, "유저를 찾을수 없습니다 ", "Login Error", JOptionPane.DEFAULT_OPTION);
+                break;
         }
         
             

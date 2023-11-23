@@ -30,8 +30,6 @@ public class RoomInfoList {
     
     private void fetchRoomInfo(String roomPath) {
         try {
-            
-            
             BufferedReader br = new BufferedReader(new FileReader(new File(roomPath)));
             
             while ((line = br.readLine()) != null) {
@@ -51,9 +49,7 @@ public class RoomInfoList {
         for (int i = 0; i < readRoomInfo.size(); i++) {
             splitLine = readRoomInfo.get(i);
             String[] str = splitLine.split("\t");
-
             roomInfo.add(new ModifyRoom(str[0],str[1],str[2],str[3]));
-          
             }
         
     }
