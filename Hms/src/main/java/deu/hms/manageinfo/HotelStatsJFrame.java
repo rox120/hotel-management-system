@@ -197,16 +197,16 @@ public class HotelStatsJFrame extends javax.swing.JFrame {
             File file = new File(System.getProperty("user.dir") + "/order_list.txt");
             BufferedReader br = new BufferedReader(new FileReader(file));
             String line;
-            String[] column;
+            String[] columns;
             
             while ((line = br.readLine()) != null) {
                 
-                column = line.split("\t");
-                System.out.println(column[0]);
+                columns = line.split("\t");
+                System.out.println(columns[0]);
                 
-                if (calcOrderListDateValue(column[0]) >= startDateValue || calcOrderListDateValue(column[0]) <= endDateValue) {
+                if (calcOrderListDateValue(columns[0]) >= startDateValue || calcOrderListDateValue(columns[0]) <= endDateValue) {
                     
-                    foodRevenue += Integer.parseInt(column[5]);
+                    foodRevenue += Integer.parseInt(columns[5]);
                 }
             }
             br.close();

@@ -42,7 +42,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="Restaurant" min="-2" pref="88" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jButton6" min="-2" pref="88" max="-2" attributes="0"/>
+                      <Component id="hotelInfoButton" min="-2" pref="88" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -87,7 +87,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="Restaurant" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
-                          <Component id="jButton6" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
+                          <Component id="hotelInfoButton" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Component id="jButton3" min="-2" pref="45" max="-2" attributes="0"/>
@@ -157,10 +157,13 @@
         <Property name="text" type="java.lang.String" value="&#xbcf4;&#xace0;&#xc11c;"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton6">
+    <Component class="javax.swing.JButton" name="hotelInfoButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#xd638;&#xd154; &#xc815;&#xbcf4;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hotelInfoButtonActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
