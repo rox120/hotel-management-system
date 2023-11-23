@@ -46,7 +46,8 @@ public class Checkin extends javax.swing.JFrame {
     String filePath2 = path2 + "/specialRequestsList.txt";
     String path3 = System.getProperty("user.dir");
     String filePath3 = path3 + "/order_list.txt";
-
+    int oneDayCost[];
+    
     public void serchReservationData() {//예약자 검색
         ArrayList<UserInfoList> userInfo = new ArrayList<>();
         DefaultTableModel reservationTableModel = (DefaultTableModel) ReservationListTable.getModel();
@@ -57,7 +58,6 @@ public class Checkin extends javax.swing.JFrame {
             int j = 0;
             // 데이터를 담을 2차원 배열 생성
             Object[][] data = new Object[userInfo.size()][11];
-
             // 2차원 배열에 데이터 채우기
             if (SerchComboBox.getSelectedIndex() == 0) { //고객명일 경우
                 //JOptionPane.showMessageDialog(null,"0");
@@ -98,7 +98,7 @@ public class Checkin extends javax.swing.JFrame {
         }
 
     }
-
+    
     public int getFoodRevenue(String roomnumber) throws FileNotFoundException {
         File file = new File(System.getProperty("user.dir") + "/order_list.txt");
         BufferedReader br = new BufferedReader(new FileReader(file));
@@ -489,16 +489,16 @@ public class Checkin extends javax.swing.JFrame {
     }//GEN-LAST:event_BackButtonActionPerformed
 
     private void SpecialRequestsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SpecialRequestsButtonActionPerformed
-        // TODO add your handling code here:
+        // 특이사항수정 버튼
         Object targetIndex;
         int selectedRow = ReservationListTable.getSelectedRow();
-        targetIndex = ReservationListTable.getValueAt(selectedRow, 0);
+        targetIndex = ReservationListTable.getValueAt(selectedRow, 0);//선택된 셀의 0번째 값 고유번호를 저장
         String[] columns = null;
 
-        String replacementData = SpecialRequests.getText(); // 수정할 데이터
+        String replacementData = SpecialRequests.getText(); // 특이사항에 적은 텍스트를 저장
 
         try {
-            File file = new File(filePath2);
+            File file = new File(filePath2);//특이사항 리스트 읽어옴
             BufferedReader br = new BufferedReader(new FileReader(file));
             StringBuilder sb = new StringBuilder();
 
@@ -508,10 +508,10 @@ public class Checkin extends javax.swing.JFrame {
             while ((line = br.readLine()) != null) {
                 if (currentIndex == Integer.parseInt((String) targetIndex)) {
                     // 특정 행일 경우, 수정할 데이터로 변경
-                    columns = line.split("\t");
-                    columns[1] = replacementData;
+                    columns = line.split("\t");//"\t"를 기준으로 line을 나눔
+                    columns[1] = replacementData;//특이사항 저장
                     line = reWriteLine2(columns);
-                    sb.append(line).append("\n");
+                    sb.append(line).append("\n");//sb에 line과 "\n" 추가
                 } else {
                     // 나머지 행은 그대로 유지
                     sb.append(line).append("\n");
@@ -522,7 +522,7 @@ public class Checkin extends javax.swing.JFrame {
 
             // 수정된 내용을 파일에 다시 쓰고 저장
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-            writer.write(sb.toString());
+            writer.write(sb.toString());//sb를 적음
             writer.flush();
             writer.close();
 
@@ -531,6 +531,30 @@ public class Checkin extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_SpecialRequestsButtonActionPerformed
+    
+    public String setoneDayCost(String roomnumber) throws FileNotFoundException {//하루 숙박비용 저장
+        File file = new File(System.getProperty("user.dir") + "/test_room.txt");
+        BufferedReader br = new BufferedReader(new FileReader(file));
+
+        String line;
+        String[] column;
+        String oneDayCost="";
+        String roomNumber =roomnumber.substring(0, roomnumber.length()-2); //룸번호에서 뒤에 두자리를 제외하고 저장
+        System.out.println(roomNumber);
+        try {
+            while ((line = br.readLine()) != null) {
+                column = line.split("\t");
+                if(roomNumber.equals(column[0])){
+                    oneDayCost=column[3];
+                }
+            }
+            br.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Checkin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return oneDayCost;
+    }
+    
     private String DayTime;
 
     public String getDayTime() {
@@ -542,12 +566,15 @@ public class Checkin extends javax.swing.JFrame {
         this.DayTime = now.format(DateTimeFormatter.ofPattern("HH"));//현재 시간만 저장 ex)11(시)
     }
 
-    public int AdditionalCost() {
+    public int AdditionalCost(String roomnumber) { //객실호수를 받아와 11시가 넘었다면 해당객실의 1박요금을 리턴하는 함수
         int additionalcost = 0;
         setDayTime();
         String time = getDayTime();
-        if (Integer.parseInt(time) >= 11) {//현재시간이 11시를 넘으면
-            additionalcost = 10000;//추가요금을 10000원으로 변경(1박 요금으로 수정 예정)
+        if (Integer.parseInt(time) >= 11) {try {                            //현재시간이 11시를 넘으면
+            additionalcost = Integer.parseInt(setoneDayCost(roomnumber));   //추가요금을 1박 요금으로 변경
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Checkin.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return additionalcost;
     }
@@ -562,6 +589,8 @@ public class Checkin extends javax.swing.JFrame {
         String roomRevenue = "0";
         int foodRevenue = 0;
         int totalRevenue = 0;
+        int additionalCost = 0;
+        String additionalCostMessage = ""; //추가요금 발생시 출력할 메시지를 저장할 변수
         try {
             File file = new File(filePath);
             BufferedReader br = new BufferedReader(new FileReader(file));
@@ -573,15 +602,15 @@ public class Checkin extends javax.swing.JFrame {
             while ((line = br.readLine()) != null) {
                 if (currentIndex == Integer.parseInt((String) targetIndex)) {
                     // 특정 행일 경우, 수정할 데이터로 변경
-                    columns = line.split("\t"); //"\t"를 기준으로 line을 나눔
+                    columns = line.split("\t");                             //"\t"를 기준으로 line을 나눔
+                    additionalCost = AdditionalCost(columns[8]);                 // 11시를 넘겨서 체크아웃시 객실요금 추가
                     if (!columns[columns.length - 1].equals("체크아웃")) {//체크아웃 상태일때 추가요금이 생기지 않도록 체크
-                        // 11시를 넘겨서 체크아웃시 객실요금 추가
-                        columns[columns.length - 3] = Integer.toString(Integer.parseInt(columns[columns.length - 3]) + AdditionalCost());
+                        columns[columns.length - 3] = Integer.toString(Integer.parseInt(columns[columns.length - 3]) + additionalCost);
                     }
-                        columns[columns.length - 1] = replacementData; //예약/체크인 상태를"체크아웃"으로 변경
-                        roomRevenue = columns[9];//룸 비용 출력을 위해 변수에 저장
-                        foodRevenue=getFoodRevenue(columns[8]);//방번호를 넘겨서 객실청구된 비용을 foodRevenue에 저장
-                        totalRevenue = Integer.parseInt(roomRevenue)+foodRevenue;//총 비용 계산
+                        columns[columns.length - 1] = replacementData;              //예약/체크인 상태를"체크아웃"으로 변경
+                        roomRevenue = columns[9];                                   //룸 비용 출력을 위해 변수에 저장
+                        foodRevenue=getFoodRevenue(columns[8]);                     //방번호를 넘겨서 객실청구된 비용을 foodRevenue에 저장
+                        totalRevenue = Integer.parseInt(roomRevenue)+foodRevenue; //총 비용 계산
                     line = reWriteLine(columns);
 
                     sb.append(line).append("\n");
@@ -600,8 +629,11 @@ public class Checkin extends javax.swing.JFrame {
             writer.close();
 
             serchReservationData();//테이블 업데이트
+            if(additionalCost!=0){
+                additionalCostMessage="11시가 넘어 추가요금이 객실요금에 청구됩니다.";
+            }
             JOptionPane.showMessageDialog(null,
-                    "객실요금   " + roomRevenue + "원\n"
+                    additionalCostMessage+"\n"+"객실요금   " + roomRevenue + "원\n"
                     + "음식비용  " + foodRevenue + "원\n"
                     + "총 비용   " + totalRevenue + "원");
         } catch (IOException e) {
