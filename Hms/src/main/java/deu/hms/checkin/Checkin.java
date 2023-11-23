@@ -30,6 +30,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 
 public class Checkin extends javax.swing.JFrame {
 
@@ -42,11 +44,8 @@ public class Checkin extends javax.swing.JFrame {
     }
     private final String path = System.getProperty("user.dir");
     private final String filePath = path + "/clientInfo.txt";
-    String path2 = System.getProperty("user.dir");
-    String filePath2 = path2 + "/specialRequestsList.txt";
-    String path3 = System.getProperty("user.dir");
-    String filePath3 = path3 + "/order_list.txt";
-    int oneDayCost[];
+    private final String filePath2 = path + "/specialRequestsList.txt";
+    private final String filePath3 = path + "/feedbackList.txt";
     
     public void serchReservationData() {//예약자 검색
         ArrayList<UserInfoList> userInfo = new ArrayList<>();
@@ -123,12 +122,12 @@ public class Checkin extends javax.swing.JFrame {
         return foodRevenue;
     }
 
-    public void addSRList(int x, int y) { //x부터 y-1까지 특이사항 리스트를 생성(임시코드)
+    public void addSRList(int x, int y, String filepath) { //x부터 y-1까지 특이사항 리스트, 피드백 리스트를 생성(임시코드)
         for (int i = x; i < y; i++) {
             //if(){
             String inputData = String.format("%s\t%s\t",
-                    Integer.toString(i), "");
-            try (FileWriter fileWriter = new FileWriter(filePath2, true); BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+                    Integer.toString(i), " ");
+            try (FileWriter fileWriter = new FileWriter(filepath, true); BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
 
                 bufferedWriter.write(inputData);
                 bufferedWriter.newLine();
@@ -152,16 +151,16 @@ public class Checkin extends javax.swing.JFrame {
         ReservationListTable.getColumn("예약/체크인").setPreferredWidth(80);
     }
 
-    public String getSpecialRequest() { //선택된 셀의 특별요청을 리턴하는 함수
+    public String getSpecialRequestORFeedback(String filepath) { //매개변수 파일에 따라 선택된 셀의 특이사항, 피드백을 리턴하는 함수
 
         Object targetIndex;
         int selectedRow = ReservationListTable.getSelectedRow();
-        targetIndex = ReservationListTable.getValueAt(selectedRow, 0);
+        targetIndex = ReservationListTable.getValueAt(selectedRow, 0);//선택된 고객의 고유번호를 저장
         String[] columns = null;
         String SR = ""; // 특이사항을 저장하여 리턴하는 변수
 
         try {
-            File file = new File(filePath2);
+            File file = new File(filepath);
             BufferedReader br = new BufferedReader(new FileReader(file));
             StringBuilder sb = new StringBuilder();
 
@@ -209,8 +208,10 @@ public class Checkin extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         SpecialRequests = new javax.swing.JTextField();
         CheckoutButton = new javax.swing.JButton();
-        SpecialRequestsButton = new javax.swing.JButton();
+        SaveTextContentButton = new javax.swing.JButton();
         ReservationModificationButton = new javax.swing.JButton();
+        Feedback = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -324,10 +325,10 @@ public class Checkin extends javax.swing.JFrame {
             }
         });
 
-        SpecialRequestsButton.setText("특이사항 수정");
-        SpecialRequestsButton.addActionListener(new java.awt.event.ActionListener() {
+        SaveTextContentButton.setText("입력내용 저장");
+        SaveTextContentButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SpecialRequestsButtonActionPerformed(evt);
+                SaveTextContentButtonActionPerformed(evt);
             }
         });
 
@@ -338,42 +339,59 @@ public class Checkin extends javax.swing.JFrame {
             }
         });
 
+        Feedback.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FeedbackActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("피드백");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(SerchComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(31, 31, 31)
-                            .addComponent(SerchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(SerchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(BackButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGap(12, 12, 12)
-                                    .addComponent(ReservationModificationButton)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(SpecialRequestsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(CheckoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(12, 12, 12)
-                                    .addComponent(CheckinButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(SpecialRequests, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(0, 0, Short.MAX_VALUE)))
-                    .addComponent(jLabel2))
-                .addGap(50, 50, 50))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(239, 239, 239)
                 .addComponent(jLabel1)
                 .addGap(239, 239, 239))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(SpecialRequests, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(SerchComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(31, 31, 31)
+                                    .addComponent(SerchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(SerchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addComponent(BackButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addGap(12, 12, 12)
+                                            .addComponent(ReservationModificationButton)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(SaveTextContentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(CheckoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(12, 12, 12)
+                                            .addComponent(CheckinButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(jLabel2))
+                        .addGap(50, 50, 50))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(Feedback, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -394,14 +412,18 @@ public class Checkin extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SpecialRequests, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Feedback, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BackButton)
                     .addComponent(CheckinButton)
                     .addComponent(CheckoutButton)
-                    .addComponent(SpecialRequestsButton)
+                    .addComponent(SaveTextContentButton)
                     .addComponent(ReservationModificationButton))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addGap(30, 30, 30))
         );
 
         jScrollPane1.getAccessibleContext().setAccessibleParent(jScrollPane1);
@@ -488,28 +510,33 @@ public class Checkin extends javax.swing.JFrame {
         setVisible(false);
     }//GEN-LAST:event_BackButtonActionPerformed
 
-    private void SpecialRequestsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SpecialRequestsButtonActionPerformed
-        // 특이사항수정 버튼
+    private void SaveTextContentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveTextContentButtonActionPerformed
+        // 입력내용 저장 버튼
+        modifyFile(filePath2,ReservationListTable,SpecialRequests);
+        modifyFile(filePath3,ReservationListTable,Feedback);
+    }//GEN-LAST:event_SaveTextContentButtonActionPerformed
+    
+    public void modifyFile(String filepath,JTable targetTable, JTextField targetField){
         Object targetIndex;
-        int selectedRow = ReservationListTable.getSelectedRow();
-        targetIndex = ReservationListTable.getValueAt(selectedRow, 0);//선택된 셀의 0번째 값 고유번호를 저장
+        int selectedRow = targetTable.getSelectedRow();
+        targetIndex = targetTable.getValueAt(selectedRow, 0);//선택된 셀의 0번째 값 고유번호를 저장
         String[] columns = null;
 
-        String replacementData = SpecialRequests.getText(); // 특이사항에 적은 텍스트를 저장
+        String replacementData = targetField.getText(); // targetField에 적은 텍스트를 저장
 
         try {
-            File file = new File(filePath2);//특이사항 리스트 읽어옴
+            File file = new File(filepath);//특이사항 리스트 읽어옴
             BufferedReader br = new BufferedReader(new FileReader(file));
             StringBuilder sb = new StringBuilder();
 
             // 파일의 내용을 읽어오면서 수정할 부분을 찾음
             String line;
-            int currentIndex = 1;
+            int currentIndex = 1;//고유번호 1부터 검사하기위한 변수
             while ((line = br.readLine()) != null) {
-                if (currentIndex == Integer.parseInt((String) targetIndex)) {
+                if (currentIndex == Integer.parseInt((String)targetIndex)) {
                     // 특정 행일 경우, 수정할 데이터로 변경
                     columns = line.split("\t");//"\t"를 기준으로 line을 나눔
-                    columns[1] = replacementData;//특이사항 저장
+                    columns[1] = replacementData;//입력내용 저장
                     line = reWriteLine2(columns);
                     sb.append(line).append("\n");//sb에 line과 "\n" 추가
                 } else {
@@ -529,9 +556,7 @@ public class Checkin extends javax.swing.JFrame {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-    }//GEN-LAST:event_SpecialRequestsButtonActionPerformed
-    
+}
     public String setoneDayCost(String roomnumber) throws FileNotFoundException {//하루 숙박비용 저장
         File file = new File(System.getProperty("user.dir") + "/test_room.txt");
         BufferedReader br = new BufferedReader(new FileReader(file));
@@ -630,7 +655,7 @@ public class Checkin extends javax.swing.JFrame {
 
             serchReservationData();//테이블 업데이트
             if(additionalCost!=0){
-                additionalCostMessage="11시가 넘어 추가요금이 객실요금에 청구됩니다.";
+                additionalCostMessage="11시가 넘어 추가요금이 객실요금에 청구되었습니다.";
             }
             JOptionPane.showMessageDialog(null,
                     additionalCostMessage+"\n"+"객실요금   " + roomRevenue + "원\n"
@@ -650,12 +675,17 @@ public class Checkin extends javax.swing.JFrame {
 
     private void ReservationListTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReservationListTableMouseClicked
         // 선택된 셀의 특별요청을 텍스트필드에 뛰우는 함수
-        SpecialRequests.setText(getSpecialRequest());
+        SpecialRequests.setText(getSpecialRequestORFeedback(filePath2));
+        Feedback.setText(getSpecialRequestORFeedback(filePath3));
     }//GEN-LAST:event_ReservationListTableMouseClicked
 
     private void SpecialRequestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SpecialRequestsActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_SpecialRequestsActionPerformed
+
+    private void FeedbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FeedbackActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FeedbackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -711,16 +741,18 @@ public class Checkin extends javax.swing.JFrame {
     private javax.swing.JButton BackButton;
     private javax.swing.JButton CheckinButton;
     private javax.swing.JButton CheckoutButton;
+    private javax.swing.JTextField Feedback;
     private javax.swing.JTable ReservationListTable;
     private javax.swing.JButton ReservationModificationButton;
+    private javax.swing.JButton SaveTextContentButton;
     private javax.swing.JButton SerchButton;
     private javax.swing.JComboBox<String> SerchComboBox;
     private javax.swing.JTextField SerchTextField;
     private javax.swing.JTextField SpecialRequests;
-    private javax.swing.JButton SpecialRequestsButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
