@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -222,7 +223,7 @@ public class HotelStatsJFrame extends javax.swing.JFrame {
         return hotelStatsArray;
     }
     
-    private int calcDateValue(String date) {
+    public int calcDateValue(String date) {
         
         int dateValue = 0;
         String[] dateValues = date.split("-");
@@ -246,6 +247,13 @@ public class HotelStatsJFrame extends javax.swing.JFrame {
         }
         
         return dataValue;
+    }
+    
+    public int calcTodaysValue() {
+        
+        Date date = new Date();
+        
+        return calcDateValue(dateFormat.format(date));
     }
     
     private void loadStatsData() {
