@@ -1446,7 +1446,7 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
         targetIndex = reservationTable.getValueAt(selectedRow, 0);
         String[] columns = null;
         
-        String replacementData = "D";
+        String replacementData = "취소";
         
         try {
             File file = new File(filePath);
@@ -1739,7 +1739,7 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
         roomNumber = getRoomNumber();
         costOfStaying = getCostOfStaying();
         paymentMethod = getPaymentMethod();
-        String checkInStatus = "N"; // 체크인: Y, 체크아웃: O, 예약 취소: D
+        String checkInStatus = "예약"; // 체크인: 체크인, 체크아웃: 체크아웃, 예약 취소: 취소
         
         String inputData = String.format("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t", 
                                         index, 
