@@ -744,7 +744,7 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="updateButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="&#xb4f1;&#xb85d;"/>
+            <Property name="text" type="java.lang.String" value="&#xc218;&#xc815;"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updateButtonActionPerformed"/>
@@ -921,7 +921,7 @@
     <Menu class="javax.swing.JMenuBar" name="menuBar">
       <Properties>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-          <Color id="Default Cursor"/>
+          <Color id="&#xae30;&#xbcf8; &#xcee4;&#xc11c;"/>
         </Property>
       </Properties>
     </Menu>
