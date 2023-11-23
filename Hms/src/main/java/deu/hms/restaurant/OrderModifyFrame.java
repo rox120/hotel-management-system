@@ -27,7 +27,7 @@ public class OrderModifyFrame extends javax.swing.JFrame {
 
     private String SR;
     private ArrayList<String> Order = new ArrayList<>();
-
+    
     /**
      * Creates new form OrderModify
      */
@@ -143,10 +143,10 @@ public class OrderModifyFrame extends javax.swing.JFrame {
     private void ModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModifyActionPerformed
         int a = jTable1.getSelectedRow();
         String b = TextArea.getText();
-            Order.set(a, b);
-             WriteModify();
-            new OrderModifyFrame().setVisible(true);
-            dispose();
+        Order.set(a, b);
+        WriteModify();
+        new OrderModifyFrame().setVisible(true);
+        dispose();
     }//GEN-LAST:event_ModifyActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -156,6 +156,7 @@ public class OrderModifyFrame extends javax.swing.JFrame {
     public String getTextArea() {//선택된 셀의 특별요청을 리턴하는 함수
 
         int selectedRow = jTable1.getSelectedRow();
+        boolean isEmpty = Order.isEmpty();
         String line = null;
 
         String paths = System.getProperty("user.dir");
@@ -165,12 +166,14 @@ public class OrderModifyFrame extends javax.swing.JFrame {
             FileInputStream fis = new FileInputStream(file);
             BufferedReader br = new BufferedReader(new InputStreamReader(fis, "UTF-8"));
 
-            while ((line = br.readLine()) != null) {
-                Order.add(line);
+            if (isEmpty) {
+                while ((line = br.readLine()) != null) {
+                    Order.add(line);
+                }
             }
-            
+
             SR = Order.get(selectedRow);
-            
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -180,17 +183,14 @@ public class OrderModifyFrame extends javax.swing.JFrame {
     private void WriteModify() {
         String paths = System.getProperty("user.dir");
         File file = new File(paths + "/order_list.txt");
-
         if (TextArea.getText().equals(SR)) {
             JOptionPane.showMessageDialog(null, "수정할 정보가 없습니다.", "정보", JOptionPane.INFORMATION_MESSAGE);
-        }
-        else {
-             try (BufferedWriter writer = new BufferedWriter(
+        } else {
+            try (BufferedWriter writer = new BufferedWriter(
                     new OutputStreamWriter(new FileOutputStream(file, false), StandardCharsets.UTF_8))) { // true를 전달하여 파일을 추가 모드로 열기
-                 for (int i = 0; i < Order.size(); i++) {
+                for (int i = 0; i < Order.size(); i++) {
                     writer.write(Order.get(i) + "\n");
                 }
-                
 
             } catch (IOException e) {
                 e.printStackTrace();
