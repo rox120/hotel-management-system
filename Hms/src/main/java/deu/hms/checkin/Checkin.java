@@ -18,6 +18,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -43,8 +44,8 @@ public class Checkin extends javax.swing.JFrame {
     private final String filePath = path + "/clientInfo.txt";
     String path2 = System.getProperty("user.dir");
     String filePath2 = path2 + "/specialRequestsList.txt";
-    //String[] PreviousStateCheckin;
-    //String[] PreviousStateReservation;
+    String path3 = System.getProperty("user.dir");
+    String filePath3 = path3 + "/order_list.txt";
 
     public void serchReservationData() {//예약자 검색
         ArrayList<UserInfoList> userInfo = new ArrayList<>();
@@ -96,6 +97,30 @@ public class Checkin extends javax.swing.JFrame {
         } catch (IOException e) {
         }
 
+    }
+
+    public int getFoodRevenue(String roomnumber) throws FileNotFoundException {
+        File file = new File(System.getProperty("user.dir") + "/order_list.txt");
+        BufferedReader br = new BufferedReader(new FileReader(file));
+
+        String line;
+        String[] column;
+        int foodRevenue = 0;
+        try {
+            while ((line = br.readLine()) != null) {
+                column = line.split("\t");
+                if (roomnumber.equals(column[1])) {
+                    if (column[4].equals("객실청구")) {
+                        foodRevenue += Integer.parseInt(column[5]);
+                    }
+                }
+
+            }
+            br.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Checkin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return foodRevenue;
     }
 
     public void addSRList(int x, int y) { //x부터 y-1까지 특이사항 리스트를 생성(임시코드)
@@ -431,7 +456,7 @@ public class Checkin extends javax.swing.JFrame {
         String line = String.format("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t",
                 columns[0], columns[1], columns[2], columns[3],
                 columns[4], columns[5], columns[6], columns[7],
-                columns[8], columns[9], columns[10],columns[11]);
+                columns[8], columns[9], columns[10], columns[11]);
 
         return line;
     }
@@ -442,6 +467,7 @@ public class Checkin extends javax.swing.JFrame {
 
         return line;
     }
+
     private void SerchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SerchButtonActionPerformed
         // TODO add your handling code here:
         serchReservationData();
@@ -513,16 +539,15 @@ public class Checkin extends javax.swing.JFrame {
 
     public void setDayTime() {//DayTime을 현재시간으로 설정
         LocalDateTime now = LocalDateTime.now();
-        this.DayTime = now.format(DateTimeFormatter.ofPattern("HH"));
+        this.DayTime = now.format(DateTimeFormatter.ofPattern("HH"));//현재 시간만 저장 ex)11(시)
     }
 
     public int AdditionalCost() {
         int additionalcost = 0;
         setDayTime();
-        //2023-11-23
         String time = getDayTime();
         if (Integer.parseInt(time) >= 11) {//현재시간이 11시를 넘으면
-            additionalcost = 10000;//추가요금을 10000원으로 변경
+            additionalcost = 10000;//추가요금을 10000원으로 변경(1박 요금으로 수정 예정)
         }
         return additionalcost;
     }
@@ -530,11 +555,13 @@ public class Checkin extends javax.swing.JFrame {
         //체크아웃 버튼
         Object targetIndex;
         int selectedRow = ReservationListTable.getSelectedRow();
-        targetIndex = ReservationListTable.getValueAt(selectedRow, 0);
+        targetIndex = ReservationListTable.getValueAt(selectedRow, 0); //선택된 셀의 0번째 값 고유번호를 저장
         String[] columns = null;
 
         String replacementData = "체크아웃"; // 체크인유무를 "체크아웃으로 변경
-        String Price="0";
+        String roomRevenue = "0";
+        int foodRevenue = 0;
+        int totalRevenue = 0;
         try {
             File file = new File(filePath);
             BufferedReader br = new BufferedReader(new FileReader(file));
@@ -546,13 +573,15 @@ public class Checkin extends javax.swing.JFrame {
             while ((line = br.readLine()) != null) {
                 if (currentIndex == Integer.parseInt((String) targetIndex)) {
                     // 특정 행일 경우, 수정할 데이터로 변경
-                    columns = line.split("\t");
-                    if (!columns[columns.length - 1].equals("O")) {
+                    columns = line.split("\t"); //"\t"를 기준으로 line을 나눔
+                    if (!columns[columns.length - 1].equals("체크아웃")) {//체크아웃 상태일때 추가요금이 생기지 않도록 체크
                         // 11시를 넘겨서 체크아웃시 객실요금 추가
                         columns[columns.length - 3] = Integer.toString(Integer.parseInt(columns[columns.length - 3]) + AdditionalCost());
-                        columns[columns.length - 1] = replacementData;
-                        Price = columns[9];
                     }
+                        columns[columns.length - 1] = replacementData; //예약/체크인 상태를"체크아웃"으로 변경
+                        roomRevenue = columns[9];//룸 비용 출력을 위해 변수에 저장
+                        foodRevenue=getFoodRevenue(columns[8]);//방번호를 넘겨서 객실청구된 비용을 foodRevenue에 저장
+                        totalRevenue = Integer.parseInt(roomRevenue)+foodRevenue;//총 비용 계산
                     line = reWriteLine(columns);
 
                     sb.append(line).append("\n");
@@ -570,8 +599,11 @@ public class Checkin extends javax.swing.JFrame {
             writer.flush();
             writer.close();
 
-            serchReservationData();
-            JOptionPane.showMessageDialog(null,"요금은 "+Price+"원 입니다");
+            serchReservationData();//테이블 업데이트
+            JOptionPane.showMessageDialog(null,
+                    "객실요금   " + roomRevenue + "원\n"
+                    + "음식비용  " + foodRevenue + "원\n"
+                    + "총 비용   " + totalRevenue + "원");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -579,7 +611,7 @@ public class Checkin extends javax.swing.JFrame {
     }//GEN-LAST:event_CheckoutButtonActionPerformed
 
     private void ReservationModificationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReservationModificationButtonActionPerformed
-        // TODO add your handling code here:
+        // 예약수정버튼
         ReservationManagementJFrame Mod = new ReservationManagementJFrame();
         Mod.setVisible(true);
     }//GEN-LAST:event_ReservationModificationButtonActionPerformed

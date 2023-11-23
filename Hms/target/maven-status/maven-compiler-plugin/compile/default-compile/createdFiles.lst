@@ -3,7 +3,6 @@ deu\hms\login\UserFrame.class
 deu\hms\checkin\LoadSpecialRequestsList.class
 deu\hms\restaurant\RestaurantFrame$6.class
 deu\hms\reservation\ReservationManagementJFrame$30.class
-deu\hms\manageinfo\SettlementJFrame$1.class
 deu\hms\reservation\BookingInfo.class
 deu\hms\restaurant\ServiceRvFrame$1.class
 deu\hms\login\UserFrame$1.class
@@ -33,6 +32,7 @@ deu\hms\restaurant\RestaurantFrame$9.class
 deu\hms\restaurant\RoomServiceFrame$7.class
 deu\hms\reservation\ReservationManagementJFrame$12.class
 deu\hms\reservation\ReservationManagementJFrame$22.class
+deu\hms\manageinfo\HotelStatsJFrame.class
 deu\hms\restaurant\ServiceRvFrame.class
 deu\hms\login\MasterFrame$2.class
 deu\hms\reservation\ReservationManagementJFrame$29.class
@@ -44,8 +44,6 @@ deu\hms\restaurant\RoomServiceFrame$5.class
 deu\hms\manageinfo\RoomInfoList.class
 deu\hms\manageinfo\ModifyRoom.class
 deu\hms\checkin\Checkin$12.class
-deu\hms\manageinfo\SettlementJFrame$2.class
-deu\hms\manageinfo\SettlementJFrame.class
 deu\hms\login\LoginFrame.class
 deu\hms\restaurant\RoomServiceFrame.class
 deu\hms\checkin\Checkin$6.class
@@ -64,6 +62,7 @@ deu\hms\restaurant\RoomServiceFrame$13.class
 deu\hms\reservation\ReservationManagementJFrame$3.class
 deu\hms\manageinfo\ModifyFrame$1.class
 deu\hms\reservation\ReservationManagementJFrame$27.class
+deu\hms\manageinfo\HotelStatsJFrame$3.class
 deu\hms\checkin\Checkin$4.class
 deu\hms\reservation\ReservationManagementJFrame$17.class
 deu\hms\reservation\ReservationManagementJFrame$14.class
@@ -81,7 +80,6 @@ deu\hms\checkin\SpecialRequestsList.class
 deu\hms\login\MasterFrame$1.class
 deu\hms\login\MasterFrame.class
 deu\hms\restaurant\LoadServiceList.class
-deu\hms\manageinfo\SettlementJFrame$3.class
 deu\hms\restaurant\ServiceRvFrame$3.class
 deu\hms\login\MasterFrame$4.class
 deu\hms\restaurant\RoomServiceFrame$10.class
@@ -91,6 +89,7 @@ deu\hms\reservation\FileManagement.class
 deu\hms\restaurant\WriteReservation.class
 deu\hms\reservation\ReservationManagementJFrame$32.class
 deu\hms\manageinfo\ModifyFrame$3.class
+deu\hms\manageinfo\HotelStatsJFrame$1.class
 deu\hms\reservation\ReservationManagementJFrame$8.class
 deu\hms\checkin\Checkin$9.class
 deu\hms\restaurant\RoomServiceFrame$1.class
@@ -110,8 +109,8 @@ deu\hms\restaurant\RoomServiceFrame$12.class
 deu\hms\restaurant\RoomServiceFrame$9.class
 deu\hms\restaurant\ServiceRvFrame$2.class
 deu\hms\reservation\ReservationManagementJFrame$9.class
+deu\hms\manageinfo\HotelStatsJFrame$2.class
 deu\hms\restaurant\RestaurantFrame$7.class
-deu\hms\Hms.class
 deu\hms\reservation\ReservationManagementJFrame$15.class
 deu\hms\reservation\ReservationManagementJFrame$20.class
 deu\hms\restaurant\RestaurantFrame$1.class
