@@ -68,6 +68,8 @@ public class HotelStatsJFrame extends javax.swing.JFrame {
     
     public HotelStatsJFrame() {
         initComponents();
+        setLocationRelativeTo(null);
+        setTitle("통계");
     }
 
     /**
@@ -164,7 +166,7 @@ public class HotelStatsJFrame extends javax.swing.JFrame {
         ArrayList<Integer> hotelStatsArray = new ArrayList<>();
         int numberOfGuests = 0;
         int roomRevenue = 0;
-        int hotelOccupancy = 0;
+        int hotelOccupancy = 1;
         int foodRevenue = 0;
         
         setStartDateValue(getStartDate());
@@ -178,11 +180,13 @@ public class HotelStatsJFrame extends javax.swing.JFrame {
             bookingInfo = fileMgmt.returnBookingInfo();
             
             for (int i = 0; i < bookingInfo.size(); ++i) {
-                if (calcDateValue(bookingInfo.get(i).getCheckInDate()) >= startDateValue || 
-                        calcDateValue(bookingInfo.get(i).getCheckInDate()) <= endDateValue ||
-                        calcDateValue(bookingInfo.get(i).getCheckOutDate()) >= startDateValue ||
-                        calcDateValue(bookingInfo.get(i).getCheckOutDate()) <= endDateValue) { // 지정한 기간에 포함되면
-                    
+                boolean isIncludeCheckInDate = calcDateValue(bookingInfo.get(i).getCheckInDate()) >= startDateValue && 
+                        calcDateValue(bookingInfo.get(i).getCheckInDate()) <= endDateValue;
+                
+                boolean isIncludeCheckOutDate = calcDateValue(bookingInfo.get(i).getCheckOutDate()) >= startDateValue &&
+                        calcDateValue(bookingInfo.get(i).getCheckOutDate()) <= endDateValue;
+                
+                if (isIncludeCheckInDate || isIncludeCheckOutDate) { // 지정한 기간에 포함되면
                     numberOfGuests += Integer.parseInt(bookingInfo.get(i).getNumberOfGuests());
                     
                     if (bookingInfo.get(i).getCheckInStatus().equals("예약") || 
@@ -203,8 +207,6 @@ public class HotelStatsJFrame extends javax.swing.JFrame {
             while ((line = br.readLine()) != null) {
                 
                 columns = line.split("\t");
-                System.out.println(columns[0]);
-                
                 if (calcOrderListDateValue(columns[0]) >= startDateValue || calcOrderListDateValue(columns[0]) <= endDateValue) {
                     
                     foodRevenue += Integer.parseInt(columns[5]);
