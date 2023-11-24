@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -61,13 +62,14 @@ public class text_reader {
         // ArrayList를 ass라는 변수에 담아 파라미터(uId,uPw)가  arrayList에 존재하는지 확인하는 반복문 
         for(String ass:as) {
             String[] parts = ass.split("\t");
+            
             // uId, uPw 가 동시에 존재하면 로그인 성공 따라서 resultcode값 0 으로 변경 
-            if(parts.length >=3 && parts[0].equals(uId) &&parts[1].equals(uPw)) {
+            if(parts.length >=3 && parts[1].equals(uId) &&parts[2].equals(uPw)) {
                 resultcode = 0;
                 // 추가로 M 이라는 문자열이 있으면 resultcode값 1으로 변경 
-                if(parts[2].contains("M")) {
+                if(parts[3].contains("M")) {
                     resultcode = 1;
-
+                    
                 }
                 break;
             } 
