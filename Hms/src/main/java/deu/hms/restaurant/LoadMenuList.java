@@ -19,7 +19,10 @@ import javax.swing.table.DefaultTableModel;
  * @author bennyjung
  */
 public class LoadMenuList {
-
+    
+    /* 해당 클래스의 생성자로서 현재 프로젝트가 저장되어 있는 파일경로를 받아오고 
+        파일 경로를 전달해 데이터를 원하는 값으로 받아온 후 지정된 케이블의 열 크기에 따라
+        DefaultTableModel(테이블 초깃값)에 추가한다. */
     private String line = null;
 
     ArrayList<String> ReadServiceList = new ArrayList<>(); //일반 배열
@@ -58,7 +61,11 @@ public class LoadMenuList {
     }
 
     private void readMenuFile(File file) throws IOException { //메뉴 파일 읽어오기
-
+        
+        /* 해당 서비스의 메뉴를 order_list.txt 파일에서 불러오는 역할을 한다.
+        파일의 텍스트를 읽어와 Array 배열에 저장하는 역할을 한다.
+        "URF-8"은 한글파일을 읽어올 수 있도록 한다. */
+        
         FileInputStream fis = new FileInputStream(file);
         BufferedReader br = new BufferedReader(new InputStreamReader(fis,"UTF-8"));
 
@@ -68,6 +75,10 @@ public class LoadMenuList {
     }
 
     public void splitServiceListData() { //배열 분해 ('\t' 기준)
+        
+         /* Array배열에 저장되어있는 메뉴 리스트를 MenuTable에 넣기 위하여 해당 테이블의 열 갯수대로 나눈다.
+            "\t"를 기준으로 split()메서드를 사용해서 나누어 Array배열에 저장한다. */
+        
         String line;
         for (int i = 0; i < ReadServiceList.size(); i++) {
             line = ReadServiceList.get(i);
