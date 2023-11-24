@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package deu.hms.checkin;
+package deu.hms.clientmanagement;
 
 /**
  *
  * @author 장성열
  */
-public class UserInfoList {
+public class ClientInfoList {
     private String index;
     private String name;
     private String phone;
@@ -22,7 +22,7 @@ public class UserInfoList {
     private String paymentMethod;
     private String checkInStatus;
     
-    public UserInfoList (String index, String name, String phoneNumber, String zipNo, String address, String checkInDate, String checkOutDate, String numberOfGuests, String roomNumber, String costOfStaying,String paymentMethod,  String checkInStatus) {
+    public ClientInfoList (String index, String name, String phoneNumber, String zipNo, String address, String checkInDate, String checkOutDate, String numberOfGuests, String roomNumber, String costOfStaying,String paymentMethod,  String checkInStatus) {
         
         this.index = index;
         this.name = name;

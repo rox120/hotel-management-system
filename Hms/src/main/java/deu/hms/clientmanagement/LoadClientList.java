@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package deu.hms.checkin;
+package deu.hms.clientmanagement;
 
 /**
  *
@@ -26,14 +26,14 @@ import javax.swing.table.DefaultTableModel;
 import java.nio.charset.StandardCharsets;
 
 
-public class LoadUserList {
+public class LoadClientList {
     private ArrayList<String> readUserInfo = new ArrayList<>();
-    private ArrayList<UserInfoList> UserInfo = new ArrayList<>();
+    private ArrayList<ClientInfoList> UserInfo = new ArrayList<>();
     
     private final String path = System.getProperty("user.dir");
     private final String filePath = path + "/clientInfo.txt";
     
-    public LoadUserList(){
+    public LoadClientList(){
         readUserFileData(filePath);
         splitUserFileData();
     }
@@ -61,11 +61,11 @@ public class LoadUserList {
         for (int i = 0; i < readUserInfo.size(); i++) {
             line = readUserInfo.get(i);
             String[] str = line.split("\t");
-            UserInfo.add(new UserInfoList(str[0], str[1], str[2], str[3], str[4], str[5], str[6], str[7], str[8], str[9], str[10],str[11]));
+            UserInfo.add(new ClientInfoList(str[0], str[1], str[2], str[3], str[4], str[5], str[6], str[7], str[8], str[9], str[10],str[11]));
         }
     }
     
-    public ArrayList<UserInfoList> returnUserInfo() throws IOException {
+    public ArrayList<ClientInfoList> returnUserInfo() throws IOException {
         return UserInfo;
     }
 }

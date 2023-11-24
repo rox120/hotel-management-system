@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package deu.hms.checkin;
+package deu.hms.clientmanagement;
 
 /**
  *
@@ -33,12 +33,12 @@ import java.time.format.DateTimeFormatter;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-public class Checkin extends javax.swing.JFrame {
+public class ClientManagement extends javax.swing.JFrame {
 
     /**
      * Creates new form Checkin
      */
-    public Checkin() {
+    public ClientManagement() {
         initComponents();//초기화
         setLocationRelativeTo(null);//창 띄울때 가운데에서 띄움
     }
@@ -48,11 +48,11 @@ public class Checkin extends javax.swing.JFrame {
     private final String filePath3 = path + "/feedbackList.txt";
     
     public void serchReservationData() {//예약자 검색
-        ArrayList<UserInfoList> userInfo = new ArrayList<>();
+        ArrayList<ClientInfoList> userInfo = new ArrayList<>();
         DefaultTableModel reservationTableModel = (DefaultTableModel) ReservationListTable.getModel();
 
         try {
-            LoadUserList fileMgmt = new LoadUserList();
+            LoadClientList fileMgmt = new LoadClientList();
             userInfo = fileMgmt.returnUserInfo();
             int j = 0;
             // 데이터를 담을 2차원 배열 생성
@@ -95,7 +95,6 @@ public class Checkin extends javax.swing.JFrame {
             SetTableWidth();
         } catch (IOException e) {
         }
-
     }
     
     public int getFoodRevenue(String roomnumber) throws FileNotFoundException {
@@ -117,7 +116,7 @@ public class Checkin extends javax.swing.JFrame {
             }
             br.close();
         } catch (IOException ex) {
-            Logger.getLogger(Checkin.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClientManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
         return foodRevenue;
     }
@@ -183,7 +182,6 @@ public class Checkin extends javax.swing.JFrame {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return SR;
     }
 
@@ -237,12 +235,6 @@ public class Checkin extends javax.swing.JFrame {
                 {null, null, null, "", null, null, null},
                 {null, null, null, "", null, null, null},
                 {null, null, null, "", null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null}
             },
             new String [] {
@@ -453,6 +445,7 @@ public class Checkin extends javax.swing.JFrame {
                     // 특정 행일 경우, 수정할 데이터로 변경
                     columns = line.split("\t");
                     columns[columns.length - 1] = replacementData;//체크인유무를 변경
+                    
                     line = reWriteLine(columns);
                     sb.append(line).append("\n");
 
@@ -470,6 +463,7 @@ public class Checkin extends javax.swing.JFrame {
             writer.flush();
             writer.close();
             serchReservationData();
+            JOptionPane.showMessageDialog(null,"체크인 되었습니다.");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -514,6 +508,9 @@ public class Checkin extends javax.swing.JFrame {
         // 입력내용 저장 버튼
         modifyFile(filePath2,ReservationListTable,SpecialRequests);
         modifyFile(filePath3,ReservationListTable,Feedback);
+        JOptionPane.showMessageDialog(null,"입력내용이 저장되었습니다.");
+        SpecialRequests.setText("");
+        Feedback.setText("");
     }//GEN-LAST:event_SaveTextContentButtonActionPerformed
     
     public void modifyFile(String filepath,JTable targetTable, JTextField targetField){
@@ -575,7 +572,7 @@ public class Checkin extends javax.swing.JFrame {
             }
             br.close();
         } catch (IOException ex) {
-            Logger.getLogger(Checkin.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClientManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
         return oneDayCost;
     }
@@ -598,7 +595,7 @@ public class Checkin extends javax.swing.JFrame {
         if (Integer.parseInt(time) >= 11) {try {                            //현재시간이 11시를 넘으면
             additionalcost = Integer.parseInt(setoneDayCost(roomnumber));   //추가요금을 1박 요금으로 변경
             } catch (FileNotFoundException ex) {
-                Logger.getLogger(Checkin.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ClientManagement.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return additionalcost;
@@ -655,7 +652,7 @@ public class Checkin extends javax.swing.JFrame {
 
             serchReservationData();//테이블 업데이트
             if(additionalCost!=0){
-                additionalCostMessage="11시가 넘어 추가요금이 객실요금에 청구되었습니다.";
+                additionalCostMessage="11시가 넘어 추가요금"+additionalCost+"원이 객실요금에 추가되었습니다.";
             }
             JOptionPane.showMessageDialog(null,
                     additionalCostMessage+"\n"+"객실요금   " + roomRevenue + "원\n"
@@ -707,14 +704,62 @@ public class Checkin extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Checkin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClientManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Checkin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClientManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Checkin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClientManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Checkin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClientManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -735,7 +780,7 @@ public class Checkin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Checkin().setVisible(true);
+                new ClientManagement().setVisible(true);
             }
         });
     }
