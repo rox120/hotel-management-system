@@ -48,6 +48,8 @@ public class HotelStatsJFrame extends javax.swing.JFrame {
     
     public void setStartDateValue(String startDate) {
         
+        startDateValue = 0;
+        
         String[] dateValues = startDate.split("-");
         
         for (int i = 0; i < dateValues.length; ++i) {
@@ -57,6 +59,8 @@ public class HotelStatsJFrame extends javax.swing.JFrame {
     }
     
     public void setEndDateValue(String endDate) {
+        
+        endDateValue = 0;
         
         String[] dateValues = endDate.split("-");
         
@@ -171,6 +175,8 @@ public class HotelStatsJFrame extends javax.swing.JFrame {
         
         setStartDateValue(getStartDate());
         setEndDateValue(getEndDate());
+        System.out.println(startDateValue);
+        System.out.println(endDateValue);
         
         ArrayList<BookingInfo> bookingInfo;
         try {
@@ -207,7 +213,7 @@ public class HotelStatsJFrame extends javax.swing.JFrame {
             while ((line = br.readLine()) != null) {
                 
                 columns = line.split("\t");
-                if (calcOrderListDateValue(columns[0]) >= startDateValue || calcOrderListDateValue(columns[0]) <= endDateValue) {
+                if (calcOrderListDateValue(columns[0]) >= startDateValue && calcOrderListDateValue(columns[0]) <= endDateValue) {
                     
                     foodRevenue += Integer.parseInt(columns[5]);
                 }
