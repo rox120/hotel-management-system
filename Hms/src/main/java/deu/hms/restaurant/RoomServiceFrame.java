@@ -348,7 +348,7 @@ public class RoomServiceFrame extends javax.swing.JFrame {
         DefaultComboBoxModel modleC = (DefaultComboBoxModel) SelectRoom.getModel();
         modelA.setNumRows(0);
         modelB.setNumRows(0);
-        new LoadServiceList(modelA, service, MenuTable.getColumnCount());
+        new LoadMenuList(modelA, service, MenuTable.getColumnCount());
         new LoadRoomNum(modleC);
         pay = null;
         roomNum = null;

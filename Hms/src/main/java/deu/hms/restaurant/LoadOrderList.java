@@ -46,7 +46,7 @@ public class LoadOrderList {
                 }
             }
         } catch (IOException ex) {
-            Logger.getLogger(LoadServiceList.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LoadMenuList.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
