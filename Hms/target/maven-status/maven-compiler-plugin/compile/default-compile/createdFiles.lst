@@ -59,6 +59,7 @@ deu\hms\reservation\ReservationManagementJFrame$5.class
 deu\hms\manageinfo\hotelrestaurant\ModifyRestDialog.class
 deu\hms\restaurant\RestaurantFrame$11.class
 deu\hms\login\UserFrame$6.class
+deu\hms\CheckInOut\CheckInOut$18.class
 deu\hms\restaurant\RoomServiceFrame$5.class
 deu\hms\report\ExceptReportFrame$1.class
 deu\hms\manageinfo\hotelaccounts\AccountsInfoList.class
@@ -98,6 +99,7 @@ deu\hms\manageinfo\hotelroom\ModifyRoomDialog$2.class
 deu\hms\reservation\ReservationManagementJFrame$14.class
 deu\hms\reservation\ReservationManagementJFrame$24.class
 deu\hms\manageinfo\hotelrestaurant\ModifyRestFrame$4.class
+deu\hms\CheckInOut\CheckInOut$17.class
 deu\hms\reservation\ReservationManagementJFrame$34.class
 deu\hms\restaurant\LoadRoomNum.class
 deu\hms\restaurant\RestaurantFrame$2.class

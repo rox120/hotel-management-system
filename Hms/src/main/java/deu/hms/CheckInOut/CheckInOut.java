@@ -203,6 +203,11 @@ public class CheckInOut extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         deleteOkButton = new javax.swing.JButton();
         disposeButton2 = new javax.swing.JButton();
+        checkinDialog = new javax.swing.JDialog();
+        warningLabel1 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        deleteOkButton1 = new javax.swing.JButton();
+        disposeButton3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         CheckinButton = new javax.swing.JButton();
         BackButton = new javax.swing.JButton();
@@ -251,16 +256,16 @@ public class CheckInOut extends javax.swing.JFrame {
                 .addContainerGap(113, Short.MAX_VALUE)
                 .addGroup(checkoutDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, checkoutDialogLayout.createSequentialGroup()
+                        .addComponent(warningLabel)
+                        .addGap(178, 178, 178))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, checkoutDialogLayout.createSequentialGroup()
                         .addGroup(checkoutDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(checkoutDialogLayout.createSequentialGroup()
                                 .addComponent(deleteOkButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(disposeButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel5))
-                        .addGap(112, 112, 112))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, checkoutDialogLayout.createSequentialGroup()
-                        .addComponent(warningLabel)
-                        .addGap(185, 185, 185))))
+                        .addGap(102, 102, 102))))
         );
         checkoutDialogLayout.setVerticalGroup(
             checkoutDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,6 +278,61 @@ public class CheckInOut extends javax.swing.JFrame {
                 .addGroup(checkoutDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(deleteOkButton)
                     .addComponent(disposeButton2))
+                .addContainerGap(64, Short.MAX_VALUE))
+        );
+
+        checkinDialog.setMinimumSize(new java.awt.Dimension(400, 250));
+
+        warningLabel1.setFont(new java.awt.Font("맑은 고딕", 1, 18)); // NOI18N
+        warningLabel1.setText("경고");
+
+        jLabel6.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        jLabel6.setText("정말 체크인 하시겠습니까?");
+
+        deleteOkButton1.setText("예");
+        deleteOkButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteOkButton1ActionPerformed(evt);
+            }
+        });
+
+        disposeButton3.setText("아니오");
+        disposeButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                disposeButton3ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout checkinDialogLayout = new javax.swing.GroupLayout(checkinDialog.getContentPane());
+        checkinDialog.getContentPane().setLayout(checkinDialogLayout);
+        checkinDialogLayout.setHorizontalGroup(
+            checkinDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(checkinDialogLayout.createSequentialGroup()
+                .addContainerGap(117, Short.MAX_VALUE)
+                .addGroup(checkinDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, checkinDialogLayout.createSequentialGroup()
+                        .addComponent(warningLabel1)
+                        .addGap(178, 178, 178))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, checkinDialogLayout.createSequentialGroup()
+                        .addGroup(checkinDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(checkinDialogLayout.createSequentialGroup()
+                                .addComponent(deleteOkButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(disposeButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(102, 102, 102))))
+        );
+        checkinDialogLayout.setVerticalGroup(
+            checkinDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(checkinDialogLayout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addComponent(warningLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel6)
+                .addGap(24, 24, 24)
+                .addGroup(checkinDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(deleteOkButton1)
+                    .addComponent(disposeButton3))
                 .addContainerGap(64, Short.MAX_VALUE))
         );
 
@@ -496,52 +556,13 @@ public class CheckInOut extends javax.swing.JFrame {
 
     private void CheckinButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckinButtonActionPerformed
         //체크인버튼
+        checkinDialog.setVisible(true);
         int selectedrow = ReservationListTable.getSelectedRow();
         if (selectedrow == -1) {
             JOptionPane.showMessageDialog(null, "고객을 선택해주세요.", "에러", JOptionPane.ERROR_MESSAGE);
         } else {
-            Object targetIndex;
-            int selectedRow = ReservationListTable.getSelectedRow();
-            targetIndex = ReservationListTable.getValueAt(selectedRow, 0);
-            String[] columns = null;
-
-            String replacementData = "체크인"; // 체크인유무를 "체크인"으로 변경
-
-            try {
-                File file = new File(filePath);
-                BufferedReader br = new BufferedReader(new FileReader(file));
-                StringBuilder sb = new StringBuilder();
-
-                // 파일의 내용을 읽어오면서 수정할 부분을 찾음
-                String line;
-                int currentIndex = 1;
-                while ((line = br.readLine()) != null) {
-                    if (currentIndex == Integer.parseInt((String) targetIndex)) {
-                        // 특정 행일 경우, 수정할 데이터로 변경
-                        columns = line.split("\t");
-                        columns[columns.length - 1] = replacementData;//체크인유무를 변경
-
-                        line = reWriteLine(columns);
-                        sb.append(line).append("\n");
-                        
-                    } else {
-                        // 나머지 행은 그대로 유지
-                        sb.append(line).append("\n");
-                    }
-                    ++currentIndex;
-                }
-                br.close();
-
-                // 수정된 내용을 파일에 다시 쓰고 저장
-                BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-                writer.write(sb.toString());
-                writer.flush();
-                writer.close();
-                serchReservationData();
-                JOptionPane.showMessageDialog(null, "체크인 되었습니다.");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            checkinDialog.setVisible(true);
+            checkoutDialog.setLocationRelativeTo(null);
         }
     }//GEN-LAST:event_CheckinButtonActionPerformed
     private String reWriteLine(String[] columns) {//유저리스트
@@ -685,9 +706,13 @@ public class CheckInOut extends javax.swing.JFrame {
     }
     private void CheckoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckoutButtonActionPerformed
         //체크아웃 버튼
-        
+        int selectedrow = ReservationListTable.getSelectedRow();
+        if (selectedrow == -1) {
+            JOptionPane.showMessageDialog(null, "고객을 선택해주세요.", "에러", JOptionPane.ERROR_MESSAGE);
+        } else{
         checkoutDialog.setVisible(true);
         checkoutDialog.setLocationRelativeTo(null);
+        }
     }//GEN-LAST:event_CheckoutButtonActionPerformed
 
     private void ReservationModificationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReservationModificationButtonActionPerformed
@@ -732,10 +757,7 @@ public class CheckInOut extends javax.swing.JFrame {
     private void deleteOkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteOkButtonActionPerformed
         
         
-        int selectedrow = ReservationListTable.getSelectedRow();
-        if (selectedrow == -1) {
-            JOptionPane.showMessageDialog(null, "고객을 선택해주세요.", "에러", JOptionPane.ERROR_MESSAGE);
-        } else{
+        
             Object targetIndex;
             int selectedRow = ReservationListTable.getSelectedRow();
             targetIndex = ReservationListTable.getValueAt(selectedRow, 0); //선택된 셀의 0번째 값 고유번호를 저장
@@ -795,13 +817,64 @@ public class CheckInOut extends javax.swing.JFrame {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
         checkoutDialog.setVisible(false);
     }//GEN-LAST:event_deleteOkButtonActionPerformed
 
     private void disposeButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disposeButton2ActionPerformed
         checkoutDialog.setVisible(false);
     }//GEN-LAST:event_disposeButton2ActionPerformed
+
+    private void deleteOkButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteOkButton1ActionPerformed
+        // TODO add your handling code here:
+        Object targetIndex;
+            int selectedRow = ReservationListTable.getSelectedRow();
+            targetIndex = ReservationListTable.getValueAt(selectedRow, 0);
+            String[] columns = null;
+
+            String replacementData = "체크인"; // 체크인유무를 "체크인"으로 변경
+
+            try {
+                File file = new File(filePath);
+                BufferedReader br = new BufferedReader(new FileReader(file));
+                StringBuilder sb = new StringBuilder();
+
+                // 파일의 내용을 읽어오면서 수정할 부분을 찾음
+                String line;
+                int currentIndex = 1;
+                while ((line = br.readLine()) != null) {
+                    if (currentIndex == Integer.parseInt((String) targetIndex)) {
+                        // 특정 행일 경우, 수정할 데이터로 변경
+                        columns = line.split("\t");
+                        columns[columns.length - 1] = replacementData;//체크인유무를 변경
+
+                        line = reWriteLine(columns);
+                        sb.append(line).append("\n");
+                        
+                    } else {
+                        // 나머지 행은 그대로 유지
+                        sb.append(line).append("\n");
+                    }
+                    ++currentIndex;
+                }
+                br.close();
+
+                // 수정된 내용을 파일에 다시 쓰고 저장
+                BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+                writer.write(sb.toString());
+                writer.flush();
+                writer.close();
+                serchReservationData();
+                JOptionPane.showMessageDialog(null, "체크인 되었습니다.");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        checkinDialog.setVisible(false);
+    }//GEN-LAST:event_deleteOkButton1ActionPerformed
+
+    private void disposeButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disposeButton3ActionPerformed
+        // TODO add your handling code here:
+        checkinDialog.setVisible(false);
+    }//GEN-LAST:event_disposeButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1106,15 +1179,20 @@ public class CheckInOut extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> SerchComboBox;
     private javax.swing.JTextField SerchTextField;
     private javax.swing.JTextField SpecialRequests;
+    private javax.swing.JDialog checkinDialog;
     private javax.swing.JDialog checkoutDialog;
     private javax.swing.JButton deleteOkButton;
+    private javax.swing.JButton deleteOkButton1;
     private javax.swing.JButton disposeButton2;
+    private javax.swing.JButton disposeButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel warningLabel;
+    private javax.swing.JLabel warningLabel1;
     // End of variables declaration//GEN-END:variables
 }
