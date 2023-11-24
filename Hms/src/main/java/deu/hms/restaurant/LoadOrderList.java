@@ -25,7 +25,9 @@ public class LoadOrderList {
     ArrayList<String> ReadOrderList = new ArrayList<>(); //일반 배열
     ArrayList<ServiceListInfo> OrderList = new ArrayList<>(); // 객체 배열
 
-    public LoadOrderList(DefaultTableModel model) {
+
+    
+    public LoadOrderList(DefaultTableModel model, String Room) {
 
         String paths = System.getProperty("user.dir");
         File order = new File(paths + "/order_list.txt");
@@ -35,11 +37,13 @@ public class LoadOrderList {
             splitServiceListData();
 
             for (int i = 0; i < OrderList.size(); i++) {
-                model.addRow(new Object[]{
-                    OrderList.get(i).getService(),
-                    OrderList.get(i).getMenu(),
-                    OrderList.get(i).getPrice()
-                });
+                if(Room.equals(OrderList.get(i).getMenu())) {
+                    model.addRow(new Object[]{
+                        OrderList.get(i).getService(),
+                        OrderList.get(i).getMenu(),
+                        OrderList.get(i).getPrice()
+                    });
+                }
             }
         } catch (IOException ex) {
             Logger.getLogger(LoadServiceList.class.getName()).log(Level.SEVERE, null, ex);

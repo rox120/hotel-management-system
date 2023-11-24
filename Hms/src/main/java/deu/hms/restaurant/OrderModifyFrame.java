@@ -25,24 +25,36 @@ import javax.swing.table.DefaultTableModel;
  */
 public class OrderModifyFrame extends javax.swing.JFrame {
 
+    private String Room;
     private String SR;
     private ArrayList<String> Order = new ArrayList<>();
-    
+
     /**
      * Creates new form OrderModify
      */
     public OrderModifyFrame() {
         initComponents();
         initServiceList();
+        setLocationRelativeTo(null);
     }
 
     private void initServiceList() {
         DefaultTableModel modelA = (DefaultTableModel) jTable1.getModel();
-        new LoadOrderList(modelA);
         SR = null;
     }
 
-    @SuppressWarnings("unchecked")
+    public void initServiceList(String Room) {
+        this.Room = Room;
+        DefaultTableModel modelA = (DefaultTableModel) jTable1.getModel();
+        new LoadOrderList(modelA, Room);
+         SR = null;
+        if (modelA.getRowCount() == 0) {
+            dispose();
+            JOptionPane.showMessageDialog(null, "주문한 것이 없습니다.", "에러", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+        @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -55,6 +67,7 @@ public class OrderModifyFrame extends javax.swing.JFrame {
         Cancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("맑은 고딕", 1, 20)); // NOI18N
         jLabel1.setText("주문 확인/수정");
@@ -101,40 +114,46 @@ public class OrderModifyFrame extends javax.swing.JFrame {
         }
 
         Cancel.setText("취소");
+        Cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CancelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(43, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(Cancel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Modify)))
-                .addGap(43, 43, 43))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(201, 201, 201)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(Cancel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(Modify))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(22, 22, 22))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(184, 184, 184))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addGap(21, 21, 21)
                 .addComponent(jLabel1)
-                .addGap(33, 33, 33)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(27, 27, 27)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Modify)
                     .addComponent(Cancel))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(7, Short.MAX_VALUE))
         );
 
         pack();
@@ -145,13 +164,16 @@ public class OrderModifyFrame extends javax.swing.JFrame {
         String b = TextArea.getText();
         Order.set(a, b);
         WriteModify();
-        new OrderModifyFrame().setVisible(true);
         dispose();
     }//GEN-LAST:event_ModifyActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         TextArea.setText(getTextArea());
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelActionPerformed
+        dispose();
+    }//GEN-LAST:event_CancelActionPerformed
 
     public String getTextArea() {//선택된 셀의 특별요청을 리턴하는 함수
 
@@ -220,6 +242,10 @@ public class OrderModifyFrame extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(OrderModifyFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

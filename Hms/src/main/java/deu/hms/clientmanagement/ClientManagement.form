@@ -26,52 +26,50 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="239" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="239" max="-2" attributes="0"/>
+              <EmptySpace min="239" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="SpecialRequests" min="-2" pref="557" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
+                                  <Component id="BackButton" max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                                  <Component id="ReservationModificationButton" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="OrderList" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="SaveTextContentButton" min="-2" pref="106" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="162" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
                                   <Component id="SerchComboBox" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                                   <Component id="SerchTextField" min="-2" pref="313" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="SerchButton" min="-2" pref="106" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Component id="BackButton" max="32767" attributes="0"/>
-                                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                                          <Component id="ReservationModificationButton" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="SaveTextContentButton" min="-2" pref="106" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="CheckoutButton" min="-2" pref="110" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                                          <Component id="CheckinButton" min="-2" pref="110" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="jScrollPane1" alignment="0" min="-2" pref="557" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="jScrollPane1" alignment="0" min="-2" pref="557" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="SpecialRequests" alignment="0" min="-2" pref="557" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                      <EmptySpace pref="50" max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                          <Component id="Feedback" min="-2" pref="557" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="CheckoutButton" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="CheckinButton" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                              <Component id="Feedback" min="-2" pref="558" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
@@ -85,12 +83,10 @@
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="SerchTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="SerchComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="SerchButton" alignment="0" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="SerchTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="SerchComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="SerchButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
@@ -108,9 +104,10 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="BackButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="CheckinButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="CheckoutButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="SaveTextContentButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="ReservationModificationButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="OrderList" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="CheckoutButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
           </Group>
@@ -298,6 +295,14 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="&#xd53c;&#xb4dc;&#xbc31;"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="OrderList">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#xc11c;&#xbe44;&#xc2a4; &#xd655;&#xc778;"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="OrderListActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
