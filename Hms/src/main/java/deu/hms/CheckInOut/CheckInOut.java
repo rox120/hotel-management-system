@@ -42,7 +42,7 @@ public class CheckInOut extends javax.swing.JFrame {
     public CheckInOut() {
         initComponents();//초기화
         setLocationRelativeTo(null);//창 띄울때 가운데에서 띄움
-        jLabel1.setText("체크인 체크아");
+        jLabel1.setText("체크인 체크아웃");
     }
     private final String path = System.getProperty("user.dir");
     private final String filePath = path + "/clientInfo.txt";
