@@ -7,10 +7,13 @@ deu\hms\reservation\BookingInfo.class
 deu\hms\restaurant\ServiceRvFrame$1.class
 deu\hms\login\UserFrame$1.class
 deu\hms\restaurant\RestaurantFrame.class
+deu\hms\report\ExceptReportFrame.class
 deu\hms\restaurant\RestaurantFrame$13.class
 deu\hms\restaurant\RestaurantFrame$3.class
 deu\hms\reservation\ReservationManagementJFrame$7.class
+deu\hms\manageinfo\hotelaccounts\ModifyAccountsDialog.class
 deu\hms\login\MasterFrame$3.class
+deu\hms\manageinfo\hotelaccounts\ModifyAccountsFrame$3.class
 deu\hms\restaurant\ServiceRvFrame$4.class
 deu\hms\reservation\ReservationManagementJFrame$28.class
 deu\hms\reservation\ReservationManagementJFrame$4.class
@@ -20,6 +23,7 @@ deu\hms\manageinfo\HotelManageInfoFrame$1.class
 deu\hms\checkin\Checkin$3.class
 deu\hms\checkin\Checkin$11.class
 deu\hms\reservation\ReservationManagementJFrame$33.class
+deu\hms\manageinfo\hotelaccounts\ModifyAccountsDialog$2.class
 deu\hms\login\LoginFrame$2.class
 deu\hms\reservation\ReservationManagementJFrame$13.class
 deu\hms\manageinfo\HotelManageInfoFrame.class
@@ -27,7 +31,9 @@ deu\hms\manageinfo\hotelrestaurant\ModifyRestFrame.class
 deu\hms\manageinfo\hotelroom\ModifyRoomFrame$2.class
 deu\hms\restaurant\ServiceListInfo.class
 deu\hms\reservation\ReservationManagementJFrame$25.class
+deu\hms\report\ExceptReportFrame$2.class
 deu\hms\reservation\ReservationManagementJFrame$10.class
+deu\hms\manageinfo\HotelManageInfoFrame$4.class
 deu\hms\reservation\ReservationManagementJFrame$1.class
 deu\hms\reservation\ReservationManagementJFrame.class
 deu\hms\checkin\Checkin.class
@@ -49,6 +55,8 @@ deu\hms\reservation\ReservationManagementJFrame$5.class
 deu\hms\manageinfo\hotelrestaurant\ModifyRestDialog.class
 deu\hms\restaurant\RestaurantFrame$11.class
 deu\hms\restaurant\RoomServiceFrame$5.class
+deu\hms\report\ExceptReportFrame$1.class
+deu\hms\manageinfo\hotelaccounts\AccountsInfoList.class
 deu\hms\checkin\Checkin$12.class
 deu\hms\manageinfo\HotelManageInfoFrame$3.class
 deu\hms\restaurant\OrderModifyFrame$2.class
@@ -66,6 +74,7 @@ deu\hms\manageinfo\hotelrestaurant\ModifyRestFrame$5.class
 deu\hms\reservation\ReservationManagementJFrame$18.class
 deu\hms\restaurant\OrderModifyFrame$3.class
 deu\hms\checkin\Checkin$5.class
+deu\hms\checkin\Checkin$13.class
 deu\hms\reservation\ReservationManagementJFrame$35.class
 deu\hms\manageinfo\hotelaccounts\ModifyAccountsFrame$2.class
 deu\hms\manageinfo\hotelroom\ModifyRoomFrame$3.class
@@ -90,11 +99,13 @@ deu\hms\reservation\ReservationManagementJFrame$34.class
 deu\hms\restaurant\LoadRoomNum.class
 deu\hms\restaurant\RestaurantFrame$2.class
 deu\hms\restaurant\OrderModifyFrame$4.class
+deu\hms\manageinfo\hotelaccounts\ModifyAccounts.class
 deu\hms\reservation\ReservationManagementJFrame$11.class
 deu\hms\restaurant\RoomServiceFrame$6.class
 deu\hms\restaurant\RoomServiceFrame$3.class
 deu\hms\reservation\ReservationManagementJFrame$21.class
 deu\hms\reservation\ReservationManagementJFrame$31.class
+deu\hms\manageinfo\hotelaccounts\ModifyAccountsFrame$4.class
 deu\hms\checkin\Checkin$1.class
 deu\hms\checkin\SpecialRequestsList.class
 deu\hms\login\MasterFrame$1.class
@@ -110,7 +121,9 @@ deu\hms\restaurant\RoomServiceFrame$10.class
 deu\hms\checkin\Checkin$7.class
 deu\hms\restaurant\RestaurantFrame$12.class
 deu\hms\reservation\FileManagement.class
+deu\hms\manageinfo\hotelaccounts\ModifyAccountsDialog$1.class
 deu\hms\restaurant\WriteReservation.class
+deu\hms\manageinfo\hotelaccounts\ModifyAccountsFrame$5.class
 deu\hms\reservation\ReservationManagementJFrame$32.class
 deu\hms\manageinfo\HotelStatsJFrame$1.class
 deu\hms\reservation\ReservationManagementJFrame$8.class
@@ -138,6 +151,7 @@ deu\hms\manageinfo\hotelaccounts\ModifyAccountsFrame.class
 deu\hms\manageinfo\hotelrestaurant\ModifyRestFrame$2.class
 deu\hms\restaurant\LoadOrderList.class
 deu\hms\restaurant\RoomServiceFrame$9.class
+deu\hms\manageinfo\hotelaccounts\ModifyAccountsFrame$6.class
 deu\hms\restaurant\ServiceRvFrame$2.class
 deu\hms\reservation\ReservationManagementJFrame$9.class
 deu\hms\manageinfo\HotelStatsJFrame$2.class

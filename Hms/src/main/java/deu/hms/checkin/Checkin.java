@@ -672,11 +672,14 @@ public class Checkin extends javax.swing.JFrame {
         ReservationManagementJFrame Mod = new ReservationManagementJFrame();
         Mod.setVisible(true);
     }//GEN-LAST:event_ReservationModificationButtonActionPerformed
-
+    public String selectedRoomNumber="0";
     private void ReservationListTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReservationListTableMouseClicked
-        // 선택된 셀의 특별요청을 텍스트필드에 뛰우는 함수
+        // 선택된 셀의 특별요청을 텍스트필드에 띄움
         SpecialRequests.setText(getSpecialRequestORFeedback(filePath2));
+        // 선택된 셀의 피드백을 텍스트필드에 띄움
         Feedback.setText(getSpecialRequestORFeedback(filePath3));
+        //selectedRoomNumber 에 선택된 셀의 객실호수를 저장
+        selectedRoomNumber=(String) (ReservationListTable.getValueAt(ReservationListTable.getSelectedRow(),2));
     }//GEN-LAST:event_ReservationListTableMouseClicked
 
     private void SpecialRequestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SpecialRequestsActionPerformed
