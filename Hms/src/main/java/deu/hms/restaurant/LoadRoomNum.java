@@ -22,7 +22,7 @@ public final class LoadRoomNum {
     
     private ArrayList<String> ReadRoomNum = new ArrayList<>();
     private ArrayList<String> RoomNum = new ArrayList<>();
-      
+  
     public LoadRoomNum(DefaultComboBoxModel model) {
         
         try {
@@ -39,6 +39,14 @@ public final class LoadRoomNum {
             Logger.getLogger(LoadRoomNum.class.getName()).log(Level.SEVERE, null, ex);
         }
               
+    }
+
+    public ArrayList<String> getRoomNum() {
+        return RoomNum;
+    }
+
+    public void setRoomNum(ArrayList<String> RoomNum) {
+        this.RoomNum = RoomNum;
     }
     
       private void readRoomFile(File file) throws IOException { //메뉴 파일 읽어오기
