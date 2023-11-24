@@ -27,7 +27,7 @@ public class text_reader {
     // 프로젝트 안의 텍스트 파일 경로를 위한 File 객체 생성 
     private File userFile = new File(paths+"/user_list.txt");
     
-    // 생성자 
+    // 생성자   
     public text_reader(){
         readFile(userFile);
         

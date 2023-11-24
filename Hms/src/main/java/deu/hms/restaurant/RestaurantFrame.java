@@ -61,6 +61,7 @@ public class RestaurantFrame extends javax.swing.JFrame {
         Payment = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         Reservation = new javax.swing.JButton();
+        ReservationCheck = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 102, 0));
@@ -211,6 +212,15 @@ public class RestaurantFrame extends javax.swing.JFrame {
             }
         });
 
+        ReservationCheck.setBackground(new java.awt.Color(233, 233, 233));
+        ReservationCheck.setFont(new java.awt.Font("맑은 고딕", 1, 12)); // NOI18N
+        ReservationCheck.setText("예약확인");
+        ReservationCheck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReservationCheckActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -233,7 +243,8 @@ public class RestaurantFrame extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(Reservation, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ReservationCheck, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -252,7 +263,9 @@ public class RestaurantFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(SelectPay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Payment)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Payment)
+                            .addComponent(ReservationCheck))
                         .addContainerGap())
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
@@ -478,6 +491,11 @@ public class RestaurantFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ReservationActionPerformed
 
+    private void ReservationCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReservationCheckActionPerformed
+        CheckRVFrame CR = new CheckRVFrame();
+        CR.setVisible(true);
+    }//GEN-LAST:event_ReservationCheckActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -550,6 +568,7 @@ public class RestaurantFrame extends javax.swing.JFrame {
     private javax.swing.JTable OrderTable;
     private javax.swing.JButton Payment;
     private javax.swing.JButton Reservation;
+    private javax.swing.JButton ReservationCheck;
     private javax.swing.JButton ResetButt;
     private javax.swing.JComboBox<String> SelectPay;
     private javax.swing.JComboBox<String> SelectRoom;
