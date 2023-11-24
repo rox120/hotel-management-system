@@ -4,6 +4,7 @@
  */
 package deu.hms.manageinfo;
 
+import deu.hms.manageinfo.hotelaccounts.ModifyAccountsFrame;
 import deu.hms.manageinfo.hotelroom.ModifyRoomFrame;
 import deu.hms.manageinfo.hotelrestaurant.ModifyRestFrame;
 
@@ -54,6 +55,11 @@ public class HotelManageInfoFrame extends javax.swing.JFrame {
         jLabel1.setText("호텔 정보");
 
         userInfoButton.setText("계정 관리");
+        userInfoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userInfoButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -92,8 +98,8 @@ public class HotelManageInfoFrame extends javax.swing.JFrame {
 
     private void roomInfoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomInfoButtonActionPerformed
         // TODO add your handling code here:
-        ModifyRoomFrame mf = new ModifyRoomFrame();
-        mf.setVisible(true);
+        ModifyRoomFrame rf = new ModifyRoomFrame();
+        rf.setVisible(true);
     }//GEN-LAST:event_roomInfoButtonActionPerformed
 
     private void restButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restButtonActionPerformed
@@ -101,6 +107,12 @@ public class HotelManageInfoFrame extends javax.swing.JFrame {
         ModifyRestFrame rf = new ModifyRestFrame();
         rf.setVisible(true);
     }//GEN-LAST:event_restButtonActionPerformed
+
+    private void userInfoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userInfoButtonActionPerformed
+        // TODO add your handling code here:
+        ModifyAccountsFrame af = new ModifyAccountsFrame();
+        af.setVisible(true);
+    }//GEN-LAST:event_userInfoButtonActionPerformed
 
     /**
      * @param args the command line arguments

@@ -51,6 +51,7 @@ deu\hms\restaurant\RestaurantFrame$11.class
 deu\hms\restaurant\RoomServiceFrame$5.class
 deu\hms\checkin\Checkin$12.class
 deu\hms\manageinfo\HotelManageInfoFrame$3.class
+deu\hms\restaurant\OrderModifyFrame$2.class
 deu\hms\login\LoginFrame.class
 deu\hms\restaurant\RoomServiceFrame.class
 deu\hms\manageinfo\hotelroom\ModifyRoomFrame$4.class
@@ -63,8 +64,8 @@ deu\hms\reservation\ReservationManagementJFrame$23.class
 deu\hms\manageinfo\hotelroom\ModifyRoomDialog$1.class
 deu\hms\manageinfo\hotelrestaurant\ModifyRestFrame$5.class
 deu\hms\reservation\ReservationManagementJFrame$18.class
+deu\hms\restaurant\OrderModifyFrame$3.class
 deu\hms\checkin\Checkin$5.class
-deu\hms\checkin\Checkin$13.class
 deu\hms\reservation\ReservationManagementJFrame$35.class
 deu\hms\manageinfo\hotelaccounts\ModifyAccountsFrame$2.class
 deu\hms\manageinfo\hotelroom\ModifyRoomFrame$3.class
@@ -86,7 +87,9 @@ deu\hms\reservation\ReservationManagementJFrame$24.class
 deu\hms\checkin\Checkin$10.class
 deu\hms\manageinfo\hotelrestaurant\ModifyRestFrame$4.class
 deu\hms\reservation\ReservationManagementJFrame$34.class
+deu\hms\restaurant\LoadRoomNum.class
 deu\hms\restaurant\RestaurantFrame$2.class
+deu\hms\restaurant\OrderModifyFrame$4.class
 deu\hms\reservation\ReservationManagementJFrame$11.class
 deu\hms\restaurant\RoomServiceFrame$6.class
 deu\hms\restaurant\RoomServiceFrame$3.class
@@ -98,6 +101,8 @@ deu\hms\login\MasterFrame$1.class
 deu\hms\login\MasterFrame.class
 deu\hms\manageinfo\hotelroom\ModifyRoomDialog.class
 deu\hms\restaurant\LoadServiceList.class
+deu\hms\restaurant\OrderModifyFrame.class
+deu\hms\restaurant\OrderModifyFrame$1.class
 deu\hms\manageinfo\hotelaccounts\ModifyAccountsFrame$1.class
 deu\hms\restaurant\ServiceRvFrame$3.class
 deu\hms\login\MasterFrame$4.class
@@ -131,6 +136,7 @@ deu\hms\restaurant\RoomServiceFrame$12.class
 deu\hms\manageinfo\hotelroom\ModifyRoom.class
 deu\hms\manageinfo\hotelaccounts\ModifyAccountsFrame.class
 deu\hms\manageinfo\hotelrestaurant\ModifyRestFrame$2.class
+deu\hms\restaurant\LoadOrderList.class
 deu\hms\restaurant\RoomServiceFrame$9.class
 deu\hms\restaurant\ServiceRvFrame$2.class
 deu\hms\reservation\ReservationManagementJFrame$9.class

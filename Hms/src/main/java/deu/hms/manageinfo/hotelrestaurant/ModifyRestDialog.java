@@ -101,7 +101,7 @@ public class ModifyRestDialog extends JDialog{
             JOptionPane.showMessageDialog(this, "텍스트 필드를 채워주십시오. ", "경고", JOptionPane.WARNING_MESSAGE);
             errnumb = -1;
         }
-    return errnumb;
+        return errnumb;
     }
     
     

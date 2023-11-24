@@ -1,7 +1,9 @@
 package deu.hms.reservation;
 
+import deu.hms.manageinfo.HotelStatsJFrame;
 import javax.swing.JOptionPane;
 import deu.hms.reservation.ReservationManagementJFrame;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -9,6 +11,7 @@ import deu.hms.reservation.ReservationManagementJFrame;
  */
 public class Validation {
     private ReservationManagementJFrame reservationManager = new ReservationManagementJFrame();
+    private HotelStatsJFrame statsManager = new HotelStatsJFrame();
     
     public Validation(ReservationManagementJFrame reservationManager) {
         this.reservationManager = reservationManager;
@@ -21,6 +24,18 @@ public class Validation {
             JOptionPane.showMessageDialog(reservationManager.getRegistDialog(), "날짜를 모두 선택하십시오.", "경고", JOptionPane.WARNING_MESSAGE);
             return false;
         }
+        
+        if (!isDateValidated()) {
+            
+            JOptionPane.showMessageDialog(reservationManager.getRegistDialog(), "체크아웃이 체크인보다 느려야 합니다.", "경고", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        
+        if (!isCheckInAfterToday()) {
+            
+            JOptionPane.showMessageDialog(reservationManager.getRegistDialog(), "예약은 내일 날짜부터 가능합니다.", "경고", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
 
         if (!isNumberOfGeustsChosen()) {
 
@@ -28,9 +43,9 @@ public class Validation {
             return false;
         }
 
-        if (!isRoomNumberFilled()) {
+        if (!isRoomNumberFilled() || !isRoomNumberExists()) {
 
-            JOptionPane.showMessageDialog(reservationManager.getRegistDialog(), "호실을 입력하십시오.", "경고", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(reservationManager.getRegistDialog(), "올바른 방 번호를 입력하십시오.\n숫자만 입력 가능합니다.", "경고", JOptionPane.WARNING_MESSAGE);
             return false;
         }
 
@@ -69,9 +84,9 @@ public class Validation {
             return false;
         }
         
-        if (!isRoomNumberFilled()) {
+        if (!isRoomNumberFilled() || !isRoomNumberExists()) {
             
-            JOptionPane.showMessageDialog(reservationManager.getRegistDialog(), "호실을 입력하십시오.", "경고", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(reservationManager.getRegistDialog(), "올바른 방 번호를 입력하십시오.\n숫자만 입력 가능합니다.", "경고", JOptionPane.WARNING_MESSAGE);
             return false;
         }
         
@@ -107,6 +122,16 @@ public class Validation {
         return reservationManager.getCheckInDate().length() > 0 && reservationManager.getCheckOutDate().length() > 0;
     }
     
+    private boolean isDateValidated() {
+        
+        return statsManager.calcDateValue(reservationManager.getCheckInDate()) < statsManager.calcDateValue(reservationManager.getCheckOutDate());
+    }
+    
+    private boolean isCheckInAfterToday() {
+        
+        return statsManager.calcDateValue(reservationManager.getCheckInDate()) > statsManager.calcTodaysValue();
+    }
+    
     private boolean isNumberOfGeustsChosen() {
         
         return reservationManager.getNumberOfGuests() > 0;
@@ -114,7 +139,15 @@ public class Validation {
     
     private boolean isRoomNumberFilled() {
         
-        return reservationManager.getRoomNumber().length() > 0;
+        return Pattern.matches("^[0-9]*$", reservationManager.getRoomNumber());
+    }
+    
+    private boolean isRoomNumberExists() {
+
+        return Integer.parseInt(reservationManager.getRoomNumber()) > 0 &&
+            Integer.parseInt(reservationManager.getRoomNumber()) < 1011 &&
+            Integer.parseInt(reservationManager.getRoomNumber()) % 100 > 0 && 
+            Integer.parseInt(reservationManager.getRoomNumber()) % 100 < 11;
     }
     
     private boolean isPaymentMethodChecked() {
@@ -130,15 +163,27 @@ public class Validation {
             return false;
         }
 
+        if (!isUpdateDateValidated()) {
+            
+            JOptionPane.showMessageDialog(reservationManager.getRegistDialog(), "체크아웃이 체크인보다 느려야 합니다.", "경고", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        
+        if (!isUpdateCheckInAfterToday()) {
+            
+            JOptionPane.showMessageDialog(reservationManager.getRegistDialog(), "예약은 내일 날짜부터 가능합니다.", "경고", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        
         if (!isUpdateNumberOfGeustsChosen()) {
 
             JOptionPane.showMessageDialog(reservationManager.getUpdateDialog(), "인원수를 선택하십시오.", "경고", JOptionPane.WARNING_MESSAGE);
             return false;
         }
 
-        if (!isUpdateRoomNumberFilled()) {
+        if (!isUpdateRoomNumberFilled() || !isUpdateRoomNumberExists()) {
 
-            JOptionPane.showMessageDialog(reservationManager.getUpdateDialog(), "호실을 입력하십시오.", "경고", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(reservationManager.getUpdateDialog(), "올바른 방 번호를 입력하십시오.\n숫자만 입력 가능합니다.", "경고", JOptionPane.WARNING_MESSAGE);
             return false;
         }
 
@@ -164,6 +209,7 @@ public class Validation {
             JOptionPane.showMessageDialog(reservationManager.getUpdateDialog(), "날짜를 모두 선택하십시오.", "경고", JOptionPane.WARNING_MESSAGE);
             return false;
         }
+        
 
         if (!isUpdateNumberOfGeustsChosen()) {
             
@@ -171,9 +217,9 @@ public class Validation {
             return false;
         }
         
-        if (!isUpdateRoomNumberFilled()) {
+        if (!isUpdateRoomNumberFilled() || !isUpdateRoomNumberExists()) {
             
-            JOptionPane.showMessageDialog(reservationManager.getUpdateDialog(), "호실을 입력하십시오.", "경고", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(reservationManager.getUpdateDialog(), "올바른 방 번호를 입력하십시오.\n숫자만 입력 가능합니다.", "경고", JOptionPane.WARNING_MESSAGE);
             return false;
         }
         
@@ -204,6 +250,16 @@ public class Validation {
         return reservationManager.getUpdateCheckInDate().length() > 0 && reservationManager.getUpdateCheckOutDate().length() > 0;
     }
     
+    private boolean isUpdateDateValidated() {
+        
+        return statsManager.calcDateValue(reservationManager.getUpdateCheckInDate()) < statsManager.calcDateValue(reservationManager.getUpdateCheckOutDate());
+    }
+    
+    private boolean isUpdateCheckInAfterToday() {
+        
+        return statsManager.calcDateValue(reservationManager.getUpdateCheckInDate()) > statsManager.calcTodaysValue();
+    }
+    
     private boolean isUpdateNumberOfGeustsChosen() {
         
         return reservationManager.getUpdateNumberOfGuests() > 0;
@@ -211,11 +267,20 @@ public class Validation {
     
     private boolean isUpdateRoomNumberFilled() {
         
-        return reservationManager.getUpdateRoomNumber().length() > 0;
+        return Pattern.matches("^[0-9]*$", reservationManager.getUpdateRoomNumber());
     }
     
     private boolean isUpdatePaymentMethodChecked() {
         
         return reservationManager.getUpdatePaymentMethod().length() > 0;
+    }
+    
+
+    private boolean isUpdateRoomNumberExists() {
+        
+        return Integer.parseInt(reservationManager.getUpdateRoomNumber()) > 0 &&
+                Integer.parseInt(reservationManager.getUpdateRoomNumber()) < 1100 &&
+                Integer.parseInt(reservationManager.getUpdateRoomNumber()) % 100 > 0 && 
+                Integer.parseInt(reservationManager.getUpdateRoomNumber()) % 100 < 11;
     }
 }

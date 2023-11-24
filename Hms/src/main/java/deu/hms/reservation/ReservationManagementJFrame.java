@@ -191,12 +191,16 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
     
     public String getUpdateCheckInDate() {
         
-        return dateFormat.format(updateCheckInDateChooser.getDate());
+        checkInDate = dateFormat.format(updateCheckInDateChooser.getDate());
+        
+        return checkInDate;
     }
     
     public String getUpdateCheckOutDate() {
         
-        return dateFormat.format(updateCheckOutDateChooser.getDate());
+        checkOutDate = dateFormat.format(updateCheckOutDateChooser.getDate());
+        
+        return checkOutDate;
     }
     
     public int getUpdateNumberOfGuests() {
@@ -836,7 +840,7 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
         updateDialog.setMinimumSize(new java.awt.Dimension(520, 400));
         updateDialog.setSize(new java.awt.Dimension(520, 400));
 
-        updateButton.setText("등록");
+        updateButton.setText("수정");
         updateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateButtonActionPerformed(evt);
@@ -1493,7 +1497,7 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
         
-        // TODO 기존 정보와 바뀐 게 있으면 등록
+        // TODO 버그 고치기
         Object targetIndex;
         int selectedRow = reservationTable.getSelectedRow();
         targetIndex = reservationTable.getValueAt(selectedRow, 0);

@@ -34,11 +34,9 @@ public class ModifyRoomFrame extends javax.swing.JFrame {
     
     public void showRoomData() {
         ArrayList<ModifyRoom> roomData = new ArrayList<>();
-        
         roomTableModel = (DefaultTableModel) roomTable.getModel();
         RoomInfoList ril = new RoomInfoList();
         roomData = ril.getRoomInfo();
-        
 
         Object[][] data = new Object[roomData.size()][4];
         for (int i = 0; i < roomData.size(); ++i) {
