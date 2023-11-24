@@ -47,7 +47,7 @@ public class ClientManagement extends javax.swing.JFrame {
     private final String filePath = path + "/clientInfo.txt";
     private final String filePath2 = path + "/specialRequestsList.txt";
     private final String filePath3 = path + "/feedbackList.txt";
-    
+
     public void serchReservationData() {//예약자 검색
         ArrayList<ClientInfoList> userInfo = new ArrayList<>();
         DefaultTableModel reservationTableModel = (DefaultTableModel) ReservationListTable.getModel();
@@ -97,7 +97,7 @@ public class ClientManagement extends javax.swing.JFrame {
         } catch (IOException e) {
         }
     }
-    
+
     public int getFoodRevenue(String roomnumber) throws FileNotFoundException {
         File file = new File(System.getProperty("user.dir") + "/order_list.txt");
         BufferedReader br = new BufferedReader(new FileReader(file));
@@ -216,7 +216,7 @@ public class ClientManagement extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("맑은 고딕", 1, 24)); // NOI18N
-        jLabel1.setText("체크인/체크아웃");
+        jLabel1.setText("고객관리");
 
         CheckinButton.setText("체크인");
         CheckinButton.addActionListener(new java.awt.event.ActionListener() {
@@ -353,10 +353,6 @@ public class ClientManagement extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(239, 239, 239)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -372,14 +368,13 @@ public class ClientManagement extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(SaveTextContentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(162, 162, 162))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(SerchComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(31, 31, 31)
-                                        .addComponent(SerchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(SerchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(SerchComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(31, 31, 31)
+                                    .addComponent(SerchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(SerchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel2)
                             .addComponent(SpecialRequests, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(50, Short.MAX_VALUE))
@@ -393,6 +388,10 @@ public class ClientManagement extends javax.swing.JFrame {
                                 .addComponent(jLabel4)
                                 .addComponent(Feedback, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(280, 280, 280)
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -434,47 +433,52 @@ public class ClientManagement extends javax.swing.JFrame {
 
     private void CheckinButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckinButtonActionPerformed
         //체크인버튼
-        Object targetIndex;
-        int selectedRow = ReservationListTable.getSelectedRow();
-        targetIndex = ReservationListTable.getValueAt(selectedRow, 0);
-        String[] columns = null;
+        int selectedrow = ReservationListTable.getSelectedRow();
+        if (selectedrow == -1) {
+            JOptionPane.showMessageDialog(null, "고객을 선택해주세요.", "에러", JOptionPane.ERROR_MESSAGE);
+        } else {
+            Object targetIndex;
+            int selectedRow = ReservationListTable.getSelectedRow();
+            targetIndex = ReservationListTable.getValueAt(selectedRow, 0);
+            String[] columns = null;
 
-        String replacementData = "체크인"; // 체크인유무를 "체크인"으로 변경
+            String replacementData = "체크인"; // 체크인유무를 "체크인"으로 변경
 
-        try {
-            File file = new File(filePath);
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            StringBuilder sb = new StringBuilder();
+            try {
+                File file = new File(filePath);
+                BufferedReader br = new BufferedReader(new FileReader(file));
+                StringBuilder sb = new StringBuilder();
 
-            // 파일의 내용을 읽어오면서 수정할 부분을 찾음
-            String line;
-            int currentIndex = 1;
-            while ((line = br.readLine()) != null) {
-                if (currentIndex == Integer.parseInt((String) targetIndex)) {
-                    // 특정 행일 경우, 수정할 데이터로 변경
-                    columns = line.split("\t");
-                    columns[columns.length - 1] = replacementData;//체크인유무를 변경
-                    
-                    line = reWriteLine(columns);
-                    sb.append(line).append("\n");
+                // 파일의 내용을 읽어오면서 수정할 부분을 찾음
+                String line;
+                int currentIndex = 1;
+                while ((line = br.readLine()) != null) {
+                    if (currentIndex == Integer.parseInt((String) targetIndex)) {
+                        // 특정 행일 경우, 수정할 데이터로 변경
+                        columns = line.split("\t");
+                        columns[columns.length - 1] = replacementData;//체크인유무를 변경
 
-                } else {
-                    // 나머지 행은 그대로 유지
-                    sb.append(line).append("\n");
+                        line = reWriteLine(columns);
+                        sb.append(line).append("\n");
+
+                    } else {
+                        // 나머지 행은 그대로 유지
+                        sb.append(line).append("\n");
+                    }
+                    ++currentIndex;
                 }
-                ++currentIndex;
-            }
-            br.close();
+                br.close();
 
-            // 수정된 내용을 파일에 다시 쓰고 저장
-            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-            writer.write(sb.toString());
-            writer.flush();
-            writer.close();
-            serchReservationData();
-            JOptionPane.showMessageDialog(null,"체크인 되었습니다.");
-        } catch (IOException e) {
-            e.printStackTrace();
+                // 수정된 내용을 파일에 다시 쓰고 저장
+                BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+                writer.write(sb.toString());
+                writer.flush();
+                writer.close();
+                serchReservationData();
+                JOptionPane.showMessageDialog(null, "체크인 되었습니다.");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }//GEN-LAST:event_CheckinButtonActionPerformed
     private String reWriteLine(String[] columns) {//유저리스트
@@ -515,14 +519,19 @@ public class ClientManagement extends javax.swing.JFrame {
 
     private void SaveTextContentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveTextContentButtonActionPerformed
         // 입력내용 저장 버튼
-        modifyFile(filePath2,ReservationListTable,SpecialRequests);
-        modifyFile(filePath3,ReservationListTable,Feedback);
-        JOptionPane.showMessageDialog(null,"입력내용이 저장되었습니다.");
-        SpecialRequests.setText("");
-        Feedback.setText("");
+        int selectedrow = ReservationListTable.getSelectedRow();
+        if (selectedrow == -1) {
+            JOptionPane.showMessageDialog(null, "고객을 선택해주세요.", "에러", JOptionPane.ERROR_MESSAGE);
+        } else {
+            modifyFile(filePath2, ReservationListTable, SpecialRequests);
+            modifyFile(filePath3, ReservationListTable, Feedback);
+            JOptionPane.showMessageDialog(null, "입력내용이 저장되었습니다.");
+            SpecialRequests.setText("");
+            Feedback.setText("");
+        }
     }//GEN-LAST:event_SaveTextContentButtonActionPerformed
-    
-    public void modifyFile(String filepath,JTable targetTable, JTextField targetField){
+
+    public void modifyFile(String filepath, JTable targetTable, JTextField targetField) {
         Object targetIndex;
         int selectedRow = targetTable.getSelectedRow();
         targetIndex = targetTable.getValueAt(selectedRow, 0);//선택된 셀의 0번째 값 고유번호를 저장
@@ -539,7 +548,7 @@ public class ClientManagement extends javax.swing.JFrame {
             String line;
             int currentIndex = 1;//고유번호 1부터 검사하기위한 변수
             while ((line = br.readLine()) != null) {
-                if (currentIndex == Integer.parseInt((String)targetIndex)) {
+                if (currentIndex == Integer.parseInt((String) targetIndex)) {
                     // 특정 행일 경우, 수정할 데이터로 변경
                     columns = line.split("\t");//"\t"를 기준으로 line을 나눔
                     columns[1] = replacementData;//입력내용 저장
@@ -562,21 +571,22 @@ public class ClientManagement extends javax.swing.JFrame {
         } catch (IOException e) {
             e.printStackTrace();
         }
-}
+    }
+
     public String setoneDayCost(String roomnumber) throws FileNotFoundException {//하루 숙박비용 저장
         File file = new File(System.getProperty("user.dir") + "/test_room.txt");
         BufferedReader br = new BufferedReader(new FileReader(file));
 
         String line;
         String[] column;
-        String oneDayCost="";
-        String roomNumber =roomnumber.substring(0, roomnumber.length()-2); //룸번호에서 뒤에 두자리를 제외하고 저장
+        String oneDayCost = "";
+        String roomNumber = roomnumber.substring(0, roomnumber.length() - 2); //룸번호에서 뒤에 두자리를 제외하고 저장
         System.out.println(roomNumber);
         try {
             while ((line = br.readLine()) != null) {
                 column = line.split("\t");
-                if(roomNumber.equals(column[0])){
-                    oneDayCost=column[3];
+                if (roomNumber.equals(column[0])) {
+                    oneDayCost = column[3];
                 }
             }
             br.close();
@@ -585,7 +595,7 @@ public class ClientManagement extends javax.swing.JFrame {
         }
         return oneDayCost;
     }
-    
+
     private String DayTime;
 
     public String getDayTime() {
@@ -601,8 +611,9 @@ public class ClientManagement extends javax.swing.JFrame {
         int additionalcost = 0;
         setDayTime();
         String time = getDayTime();
-        if (Integer.parseInt(time) >= 11) {try {                            //현재시간이 11시를 넘으면
-            additionalcost = Integer.parseInt(setoneDayCost(roomnumber));   //추가요금을 1박 요금으로 변경
+        if (Integer.parseInt(time) >= 11) {
+            try {                            //현재시간이 11시를 넘으면
+                additionalcost = Integer.parseInt(setoneDayCost(roomnumber));   //추가요금을 1박 요금으로 변경
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(ClientManagement.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -611,64 +622,69 @@ public class ClientManagement extends javax.swing.JFrame {
     }
     private void CheckoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckoutButtonActionPerformed
         //체크아웃 버튼
-        Object targetIndex;
-        int selectedRow = ReservationListTable.getSelectedRow();
-        targetIndex = ReservationListTable.getValueAt(selectedRow, 0); //선택된 셀의 0번째 값 고유번호를 저장
-        String[] columns = null;
+        int selectedrow = ReservationListTable.getSelectedRow();
+        if (selectedrow == -1) {
+            JOptionPane.showMessageDialog(null, "고객을 선택해주세요.", "에러", JOptionPane.ERROR_MESSAGE);
+        } else {
+            Object targetIndex;
+            int selectedRow = ReservationListTable.getSelectedRow();
+            targetIndex = ReservationListTable.getValueAt(selectedRow, 0); //선택된 셀의 0번째 값 고유번호를 저장
+            String[] columns = null;
 
-        String replacementData = "체크아웃"; // 체크인유무를 "체크아웃으로 변경
-        String roomRevenue = "0";
-        int foodRevenue = 0;
-        int totalRevenue = 0;
-        int additionalCost = 0;
-        String additionalCostMessage = ""; //추가요금 발생시 출력할 메시지를 저장할 변수
-        try {
-            File file = new File(filePath);
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            StringBuilder sb = new StringBuilder();
+            String replacementData = "체크아웃"; // 체크인유무를 "체크아웃으로 변경
+            String roomRevenue = "0";
+            int foodRevenue = 0;
+            int totalRevenue = 0;
+            int additionalCost = 0;
+            String additionalCostMessage = ""; //추가요금 발생시 출력할 메시지를 저장할 변수
+            try {
+                File file = new File(filePath);
+                BufferedReader br = new BufferedReader(new FileReader(file));
+                StringBuilder sb = new StringBuilder();
 
-            // 파일의 내용을 읽어오면서 수정할 부분을 찾음
-            String line;
-            int currentIndex = 1;
-            while ((line = br.readLine()) != null) {
-                if (currentIndex == Integer.parseInt((String) targetIndex)) {
-                    // 특정 행일 경우, 수정할 데이터로 변경
-                    columns = line.split("\t");                             //"\t"를 기준으로 line을 나눔
-                    additionalCost = AdditionalCost(columns[8]);                 // 11시를 넘겨서 체크아웃시 객실요금 추가
-                    if (!columns[columns.length - 1].equals("체크아웃")) {//체크아웃 상태일때 추가요금이 생기지 않도록 체크
-                        columns[columns.length - 3] = Integer.toString(Integer.parseInt(columns[columns.length - 3]) + additionalCost);
-                    }
+                // 파일의 내용을 읽어오면서 수정할 부분을 찾음
+                String line;
+                int currentIndex = 1;
+                while ((line = br.readLine()) != null) {
+                    if (currentIndex == Integer.parseInt((String) targetIndex)) {
+                        // 특정 행일 경우, 수정할 데이터로 변경
+                        columns = line.split("\t");                             //"\t"를 기준으로 line을 나눔
+                        additionalCost = AdditionalCost(columns[8]);                 // 11시를 넘겨서 체크아웃시 객실요금 추가
+                        if (!columns[columns.length - 1].equals("체크아웃")) {//체크아웃 상태일때 추가요금이 생기지 않도록 체크
+                            columns[columns.length - 3] = Integer.toString(Integer.parseInt(columns[columns.length - 3]) + additionalCost);
+                        }
                         columns[columns.length - 1] = replacementData;              //예약/체크인 상태를"체크아웃"으로 변경
                         roomRevenue = columns[9];                                   //룸 비용 출력을 위해 변수에 저장
-                        foodRevenue=getFoodRevenue(columns[8]);                     //방번호를 넘겨서 객실청구된 비용을 foodRevenue에 저장
-                        totalRevenue = Integer.parseInt(roomRevenue)+foodRevenue; //총 비용 계산
-                    line = reWriteLine(columns);
+                        foodRevenue = getFoodRevenue(columns[8]);                     //방번호를 넘겨서 객실청구된 비용을 foodRevenue에 저장
+                        totalRevenue = Integer.parseInt(roomRevenue) + foodRevenue; //총 비용 계산
+                        line = reWriteLine(columns);
 
-                    sb.append(line).append("\n");
-                } else {
-                    // 나머지 행은 그대로 유지
-                    sb.append(line).append("\n");
+                        sb.append(line).append("\n");
+                    } else {
+                        // 나머지 행은 그대로 유지
+                        sb.append(line).append("\n");
+                    }
+                    ++currentIndex;
                 }
-                ++currentIndex;
-            }
-            br.close();
+                br.close();
 
-            // 수정된 내용을 파일에 다시 쓰고 저장
-            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-            writer.write(sb.toString());
-            writer.flush();
-            writer.close();
+                // 수정된 내용을 파일에 다시 쓰고 저장
+                BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+                writer.write(sb.toString());
+                writer.flush();
+                writer.close();
 
-            serchReservationData();//테이블 업데이트
-            if(additionalCost!=0){
-                additionalCostMessage="11시가 넘어 추가요금"+additionalCost+"원이 객실요금에 추가되었습니다.";
+                serchReservationData();//테이블 업데이트
+                if (additionalCost != 0) {
+                    additionalCostMessage = "11시가 넘어 추가요금" + additionalCost + "원이 객실요금에 추가되었습니다.";
+                }
+                JOptionPane.showMessageDialog(null,
+                        additionalCostMessage + "\n" + "객실요금   " + roomRevenue + "원\n"
+                        + "음식비용  " + foodRevenue + "원\n"
+                        + "총 비용   " + totalRevenue + "원");
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            JOptionPane.showMessageDialog(null,
-                    additionalCostMessage+"\n"+"객실요금   " + roomRevenue + "원\n"
-                    + "음식비용  " + foodRevenue + "원\n"
-                    + "총 비용   " + totalRevenue + "원");
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
     }//GEN-LAST:event_CheckoutButtonActionPerformed
@@ -678,15 +694,20 @@ public class ClientManagement extends javax.swing.JFrame {
         ReservationManagementJFrame Mod = new ReservationManagementJFrame();
         Mod.setVisible(true);
     }//GEN-LAST:event_ReservationModificationButtonActionPerformed
-    public String selectedRoomNumber="0";
+    public String selectedRoomNumber = "0";
     private void ReservationListTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReservationListTableMouseClicked
         // 선택된 셀의 특별요청을 텍스트필드에 띄움
         SpecialRequests.setText(getSpecialRequestORFeedback(filePath2));
         // 선택된 셀의 피드백을 텍스트필드에 띄움
         Feedback.setText(getSpecialRequestORFeedback(filePath3));
         //selectedRoomNumber 에 선택된 셀의 객실호수를 저장
-        selectedRoomNumber=(String) (ReservationListTable.getValueAt(ReservationListTable.getSelectedRow(),2));
+        getselectedRoomNumber();
     }//GEN-LAST:event_ReservationListTableMouseClicked
+
+    public String getselectedRoomNumber() {
+        selectedRoomNumber = (String) (ReservationListTable.getValueAt(ReservationListTable.getSelectedRow(), 2));
+        return selectedRoomNumber;
+    }
 
     private void SpecialRequestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SpecialRequestsActionPerformed
         // TODO add your handling code here:
@@ -697,12 +718,12 @@ public class ClientManagement extends javax.swing.JFrame {
     }//GEN-LAST:event_FeedbackActionPerformed
 
     private void OrderListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OrderListActionPerformed
-        if (!selectedRoomNumber.equalsIgnoreCase("null")) {
+        int selectedrow = ReservationListTable.getSelectedRow();
+        if (selectedrow != -1) {
             OrderModifyFrame OM = new OrderModifyFrame();
             OM.setVisible(true);
             OM.initServiceList(selectedRoomNumber);
-        }
-        else {
+        } else {
             JOptionPane.showMessageDialog(null, "호실을 선택해주세요.", "에러", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_OrderListActionPerformed
