@@ -25,28 +25,6 @@ public class LoadMenuList {
     ArrayList<String> ReadServiceList = new ArrayList<>(); //일반 배열
     ArrayList<ServiceListInfo> serviceList = new ArrayList<>(); // 객체 배열
 
-    public LoadMenuList(DefaultTableModel model) {
-
-        String paths = System.getProperty("user.dir");
-        File menu = new File(paths + "/menu_list.txt");
-
-        try {
-            readMenuFile(menu);
-            splitServiceListData();
-
-            for (int i = 0; i < serviceList.size(); i++) {
-                model.addRow(new Object[]{
-                    serviceList.get(i).getService(),
-                    serviceList.get(i).getMenu(),
-                    serviceList.get(i).getPrice()
-                });
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(LoadMenuList.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
-
     public LoadMenuList(DefaultTableModel model, String type, int tableColumnSize) {
 
         String paths = System.getProperty("user.dir");
