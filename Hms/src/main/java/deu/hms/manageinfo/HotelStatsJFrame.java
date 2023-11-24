@@ -128,24 +128,24 @@ public class HotelStatsJFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(182, Short.MAX_VALUE)
-                .addComponent(inquiryStartDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(inquiryStartDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fromLabel)
-                .addGap(18, 18, 18)
-                .addComponent(inquiryEndDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(inquiryEndDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(toLabel)
                 .addGap(18, 18, 18)
                 .addComponent(inquiryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(182, 182, 182))
+                .addGap(136, 136, 136))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 49, Short.MAX_VALUE)
+                .addGap(0, 10, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(inquiryStartDateChooser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(inquiryEndDateChooser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -153,8 +153,8 @@ public class HotelStatsJFrame extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(toLabel)
                         .addComponent(inquiryButton)))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -170,13 +170,22 @@ public class HotelStatsJFrame extends javax.swing.JFrame {
         ArrayList<Integer> hotelStatsArray = new ArrayList<>();
         int numberOfGuests = 0;
         int roomRevenue = 0;
-        int hotelOccupancy = 1;
+        int hotelOccupancy = 0;
         int foodRevenue = 0;
         
-        setStartDateValue(getStartDate());
-        setEndDateValue(getEndDate());
-        System.out.println(startDateValue);
-        System.out.println(endDateValue);
+        String[] inputCheckInDateArray = splitDateByDash(getStartDate());
+        String[] inputCheckOutDateArray = splitDateByDash(getEndDate());
+        String[] loadCheckInDateArray;
+        String[] loadCheckOutDateArray;
+        
+        Date inputCheckInDate = new Date(Integer.parseInt(inputCheckInDateArray[0]) - 1900, 
+                                    Integer.parseInt(inputCheckInDateArray[1]) - 1, 
+                                    Integer.parseInt(inputCheckInDateArray[2]));
+        Date inputCheckOutDate = new Date(Integer.parseInt(inputCheckOutDateArray[0]) - 1900, 
+                                    Integer.parseInt(inputCheckOutDateArray[1]) - 1, 
+                                    Integer.parseInt(inputCheckOutDateArray[2]));
+        Date loadCheckInDate;
+        Date loadCheckOutDate;
         
         ArrayList<BookingInfo> bookingInfo;
         try {
@@ -186,13 +195,17 @@ public class HotelStatsJFrame extends javax.swing.JFrame {
             bookingInfo = fileMgmt.returnBookingInfo();
             
             for (int i = 0; i < bookingInfo.size(); ++i) {
-                boolean isIncludeCheckInDate = calcDateValue(bookingInfo.get(i).getCheckInDate()) >= startDateValue && 
-                        calcDateValue(bookingInfo.get(i).getCheckInDate()) <= endDateValue;
                 
-                boolean isIncludeCheckOutDate = calcDateValue(bookingInfo.get(i).getCheckOutDate()) >= startDateValue &&
-                        calcDateValue(bookingInfo.get(i).getCheckOutDate()) <= endDateValue;
+                loadCheckInDateArray = splitDateByDash(bookingInfo.get(i).getCheckInDate());
+                loadCheckOutDateArray = splitDateByDash(bookingInfo.get(i).getCheckOutDate());
+                loadCheckInDate = new Date(Integer.parseInt(loadCheckInDateArray[0]) - 1900, 
+                                            Integer.parseInt(loadCheckInDateArray[1]) - 1,
+                                            Integer.parseInt(loadCheckInDateArray[2]));
+                loadCheckOutDate = new Date(Integer.parseInt(loadCheckOutDateArray[0]) - 1900, 
+                                            Integer.parseInt(loadCheckOutDateArray[1]) - 1,
+                                            Integer.parseInt(loadCheckOutDateArray[2]));
                 
-                if (isIncludeCheckInDate || isIncludeCheckOutDate) { // 지정한 기간에 포함되면
+                if (!(inputCheckOutDate.before(loadCheckInDate) || inputCheckInDate.after(loadCheckOutDate))) { // 지정한 기간에 포함되면
                     numberOfGuests += Integer.parseInt(bookingInfo.get(i).getNumberOfGuests());
                     
                     if (bookingInfo.get(i).getCheckInStatus().equals("예약") || 
@@ -213,7 +226,15 @@ public class HotelStatsJFrame extends javax.swing.JFrame {
             while ((line = br.readLine()) != null) {
                 
                 columns = line.split("\t");
-                if (calcOrderListDateValue(columns[0]) >= startDateValue && calcOrderListDateValue(columns[0]) <= endDateValue) {
+                String[] loadDateArray = splitDateBySlash(columns[0]);
+                
+                Date loadDate = new Date(Integer.parseInt(loadDateArray[0]) - 1900, 
+                                        Integer.parseInt(loadDateArray[1]) - 1,
+                                    Integer.parseInt(loadDateArray[2]));
+                
+                boolean isInclude = inputCheckOutDate.after(loadDate) &&
+                                    inputCheckInDate.before(loadDate);
+                if (isInclude) {
                     
                     foodRevenue += Integer.parseInt(columns[5]);
                 }
@@ -231,17 +252,18 @@ public class HotelStatsJFrame extends javax.swing.JFrame {
         return hotelStatsArray;
     }
     
-    public int calcDateValue(String date) {
+    public String[] splitDateByDash(String date) {
         
-        int dateValue = 0;
         String[] dateValues = date.split("-");
         
-        for (int i = 0; i < dateValues.length; ++i) {
-            
-            dateValue += Integer.parseInt(dateValues[i]);
-        }
+        return dateValues;
+    }
+    
+    public String[] splitDateBySlash(String date) {
         
-        return dateValue;
+        String[] dateValues = date.split("/");
+        
+        return dateValues;
     }
     
     private int calcOrderListDateValue(String date) {
@@ -255,13 +277,6 @@ public class HotelStatsJFrame extends javax.swing.JFrame {
         }
         
         return dataValue;
-    }
-    
-    public int calcTodaysValue() {
-        
-        Date date = new Date();
-        
-        return calcDateValue(dateFormat.format(date));
     }
     
     private void loadStatsData() {
