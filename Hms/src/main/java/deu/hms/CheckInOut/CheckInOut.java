@@ -94,6 +94,9 @@ public class CheckInOut extends javax.swing.JFrame {
                 "객실요금", "예약/체크인"
             });
             SetTableWidth();
+            if(j==0){
+                JOptionPane.showMessageDialog(null, "고객정보를 찾을수 없습니다.", "에러", JOptionPane.ERROR_MESSAGE);
+            }
         } catch (IOException e) {
         }
     }
@@ -195,6 +198,11 @@ public class CheckInOut extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        checkoutDialog = new javax.swing.JDialog();
+        warningLabel = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        deleteOkButton = new javax.swing.JButton();
+        disposeButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         CheckinButton = new javax.swing.JButton();
         BackButton = new javax.swing.JButton();
@@ -212,6 +220,61 @@ public class CheckInOut extends javax.swing.JFrame {
         Feedback = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         OrderList = new javax.swing.JButton();
+
+        checkoutDialog.setMinimumSize(new java.awt.Dimension(400, 250));
+
+        warningLabel.setFont(new java.awt.Font("맑은 고딕", 1, 18)); // NOI18N
+        warningLabel.setText("경고");
+
+        jLabel5.setFont(new java.awt.Font("맑은 고딕", 0, 14)); // NOI18N
+        jLabel5.setText("정말 체크아웃 하시겠습니까?");
+
+        deleteOkButton.setText("예");
+        deleteOkButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteOkButtonActionPerformed(evt);
+            }
+        });
+
+        disposeButton2.setText("아니오");
+        disposeButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                disposeButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout checkoutDialogLayout = new javax.swing.GroupLayout(checkoutDialog.getContentPane());
+        checkoutDialog.getContentPane().setLayout(checkoutDialogLayout);
+        checkoutDialogLayout.setHorizontalGroup(
+            checkoutDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(checkoutDialogLayout.createSequentialGroup()
+                .addContainerGap(113, Short.MAX_VALUE)
+                .addGroup(checkoutDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, checkoutDialogLayout.createSequentialGroup()
+                        .addGroup(checkoutDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(checkoutDialogLayout.createSequentialGroup()
+                                .addComponent(deleteOkButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(disposeButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel5))
+                        .addGap(112, 112, 112))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, checkoutDialogLayout.createSequentialGroup()
+                        .addComponent(warningLabel)
+                        .addGap(185, 185, 185))))
+        );
+        checkoutDialogLayout.setVerticalGroup(
+            checkoutDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(checkoutDialogLayout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addComponent(warningLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel5)
+                .addGap(24, 24, 24)
+                .addGroup(checkoutDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(deleteOkButton)
+                    .addComponent(disposeButton2))
+                .addContainerGap(64, Short.MAX_VALUE))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -460,7 +523,7 @@ public class CheckInOut extends javax.swing.JFrame {
 
                         line = reWriteLine(columns);
                         sb.append(line).append("\n");
-
+                        
                     } else {
                         // 나머지 행은 그대로 유지
                         sb.append(line).append("\n");
@@ -622,10 +685,57 @@ public class CheckInOut extends javax.swing.JFrame {
     }
     private void CheckoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckoutButtonActionPerformed
         //체크아웃 버튼
+        
+        checkoutDialog.setVisible(true);
+        checkoutDialog.setLocationRelativeTo(null);
+    }//GEN-LAST:event_CheckoutButtonActionPerformed
+
+    private void ReservationModificationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReservationModificationButtonActionPerformed
+        // 예약수정버튼
+        ReservationManagementJFrame Mod = new ReservationManagementJFrame();
+        Mod.setVisible(true);
+    }//GEN-LAST:event_ReservationModificationButtonActionPerformed
+    public String selectedRoomNumber = "0";
+    private void ReservationListTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReservationListTableMouseClicked
+        // 선택된 셀의 특별요청을 텍스트필드에 띄움
+        SpecialRequests.setText(getSpecialRequestORFeedback(filePath2));
+        // 선택된 셀의 피드백을 텍스트필드에 띄움
+        Feedback.setText(getSpecialRequestORFeedback(filePath3));
+        //selectedRoomNumber 에 선택된 셀의 객실호수를 저장
+        getselectedRoomNumber();
+    }//GEN-LAST:event_ReservationListTableMouseClicked
+
+    public String getselectedRoomNumber() {
+        selectedRoomNumber = (String) (ReservationListTable.getValueAt(ReservationListTable.getSelectedRow(), 2));
+        return selectedRoomNumber;
+    }
+
+    private void SpecialRequestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SpecialRequestsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SpecialRequestsActionPerformed
+
+    private void FeedbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FeedbackActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FeedbackActionPerformed
+
+    private void OrderListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OrderListActionPerformed
+        int selectedrow = ReservationListTable.getSelectedRow();
+        if (selectedrow != -1) {
+            OrderModifyFrame OM = new OrderModifyFrame();
+            OM.setVisible(true);
+            OM.initServiceList(selectedRoomNumber);
+        } else {
+            JOptionPane.showMessageDialog(null, "호실을 선택해주세요.", "에러", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_OrderListActionPerformed
+
+    private void deleteOkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteOkButtonActionPerformed
+        
+        
         int selectedrow = ReservationListTable.getSelectedRow();
         if (selectedrow == -1) {
             JOptionPane.showMessageDialog(null, "고객을 선택해주세요.", "에러", JOptionPane.ERROR_MESSAGE);
-        } else {
+        } else{
             Object targetIndex;
             int selectedRow = ReservationListTable.getSelectedRow();
             targetIndex = ReservationListTable.getValueAt(selectedRow, 0); //선택된 셀의 0번째 값 고유번호를 저장
@@ -686,47 +796,12 @@ public class CheckInOut extends javax.swing.JFrame {
                 e.printStackTrace();
             }
         }
+        checkoutDialog.setVisible(false);
+    }//GEN-LAST:event_deleteOkButtonActionPerformed
 
-    }//GEN-LAST:event_CheckoutButtonActionPerformed
-
-    private void ReservationModificationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReservationModificationButtonActionPerformed
-        // 예약수정버튼
-        ReservationManagementJFrame Mod = new ReservationManagementJFrame();
-        Mod.setVisible(true);
-    }//GEN-LAST:event_ReservationModificationButtonActionPerformed
-    public String selectedRoomNumber = "0";
-    private void ReservationListTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReservationListTableMouseClicked
-        // 선택된 셀의 특별요청을 텍스트필드에 띄움
-        SpecialRequests.setText(getSpecialRequestORFeedback(filePath2));
-        // 선택된 셀의 피드백을 텍스트필드에 띄움
-        Feedback.setText(getSpecialRequestORFeedback(filePath3));
-        //selectedRoomNumber 에 선택된 셀의 객실호수를 저장
-        getselectedRoomNumber();
-    }//GEN-LAST:event_ReservationListTableMouseClicked
-
-    public String getselectedRoomNumber() {
-        selectedRoomNumber = (String) (ReservationListTable.getValueAt(ReservationListTable.getSelectedRow(), 2));
-        return selectedRoomNumber;
-    }
-
-    private void SpecialRequestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SpecialRequestsActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SpecialRequestsActionPerformed
-
-    private void FeedbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FeedbackActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_FeedbackActionPerformed
-
-    private void OrderListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OrderListActionPerformed
-        int selectedrow = ReservationListTable.getSelectedRow();
-        if (selectedrow != -1) {
-            OrderModifyFrame OM = new OrderModifyFrame();
-            OM.setVisible(true);
-            OM.initServiceList(selectedRoomNumber);
-        } else {
-            JOptionPane.showMessageDialog(null, "호실을 선택해주세요.", "에러", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_OrderListActionPerformed
+    private void disposeButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disposeButton2ActionPerformed
+        checkoutDialog.setVisible(false);
+    }//GEN-LAST:event_disposeButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1031,10 +1106,15 @@ public class CheckInOut extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> SerchComboBox;
     private javax.swing.JTextField SerchTextField;
     private javax.swing.JTextField SpecialRequests;
+    private javax.swing.JDialog checkoutDialog;
+    private javax.swing.JButton deleteOkButton;
+    private javax.swing.JButton disposeButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel warningLabel;
     // End of variables declaration//GEN-END:variables
 }

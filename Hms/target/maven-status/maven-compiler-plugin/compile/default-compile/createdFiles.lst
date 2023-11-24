@@ -39,6 +39,7 @@ deu\hms\reservation\ReservationManagementJFrame$10.class
 deu\hms\manageinfo\HotelManageInfoFrame$4.class
 deu\hms\reservation\ReservationManagementJFrame$1.class
 deu\hms\reservation\ReservationManagementJFrame.class
+deu\hms\CheckInOut\CheckInOut$16.class
 deu\hms\restaurant\RestaurantFrame$9.class
 deu\hms\restaurant\RoomServiceFrame$7.class
 deu\hms\manageinfo\hotelrestaurant\ModifyRestFrame$3.class
@@ -142,6 +143,7 @@ deu\hms\restaurant\RoomServiceFrame$8.class
 deu\hms\reservation\Validation.class
 deu\hms\restaurant\RoomServiceFrame$11.class
 deu\hms\reservation\ReservationManagementJFrame$26.class
+deu\hms\CheckInOut\CheckInOut$15.class
 deu\hms\reservation\ReservationManagementJFrame$16.class
 deu\hms\CheckInOut\CheckInOut$3.class
 deu\hms\reservation\ReservationManagementJFrame$2.class
