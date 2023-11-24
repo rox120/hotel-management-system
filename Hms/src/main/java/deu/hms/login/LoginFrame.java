@@ -175,7 +175,8 @@ public class LoginFrame extends javax.swing.JFrame {
         // 둘다 객체가 생성된후 Frame객체가 보이게 설정하고 현제 LoginFrame 객체 종료
         // 로그인 실패할 경우, 경고 다이얼로그 창이 띄어짐 
         if (inputUId.isEmpty() || inputUPw.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "아이디와 비밀번호를 입력하세요.", "Login Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "아이디와 비밀번호를 입력하세요.", "Login Error", JOptionPane.ERROR_MESSAGE);
+            results= -2;
         return;  // Exit the method if validation fails
         }
         
