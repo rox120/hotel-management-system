@@ -68,8 +68,10 @@ public class ModifyRoomFrame extends javax.swing.JFrame {
         saveButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
         addButton = new javax.swing.JButton();
+        Cancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         roomTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -107,7 +109,7 @@ public class ModifyRoomFrame extends javax.swing.JFrame {
         jScrollPane1.setViewportView(roomTable);
         roomTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("맑은 고딕", 1, 24)); // NOI18N
         jLabel1.setText("객실 관리");
         jLabel1.setName(""); // NOI18N
 
@@ -132,6 +134,13 @@ public class ModifyRoomFrame extends javax.swing.JFrame {
             }
         });
 
+        Cancel.setText("닫기");
+        Cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CancelActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -143,8 +152,10 @@ public class ModifyRoomFrame extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(216, 216, 216))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(Cancel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(addButton)
                                 .addGap(18, 18, 18)
                                 .addComponent(deleteButton)
@@ -164,8 +175,9 @@ public class ModifyRoomFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(saveButton)
                     .addComponent(deleteButton)
-                    .addComponent(addButton))
-                .addContainerGap(65, Short.MAX_VALUE))
+                    .addComponent(addButton)
+                    .addComponent(Cancel))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         pack();
@@ -207,6 +219,10 @@ public class ModifyRoomFrame extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_addButtonActionPerformed
+
+    private void CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelActionPerformed
+        dispose();
+    }//GEN-LAST:event_CancelActionPerformed
    private void showEditDialog(int rowIndex) {
         ModifyRoomDialog editDialog = new ModifyRoomDialog(this, "Edit Room", true,
                 new Object[]{roomTableModel.getValueAt(rowIndex, 0),
@@ -295,6 +311,7 @@ public class ModifyRoomFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Cancel;
     private javax.swing.JButton addButton;
     private javax.swing.JButton deleteButton;
     private javax.swing.JLabel jLabel1;

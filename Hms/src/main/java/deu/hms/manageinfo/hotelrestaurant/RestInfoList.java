@@ -5,9 +5,11 @@
 package deu.hms.manageinfo.hotelrestaurant;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /**
@@ -29,7 +31,8 @@ public class RestInfoList {
     
     private void fetchRestInfo(String restPath) {
         try{
-            BufferedReader br = new BufferedReader(new FileReader(new File(restPath)));
+            FileInputStream fis = new FileInputStream(filePath);
+            BufferedReader br = new BufferedReader(new InputStreamReader(fis, "UTF-8"));
             while ((line = br.readLine()) != null) {
                 readRestInfo.add(line);
             }

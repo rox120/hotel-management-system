@@ -47,7 +47,6 @@ public class LoadRVList {
         } catch (IOException ex) {
             Logger.getLogger(LoadMenuList.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     private void readMenuFile(File file) throws IOException { //메뉴 파일 읽어오기
@@ -64,7 +63,7 @@ public class LoadRVList {
         }
     }
 
-    public void splitServiceListData() { //배열 분해 ('\t' 기준)
+    private void splitServiceListData() { //배열 분해 ('\t' 기준)
         
          /* Array배열에 저장되어있는 메뉴 리스트를 MenuTable에 넣기 위하여 해당 테이블의 열 갯수대로 나눈다.
             "\t"를 기준으로 split()메서드를 사용해서 나누어 Array배열에 저장한다. */

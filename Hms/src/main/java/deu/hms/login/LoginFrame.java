@@ -179,7 +179,7 @@ public class LoginFrame extends javax.swing.JFrame {
             results= -2;
         return;  // Exit the method if validation fails
         }
-        
+        System.out.println("frame reuslts"+results);
         switch (results) {
             case 1:
                 MasterFrame mf = new MasterFrame();
@@ -195,10 +195,6 @@ public class LoginFrame extends javax.swing.JFrame {
                 JOptionPane.showConfirmDialog(this, "유저를 찾을수 없습니다 ", "Login Error", JOptionPane.DEFAULT_OPTION);
                 break;
         }
-        
-        
-            
-        
     }//GEN-LAST:event_LoginButtonActionPerformed
 
     /**

@@ -4,10 +4,12 @@
  */
 package deu.hms.login;
 
+import deu.hms.CheckInOut.CheckInOut;
 import deu.hms.reservation.ReservationManagementJFrame;
 import deu.hms.restaurant.RestaurantFrame;
 import deu.hms.restaurant.RoomServiceFrame;
 import deu.hms.manageinfo.HotelManageInfoFrame;
+import deu.hms.manageinfo.HotelStatsJFrame;
 
 /**
  *
@@ -75,6 +77,11 @@ public class MasterFrame extends javax.swing.JFrame {
         jLabel3.setText("호텔 관리");
 
         jButton5.setText("보고서");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         hotelInfoButton.setText("호텔 정보");
         hotelInfoButton.addActionListener(new java.awt.event.ActionListener() {
@@ -198,7 +205,16 @@ public class MasterFrame extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        CheckInOut CIO = new CheckInOut();
+        CIO.setVisible(true);
+        
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        HotelStatsJFrame HSTF = new HotelStatsJFrame();
+        HSTF.setVisible(true);
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
