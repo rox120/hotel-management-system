@@ -195,10 +195,6 @@ public class LoginFrame extends javax.swing.JFrame {
                 JOptionPane.showConfirmDialog(this, "유저를 찾을수 없습니다 ", "Login Error", JOptionPane.DEFAULT_OPTION);
                 break;
         }
-        
-        
-            
-        
     }//GEN-LAST:event_LoginButtonActionPerformed
 
     /**
