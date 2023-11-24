@@ -50,10 +50,18 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
     private String roomGrade;
     private int costOfStaying;
     private String paymentMethod;
+    
+    private String creditCardNumber;
+    private String creditValidMonth;
+    private String creditValidYear;
+    private String creditCvcNumber;
+    private String inputCardData;
+    
     private final String path = System.getProperty("user.dir");
     private final String fileName = "/clientInfo.txt";
     private final String filePath = path + fileName;
     private final String filePathRoom = path + "/test_room.txt";
+    private final String filePathCard = path + "/cardInfo.txt";
     
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -328,6 +336,23 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
         updateCardRadioButton = new javax.swing.JRadioButton();
         paymentMethodGroup = new javax.swing.ButtonGroup();
         updatePaymentMethodGroup = new javax.swing.ButtonGroup();
+        registCardDialog = new javax.swing.JDialog();
+        firstCardNumber = new javax.swing.JTextField();
+        secondCardNumber = new javax.swing.JTextField();
+        thirdCardNumber = new javax.swing.JTextField();
+        fourthCardNumber = new javax.swing.JTextField();
+        creditValidMonthTextField = new javax.swing.JTextField();
+        creditValidYearTextField = new javax.swing.JTextField();
+        creditCvcTextField = new javax.swing.JTextField();
+        validityDashLabel = new javax.swing.JLabel();
+        registCreditButton = new javax.swing.JButton();
+        disposeCreditButton = new javax.swing.JButton();
+        dashLabel = new javax.swing.JLabel();
+        secondDashLabel = new javax.swing.JLabel();
+        thirdDashLabel = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        creditValidityLabel = new javax.swing.JLabel();
+        cvcLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         reservationTable = new javax.swing.JTable();
         callRegistDialogButton = new javax.swing.JButton();
@@ -360,6 +385,11 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
 
         registCreditCardButton.setText("카드 등록");
         registCreditCardButton.setEnabled(false);
+        registCreditCardButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registCreditCardButtonActionPerformed(evt);
+            }
+        });
 
         firstNameTextField.setText("이름");
         firstNameTextField.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -1083,6 +1113,128 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
                 .addContainerGap(119, Short.MAX_VALUE))
         );
 
+        registCardDialog.setMaximumSize(new java.awt.Dimension(438, 223));
+        registCardDialog.setMinimumSize(new java.awt.Dimension(438, 223));
+        registCardDialog.setResizable(false);
+        registCardDialog.setSize(new java.awt.Dimension(438, 223));
+
+        firstCardNumber.setMinimumSize(new java.awt.Dimension(56, 23));
+        firstCardNumber.setPreferredSize(new java.awt.Dimension(56, 23));
+
+        secondCardNumber.setMinimumSize(new java.awt.Dimension(56, 23));
+        secondCardNumber.setPreferredSize(new java.awt.Dimension(56, 23));
+
+        thirdCardNumber.setMinimumSize(new java.awt.Dimension(56, 23));
+        thirdCardNumber.setPreferredSize(new java.awt.Dimension(56, 23));
+
+        fourthCardNumber.setMinimumSize(new java.awt.Dimension(56, 23));
+        fourthCardNumber.setPreferredSize(new java.awt.Dimension(56, 23));
+
+        validityDashLabel.setText("/");
+
+        registCreditButton.setText("등록");
+        registCreditButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registCreditButtonActionPerformed(evt);
+            }
+        });
+
+        disposeCreditButton.setText("취소");
+        disposeCreditButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                disposeCreditButtonActionPerformed(evt);
+            }
+        });
+
+        dashLabel.setText("-");
+
+        secondDashLabel.setText("-");
+
+        thirdDashLabel.setText("-");
+
+        jLabel1.setText("카드 번호");
+
+        creditValidityLabel.setText("유효 기간");
+
+        cvcLabel.setText("CVC");
+
+        javax.swing.GroupLayout registCardDialogLayout = new javax.swing.GroupLayout(registCardDialog.getContentPane());
+        registCardDialog.getContentPane().setLayout(registCardDialogLayout);
+        registCardDialogLayout.setHorizontalGroup(
+            registCardDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(registCardDialogLayout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addGroup(registCardDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(creditValidityLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGroup(registCardDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, registCardDialogLayout.createSequentialGroup()
+                        .addComponent(registCreditButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(disposeCreditButton))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, registCardDialogLayout.createSequentialGroup()
+                        .addGroup(registCardDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(registCardDialogLayout.createSequentialGroup()
+                                .addComponent(firstCardNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(dashLabel))
+                            .addGroup(registCardDialogLayout.createSequentialGroup()
+                                .addComponent(creditValidMonthTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(validityDashLabel)))
+                        .addGap(6, 6, 6)
+                        .addGroup(registCardDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(registCardDialogLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(secondCardNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, registCardDialogLayout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addComponent(creditValidYearTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(9, 9, 9)
+                        .addComponent(secondDashLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(registCardDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(registCardDialogLayout.createSequentialGroup()
+                                .addComponent(thirdCardNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(thirdDashLabel)
+                                .addGap(4, 4, 4)
+                                .addComponent(fourthCardNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(registCardDialogLayout.createSequentialGroup()
+                                .addComponent(cvcLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(creditCvcTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(40, Short.MAX_VALUE))
+        );
+        registCardDialogLayout.setVerticalGroup(
+            registCardDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(registCardDialogLayout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addGroup(registCardDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(firstCardNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(secondCardNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(thirdCardNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fourthCardNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dashLabel)
+                    .addComponent(secondDashLabel)
+                    .addComponent(thirdDashLabel)
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
+                .addGroup(registCardDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(creditValidMonthTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(creditValidYearTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(validityDashLabel)
+                    .addComponent(creditValidityLabel)
+                    .addComponent(creditCvcTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cvcLabel))
+                .addGap(29, 29, 29)
+                .addGroup(registCardDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(registCreditButton)
+                    .addComponent(disposeCreditButton))
+                .addContainerGap(69, Short.MAX_VALUE))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
@@ -1346,9 +1498,40 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
                     
                     InitData();
                     registDialog.setVisible(false);
+                    
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                
+                if (cardRadioButton.isSelected()) {
+                    try (FileWriter fileWriter = new FileWriter(filePathCard, true);
+                    BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+
+                    bufferedWriter.write(inputCardData);
+                    bufferedWriter.newLine();
+
+                    bufferedWriter.flush();
+                    bufferedWriter.close();
+                    
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                } else {
+                    try (FileWriter fileWriter = new FileWriter(filePathCard, true);
+                    BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+
+                    inputCash(index);
+                    bufferedWriter.write(inputCardData);
+                    bufferedWriter.newLine();
+
+                    bufferedWriter.flush();
+                    bufferedWriter.close();
+                    
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                }
+                
             }
         }
     }//GEN-LAST:event_registButtonActionPerformed
@@ -1668,6 +1851,30 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_roomNumberTextFieldActionPerformed
 
+    private void registCreditCardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registCreditCardButtonActionPerformed
+        // TODO add your handling code here:
+        registCardDialog.setVisible(true);
+        registCardDialog.setLocationRelativeTo(this);
+        registCardDialog.setSize(438, 223);
+        registCardDialog.setTitle("카드 등록");
+        registCardDialog.setLocationRelativeTo(this);
+    }//GEN-LAST:event_registCreditCardButtonActionPerformed
+
+    private void disposeCreditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disposeCreditButtonActionPerformed
+        // TODO add your handling code here:
+        registCardDialog.setVisible(false);
+    }//GEN-LAST:event_disposeCreditButtonActionPerformed
+
+    private void registCreditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registCreditButtonActionPerformed
+        try {
+            inputCard(getPreviousIndex());
+        } catch (IOException ex) {
+            Logger.getLogger(ReservationManagementJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        registCardDialog.setVisible(false);
+    }//GEN-LAST:event_registCreditButtonActionPerformed
+
     public void loadReservationData() {
         ArrayList<BookingInfo> bookingInfo = new ArrayList<>();
         DefaultTableModel reservationTableModel = (DefaultTableModel) reservationTable.getModel();
@@ -1773,6 +1980,37 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
                                         checkInStatus);
         
         return inputData;
+    }
+    
+    private void inputCard(int index) {
+        
+        creditCardNumber = String.format("%s%s%s%s%s%s%s",
+                                            firstCardNumber.getText(),
+                                            "-",
+                                            secondCardNumber.getText(),
+                                            "-",
+                                            thirdCardNumber.getText(),
+                                            "-",
+                                            fourthCardNumber.getText());
+        
+        creditValidMonth = creditValidMonthTextField.getText();
+        creditValidYear = creditValidYearTextField.getText();
+        String creditValid = creditValidMonth + "/" + creditValidYear;
+        
+        creditCvcNumber = creditCvcTextField.getText();
+        
+        inputCardData = String.format("%s\t%s\t%s\t%s\t", 
+                                    index, 
+                                    creditCardNumber, 
+                                    creditValid, 
+                                    creditCvcNumber);
+    }
+    
+    private void inputCash(int index) {
+        
+        inputCardData = String.format("%s\t%s\t", 
+                                    index,
+                                        "0");
     }
     
     private void InitData() {
@@ -1951,6 +2189,12 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField costOfStayingTextField;
     private javax.swing.JLabel creditCardInfoLabel;
     private javax.swing.JLabel creditCardInfoLabel1;
+    private javax.swing.JTextField creditCvcTextField;
+    private javax.swing.JTextField creditValidMonthTextField;
+    private javax.swing.JTextField creditValidYearTextField;
+    private javax.swing.JLabel creditValidityLabel;
+    private javax.swing.JLabel cvcLabel;
+    private javax.swing.JLabel dashLabel;
     private javax.swing.JTextField defaultPhoneTextField;
     private javax.swing.JButton delete;
     private javax.swing.JDialog deleteDialog;
@@ -1958,7 +2202,11 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
     private javax.swing.JButton disposeButton;
     private javax.swing.JButton disposeButton1;
     private javax.swing.JButton disposeButton2;
+    private javax.swing.JButton disposeCreditButton;
+    private javax.swing.JTextField firstCardNumber;
     private javax.swing.JTextField firstNameTextField;
+    private javax.swing.JTextField fourthCardNumber;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -1973,6 +2221,8 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel phoneLabel;
     private javax.swing.JLabel phoneLabel1;
     private javax.swing.JButton registButton;
+    private javax.swing.JDialog registCardDialog;
+    private javax.swing.JButton registCreditButton;
     private javax.swing.JButton registCreditCardButton;
     private javax.swing.JDialog registDialog;
     private javax.swing.JTable reservationTable;
@@ -1982,9 +2232,13 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel roomLabel1;
     private javax.swing.JTextField roomNumberTextField;
     private javax.swing.JButton searchAddressButton;
+    private javax.swing.JTextField secondCardNumber;
+    private javax.swing.JLabel secondDashLabel;
     private javax.swing.JTextField secondPhoneTextField;
     private javax.swing.JButton selectAddressButton;
     private javax.swing.JButton setInvisibleDialogButton;
+    private javax.swing.JTextField thirdCardNumber;
+    private javax.swing.JLabel thirdDashLabel;
     private javax.swing.JTextField thirdPhoneTextField;
     private javax.swing.JButton update;
     private javax.swing.JButton updateButton;
@@ -2005,6 +2259,7 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField updateRoomNumberTextField;
     private javax.swing.JTextField updateSecondPhoneTextField;
     private javax.swing.JTextField updateThirdPhoneTextField;
+    private javax.swing.JLabel validityDashLabel;
     private javax.swing.JLabel warningLabel;
     private javax.swing.JLabel wonLabel;
     private javax.swing.JLabel wonLabel1;
