@@ -18,14 +18,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author bennyjung
  */
-public class LoadServiceList {
+public class LoadMenuList {
 
     private String line = null;
 
     ArrayList<String> ReadServiceList = new ArrayList<>(); //일반 배열
     ArrayList<ServiceListInfo> serviceList = new ArrayList<>(); // 객체 배열
 
-    public LoadServiceList(DefaultTableModel model) {
+    public LoadMenuList(DefaultTableModel model) {
 
         String paths = System.getProperty("user.dir");
         File menu = new File(paths + "/menu_list.txt");
@@ -42,12 +42,12 @@ public class LoadServiceList {
                 });
             }
         } catch (IOException ex) {
-            Logger.getLogger(LoadServiceList.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LoadMenuList.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
 
-    public LoadServiceList(DefaultTableModel model, String type, int tableColumnSize) {
+    public LoadMenuList(DefaultTableModel model, String type, int tableColumnSize) {
 
         String paths = System.getProperty("user.dir");
         File menu = new File(paths + "/menu_list.txt");
@@ -74,7 +74,7 @@ public class LoadServiceList {
                 }
             }
         } catch (IOException ex) {
-            Logger.getLogger(LoadServiceList.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LoadMenuList.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }

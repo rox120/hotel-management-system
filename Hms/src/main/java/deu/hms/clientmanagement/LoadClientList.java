@@ -9,7 +9,7 @@ package deu.hms.clientmanagement;
  * @author 장성열
  */
 import deu.hms.reservation.BookingInfo;
-import deu.hms.restaurant.LoadServiceList;
+import deu.hms.restaurant.LoadMenuList;
 import deu.hms.restaurant.ServiceListInfo;
 import java.io.BufferedReader;
 import java.io.FileReader;
