@@ -23,7 +23,6 @@ public class ClientInfoList {
     private String checkInStatus;
     
     public ClientInfoList (String index, String name, String phoneNumber, String zipNo, String address, String checkInDate, String checkOutDate, String numberOfGuests, String roomNumber, String costOfStaying,String paymentMethod,  String checkInStatus) {
-        
         this.index = index;
         this.name = name;
         this.phone = phoneNumber;
