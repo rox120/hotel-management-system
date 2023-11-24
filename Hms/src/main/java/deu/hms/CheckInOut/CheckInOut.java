@@ -556,13 +556,12 @@ public class CheckInOut extends javax.swing.JFrame {
 
     private void CheckinButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckinButtonActionPerformed
         //체크인버튼
-        checkinDialog.setVisible(true);
         int selectedrow = ReservationListTable.getSelectedRow();
         if (selectedrow == -1) {
             JOptionPane.showMessageDialog(null, "고객을 선택해주세요.", "에러", JOptionPane.ERROR_MESSAGE);
         } else {
             checkinDialog.setVisible(true);
-            checkoutDialog.setLocationRelativeTo(null);
+            checkinDialog.setLocationRelativeTo(null);
         }
     }//GEN-LAST:event_CheckinButtonActionPerformed
     private String reWriteLine(String[] columns) {//유저리스트

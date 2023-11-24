@@ -53,6 +53,7 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
     private final String path = System.getProperty("user.dir");
     private final String fileName = "/clientInfo.txt";
     private final String filePath = path + fileName;
+    private final String filePathRoom = path + "/test_room.txt";
     
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -341,6 +342,11 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
         roomNumberTextField.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 roomNumberTextFieldMouseClicked(evt);
+            }
+        });
+        roomNumberTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                roomNumberTextFieldActionPerformed(evt);
             }
         });
 
@@ -1269,9 +1275,16 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
 
     private void roomNumberTextFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_roomNumberTextFieldMouseClicked
 
-        JOptionPane.showMessageDialog(this, "1~4층: 50,000원" + System.lineSeparator() + 
-                                                         "5~7층: 100,000원" +  System.lineSeparator() + 
-                                                         "8~10층: 150,000원", 
+        JOptionPane.showMessageDialog(this, "1층: "+getroomPrice(1)+"원" + System.lineSeparator() + 
+                                                         "2층: "+getroomPrice(2)+"원" +  System.lineSeparator() + 
+                                                         "3층: "+getroomPrice(3)+"원" + System.lineSeparator() + 
+                                                         "4층: "+getroomPrice(4)+"원" +  System.lineSeparator() + 
+                                                         "5층: "+getroomPrice(5)+"원" + System.lineSeparator() + 
+                                                         "6층: "+getroomPrice(6)+"원" +  System.lineSeparator() + 
+                                                         "7층: "+getroomPrice(7)+"원" + System.lineSeparator() + 
+                                                         "8층: "+getroomPrice(8)+"원" +  System.lineSeparator() + 
+                                                         "9층: "+getroomPrice(9)+"원" +  System.lineSeparator() +
+                                                         "10층: "+getroomPrice(10)+"원",
                                                    "객실 요금", JOptionPane.WARNING_MESSAGE);
     }//GEN-LAST:event_roomNumberTextFieldMouseClicked
 
@@ -1647,6 +1660,10 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
         updateRegistCreditCardButton.setEnabled(false);
     }//GEN-LAST:event_updateCashRadioButtonActionPerformed
 
+    private void roomNumberTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomNumberTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_roomNumberTextFieldActionPerformed
+
     public void loadReservationData() {
         ArrayList<BookingInfo> bookingInfo = new ArrayList<>();
         DefaultTableModel reservationTableModel = (DefaultTableModel) reservationTable.getModel();
@@ -1783,25 +1800,41 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
         return alphaCost;
     }
     
-    private int roomPricing(String roomGrade) {
-        
-        int roomPrice = 0;
-        switch (roomGrade) {  
-            case "5":
-            case "6":
-            case "7":
-                roomPrice = 100000; // 5~7층: 100,000원
-                break;
-            case "8":
-            case "9":
-            case "10":
-                roomPrice = 150000; // 8~10층: 150,000원
-                break;
-            default:
-                roomPrice = 50000; // 1~4층: 50,000원
-                break;
+    public int getroomPrice(int roomGrade) { //객실 층수를 받아서 test_room파일의 객실가격을 리턴
+
+        String[] columns = null;
+        String roomprice = ""; // 객실가격을 저장하여 리턴하는 변수
+
+        try {
+            File file = new File(filePathRoom);
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            StringBuilder sb = new StringBuilder();
+
+            // 파일의 내용을 읽어오면서 리턴할 부분을 찾음
+            String line;
+            int currentIndex = 1;
+            while ((line = br.readLine()) != null) {
+                if (currentIndex == roomGrade) {
+                    // 특정 행일 경우, 리턴할 데이터로 변경
+                    columns = line.split("\t");
+                    roomprice = columns[3];
+                    sb.append(line).append("\n");
+                } else {
+                    // 나머지 행은 그대로 유지
+                    sb.append(line).append("\n");
+                }
+                ++currentIndex;
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        
+        return Integer.parseInt(roomprice);
+    }
+    
+    private int roomPricing(String roomGrade) {
+        int roomgrade=Integer.parseInt(roomGrade);
+        int roomPrice = getroomPrice(roomgrade);
         return roomPrice;
     }
     
