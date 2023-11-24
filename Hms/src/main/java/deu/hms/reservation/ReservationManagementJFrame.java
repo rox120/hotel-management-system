@@ -55,7 +55,9 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
     private String creditValidMonth;
     private String creditValidYear;
     private String creditCvcNumber;
-    private String inputCardData;
+    private String inputCardData="0";
+    private boolean registCard=false;
+    private boolean updateButtonWork=false;
     
     private final String path = System.getProperty("user.dir");
     private final String fileName = "/clientInfo.txt";
@@ -457,6 +459,11 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
         numberOfGuestsComboBox.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 numberOfGuestsComboBoxMouseClicked(evt);
+            }
+        });
+        numberOfGuestsComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                numberOfGuestsComboBoxActionPerformed(evt);
             }
         });
 
@@ -912,6 +919,11 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
                 updateNumberOfGuestsComboBoxMouseClicked(evt);
             }
         });
+        updateNumberOfGuestsComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateNumberOfGuestsComboBoxActionPerformed(evt);
+            }
+        });
 
         roomLabel1.setText("호");
 
@@ -938,6 +950,11 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
 
         updateRegistCreditCardButton.setText("카드 등록");
         updateRegistCreditCardButton.setEnabled(false);
+        updateRegistCreditCardButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateRegistCreditCardButtonActionPerformed(evt);
+            }
+        });
 
         phoneLabel1.setText("전화번호");
 
@@ -1390,7 +1407,7 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
                 if (currentIndex == Integer.parseInt((String) targetIndex)) {
                     // 특정 행일 경우,
                     columns = line.split("\t"); // 데이터를 구분해서 String 배열에 저장
-                    
+                    selectedIndex=columns[0];
                     String updateName = columns[1];
                     updateLastNameTextField.setText(updateName.substring(0, 1));
                     updateFirstNameTextField.setText(updateName.substring(1));
@@ -1503,7 +1520,7 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
                     e.printStackTrace();
                 }
                 
-                if (cardRadioButton.isSelected()) {
+                if (cardRadioButton.isSelected()&&registCard) {
                     try (FileWriter fileWriter = new FileWriter(filePathCard, true);
                     BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
 
@@ -1512,7 +1529,7 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
 
                     bufferedWriter.flush();
                     bufferedWriter.close();
-                    
+                    registCard=false;
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -1698,6 +1715,7 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
         
         // TODO 버그 고치기
+        updateButtonWork=true;
         Object targetIndex;
         int selectedRow = reservationTable.getSelectedRow();
         targetIndex = reservationTable.getValueAt(selectedRow, 0);
@@ -1718,7 +1736,7 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
                     columns = line.split("\t"); // 데이터를 구분해서 String 배열에 저장
                     phones = columns[2].split("-");
 
-                    if (updateCostOfStayingTextField.getText().equals("0")){
+                    if (updateCostOfStayingTextField.getText().equals("0")) {
                         JOptionPane.showMessageDialog(this, "먼저 금액을 확인하십시오.", "경고", JOptionPane.WARNING_MESSAGE);
                     } else {
                         if (!columns[1].substring(0, 1).equals(updateLastNameTextField.getText())) {
@@ -1748,7 +1766,32 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
                         if (!columns[9].equals(updateCostOfStayingTextField.getText())) {
                             columns[9] = updateCostOfStayingTextField.getText();
                         }
+                        /*if (cardRadioButton.isSelected() && registCard) {
+                            try (FileWriter fileWriter = new FileWriter(filePathCard, true); BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
 
+                                bufferedWriter.write(inputCardData);
+                                bufferedWriter.newLine();
+
+                                bufferedWriter.flush();
+                                bufferedWriter.close();
+                                registCard = false;
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            try (FileWriter fileWriter = new FileWriter(filePathCard, true); BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+
+                                inputCash(currentIndex);
+                                bufferedWriter.write(inputCardData);
+                                bufferedWriter.newLine();
+
+                                bufferedWriter.flush();
+                                bufferedWriter.close();
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }*/
                         line = reWriteLine(columns);
                         sb.append(line).append(System.lineSeparator());
                         updateDialog.setVisible(false);
@@ -1759,6 +1802,9 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
                 }
                 ++currentIndex;
             }
+            
+            
+            
             br.close();
             
             // 수정된 내용을 파일에 다시 쓰고 저장
@@ -1772,8 +1818,10 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        
+        updateButtonWork=false;
     }//GEN-LAST:event_updateButtonActionPerformed
-
+private String selectedIndex="0";
     private void updateInvisibleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateInvisibleButtonActionPerformed
         // TODO add your handling code here:
         updateDialog.setVisible(false);
@@ -1828,7 +1876,7 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_updateCalcCostOfStayingButtonActionPerformed
 
     private void cardRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardRadioButtonActionPerformed
-        
+
         registCreditCardButton.setEnabled(true);
     }//GEN-LAST:event_cardRadioButtonActionPerformed
 
@@ -1867,13 +1915,35 @@ public class ReservationManagementJFrame extends javax.swing.JFrame {
 
     private void registCreditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registCreditButtonActionPerformed
         try {
-            inputCard(getPreviousIndex());
+            if(updateButtonWork){
+                inputCard(Integer.parseInt(selectedIndex));
+            }
+            else{
+                inputCard(getPreviousIndex());
+            }
         } catch (IOException ex) {
             Logger.getLogger(ReservationManagementJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        registCard=true;
         registCardDialog.setVisible(false);
     }//GEN-LAST:event_registCreditButtonActionPerformed
+
+    private void updateRegistCreditCardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateRegistCreditCardButtonActionPerformed
+        // TODO add your handling code here:
+        registCardDialog.setVisible(true);
+        registCardDialog.setLocationRelativeTo(this);
+        registCardDialog.setSize(438, 223);
+        registCardDialog.setTitle("카드 등록");
+        registCardDialog.setLocationRelativeTo(this);
+    }//GEN-LAST:event_updateRegistCreditCardButtonActionPerformed
+
+    private void updateNumberOfGuestsComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateNumberOfGuestsComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_updateNumberOfGuestsComboBoxActionPerformed
+
+    private void numberOfGuestsComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numberOfGuestsComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_numberOfGuestsComboBoxActionPerformed
 
     public void loadReservationData() {
         ArrayList<BookingInfo> bookingInfo = new ArrayList<>();

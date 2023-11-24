@@ -48,7 +48,8 @@ public class CheckInOut extends javax.swing.JFrame {
     private final String filePath = path + "/clientInfo.txt";
     private final String filePath2 = path + "/specialRequestsList.txt";
     private final String filePath3 = path + "/feedbackList.txt";
-
+    private final String filePath4 = path + "/cardInfo.txt";
+    
     public void serchReservationData() {//예약자 검색
         ArrayList<ClientInfoList> userInfo = new ArrayList<>();
         DefaultTableModel reservationTableModel = (DefaultTableModel) ReservationListTable.getModel();
@@ -566,7 +567,7 @@ public class CheckInOut extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_CheckinButtonActionPerformed
     
-    private String reWriteLine(String[] columns) {//유저리스트
+    public String reWriteLine(String[] columns) {//유저리스트
         String line = String.format("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t",
                 columns[0], columns[1], columns[2], columns[3],
                 columns[4], columns[5], columns[6], columns[7],
@@ -575,7 +576,7 @@ public class CheckInOut extends javax.swing.JFrame {
         return line;
     }
 
-    private String reWriteLine2(String[] columns) {//요청사항
+    public String reWriteLine2(String[] columns) {//요청사항
         String line = String.format("%s\t%s\t",
                 columns[0], columns[1]);
         return line;
@@ -624,7 +625,7 @@ public class CheckInOut extends javax.swing.JFrame {
         String replacementData = targetField.getText(); // targetField에 적은 텍스트를 저장
 
         try {
-            File file = new File(filepath);//특이사항 리스트 읽어옴
+            File file = new File(filepath);//filepath 읽어옴
             BufferedReader br = new BufferedReader(new FileReader(file));
             StringBuilder sb = new StringBuilder();
 
@@ -695,7 +696,7 @@ public class CheckInOut extends javax.swing.JFrame {
         int additionalcost = 0;
         setDayTime();
         String time = getDayTime();
-        if (Integer.parseInt(time) >= 0) {
+        if (Integer.parseInt(time) >= 11) {
             try {                            //현재시간이 11시를 넘으면
                 additionalcost = Integer.parseInt(setoneDayCost(roomnumber));   //추가요금을 1박 요금으로 변경
             } catch (FileNotFoundException ex) {
@@ -720,7 +721,7 @@ public class CheckInOut extends javax.swing.JFrame {
         ReservationManagementJFrame Mod = new ReservationManagementJFrame();
         Mod.setVisible(true);
     }//GEN-LAST:event_ReservationModificationButtonActionPerformed
-    public String selectedRoomNumber = "0";
+    private String selectedRoomNumber = "0";
     private void ReservationListTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReservationListTableMouseClicked
         // 선택된 셀의 특별요청을 텍스트필드에 띄움
         SpecialRequests.setText(getSpecialRequestORFeedback(filePath2));
@@ -821,14 +822,45 @@ public class CheckInOut extends javax.swing.JFrame {
     private void disposeButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disposeButton2ActionPerformed
         checkoutDialog.setVisible(false);
     }//GEN-LAST:event_disposeButton2ActionPerformed
+public String getCardNumber(String filepath) {
+        Object targetIndex;
+        int selectedRow = ReservationListTable.getSelectedRow();
+        targetIndex = ReservationListTable.getValueAt(selectedRow, 0);//선택된 셀의 0번째 값 고유번호를 저장
+        String[] columns = null;
 
+        String CardNumber = "0";
+
+        try {
+            File file = new File(filepath);//filepath 읽어옴
+            BufferedReader br = new BufferedReader(new FileReader(file));
+
+            // 파일의 내용을 읽어오면서 수정할 부분을 찾음
+            String line;
+            int currentIndex = 1;//고유번호 1부터 검사하기위한 변수
+            while ((line = br.readLine()) != null) {
+                if (currentIndex == Integer.parseInt((String) targetIndex)) {
+                    // 특정 행일 경우, 리턴할 데이터로 변경
+                    columns = line.split("\t");//"\t"를 기준으로 line을 나눔
+                    CardNumber=columns[1];//카드번호 저장
+                    return CardNumber;
+                }
+                ++currentIndex;
+            }
+            br.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return CardNumber;
+    }
+    
     private void checkinOkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinOkButtonActionPerformed
         // TODO add your handling code here:
         Object targetIndex;
             int selectedRow = ReservationListTable.getSelectedRow();
             targetIndex = ReservationListTable.getValueAt(selectedRow, 0);
             String[] columns = null;
-
+            setDayTime();
             String replacementData = "체크인"; // 체크인유무를 "체크인"으로 변경
 
             try {
@@ -843,6 +875,11 @@ public class CheckInOut extends javax.swing.JFrame {
                     if (currentIndex == Integer.parseInt((String) targetIndex)) {
                         // 특정 행일 경우, 수정할 데이터로 변경
                         columns = line.split("\t");
+                        if(ReservationListTable.getValueAt(selectedRow, 4).equals("카드")&&
+                                getCardNumber(filePath4).equals("0")&&
+                                Integer.parseInt(DayTime)>=18){
+                            replacementData = "취소";
+                        }
                         columns[columns.length - 1] = replacementData;//체크인유무를 변경
 
                         line = reWriteLine(columns);
