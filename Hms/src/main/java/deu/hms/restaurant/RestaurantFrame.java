@@ -27,6 +27,8 @@ public class RestaurantFrame extends javax.swing.JFrame {
         initComponents();
         initServiceList();
         setLocationRelativeTo(null);
+        DefaultComboBoxModel modleC = (DefaultComboBoxModel) SelectRoom.getModel();
+        new LoadRoomNum(modleC);
     }
 
     /**
@@ -353,11 +355,11 @@ public class RestaurantFrame extends javax.swing.JFrame {
     private void initServiceList() {
         DefaultTableModel modelA = (DefaultTableModel) MenuTable.getModel(); // jTable 초기화
         DefaultTableModel modelB = (DefaultTableModel) OrderTable.getModel();
-        DefaultComboBoxModel modleC = (DefaultComboBoxModel) SelectRoom.getModel();
+        
         modelA.setNumRows(0);
         modelB.setNumRows(0);
         new LoadMenuList(modelA, service, MenuTable.getColumnCount());
-        new LoadRoomNum(modleC);
+        
         pay = null;
         roomNum = null;
         Total = 0;

@@ -10,7 +10,6 @@ deu\hms\restaurant\ServiceRvFrame$1.class
 deu\hms\restaurant\LoadMenuList.class
 deu\hms\login\UserFrame$1.class
 deu\hms\restaurant\RestaurantFrame.class
-deu\hms\report\ExceptReportFrame.class
 deu\hms\restaurant\RestaurantFrame$13.class
 deu\hms\restaurant\RestaurantFrame$3.class
 deu\hms\reservation\ReservationManagementJFrame$7.class
@@ -37,7 +36,6 @@ deu\hms\manageinfo\hotelrestaurant\ModifyRestFrame.class
 deu\hms\manageinfo\hotelroom\ModifyRoomFrame$2.class
 deu\hms\restaurant\ServiceListInfo.class
 deu\hms\reservation\ReservationManagementJFrame$25.class
-deu\hms\report\ExceptReportFrame$2.class
 deu\hms\reservation\ReservationManagementJFrame$10.class
 deu\hms\manageinfo\HotelManageInfoFrame$4.class
 deu\hms\reservation\ReservationManagementJFrame$1.class
@@ -64,17 +62,18 @@ deu\hms\restaurant\RestaurantFrame$11.class
 deu\hms\login\UserFrame$6.class
 deu\hms\CheckInOut\CheckInOut$18.class
 deu\hms\restaurant\RoomServiceFrame$5.class
-deu\hms\report\ExceptReportFrame$1.class
 deu\hms\manageinfo\hotelaccounts\AccountsInfoList.class
 deu\hms\manageinfo\HotelManageInfoFrame$3.class
 deu\hms\CheckInOut\CheckInOut$12.class
 deu\hms\restaurant\OrderModifyFrame$2.class
 deu\hms\login\LoginFrame.class
+deu\hms\manageinfo\HotelStatsJFrame$4.class
 deu\hms\reservation\ReservationManagementJFrame$36.class
 deu\hms\restaurant\RoomServiceFrame.class
 deu\hms\manageinfo\hotelroom\ModifyRoomFrame$4.class
 deu\hms\restaurant\RestaurantFrame$5.class
 deu\hms\reservation\ReservationManagementJFrame$41.class
+deu\hms\login\MasterFrame$8.class
 deu\hms\restaurant\RestaurantFrame$10.class
 deu\hms\restaurant\WriteServiceList.class
 deu\hms\restaurant\CheckRVFrame.class
@@ -112,12 +111,14 @@ deu\hms\restaurant\LoadRoomNum.class
 deu\hms\restaurant\RestaurantFrame$2.class
 deu\hms\restaurant\OrderModifyFrame$4.class
 deu\hms\manageinfo\hotelaccounts\ModifyAccounts.class
+deu\hms\manageinfo\HotelManageInfoFrame$5.class
 deu\hms\reservation\ReservationManagementJFrame$11.class
 deu\hms\restaurant\RoomServiceFrame$6.class
 deu\hms\restaurant\RoomServiceFrame$3.class
 deu\hms\reservation\ReservationManagementJFrame$21.class
 deu\hms\reservation\ReservationManagementJFrame$31.class
 deu\hms\CheckInOut\LoadClientList.class
+deu\hms\manageinfo\hotelrestaurant\ModifyRestFrame$7.class
 deu\hms\manageinfo\hotelaccounts\ModifyAccountsFrame$4.class
 deu\hms\restaurant\LoadRVList.class
 deu\hms\login\MasterFrame$1.class
@@ -131,6 +132,7 @@ deu\hms\restaurant\ServiceRvFrame$3.class
 deu\hms\login\MasterFrame$4.class
 deu\hms\restaurant\CheckRVFrame$2.class
 deu\hms\restaurant\RoomServiceFrame$10.class
+deu\hms\manageinfo\hotelaccounts\ModifyAccountsFrame$7.class
 deu\hms\CheckInOut\CheckInOut$7.class
 deu\hms\restaurant\RestaurantFrame$12.class
 deu\hms\reservation\FileManagement.class
@@ -171,6 +173,7 @@ deu\hms\CheckInOut\ClientInfoList.class
 deu\hms\manageinfo\hotelaccounts\ModifyAccountsFrame.class
 deu\hms\manageinfo\hotelrestaurant\ModifyRestFrame$2.class
 deu\hms\restaurant\LoadOrderList.class
+deu\hms\manageinfo\hotelroom\ModifyRoomFrame$7.class
 deu\hms\restaurant\RoomServiceFrame$9.class
 deu\hms\manageinfo\hotelaccounts\ModifyAccountsFrame$6.class
 deu\hms\login\MasterFrame$6.class

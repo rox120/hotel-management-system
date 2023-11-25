@@ -899,7 +899,12 @@ public String getCardNumber(String filepath) {
                 writer.flush();
                 writer.close();
                 serchReservationData();
-                JOptionPane.showMessageDialog(null, "체크인 되었습니다.");
+                if(replacementData.equals("취소")){
+                    JOptionPane.showMessageDialog(null, "예약이 취소 되었습니다.");
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "체크인 되었습니다.");
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
