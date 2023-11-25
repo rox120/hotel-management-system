@@ -114,7 +114,7 @@ public class CheckInOut extends javax.swing.JFrame {
             while ((line = br.readLine()) != null) {
                 column = line.split("\t");
                 if (roomnumber.equals(column[1])) {
-                    if (column[4].equals("객실청구")) {
+                    if (column[4].equals("객실 청구")) {
                         foodRevenue += Integer.parseInt(column[5]);
                     }
                 }
