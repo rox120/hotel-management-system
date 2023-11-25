@@ -36,10 +36,10 @@ public class AccountsInfoList {
                 
             }
             
-        } catch(FileNotFoundException e) {
+        } catch(FileNotFoundException ex) {
             System.out.println("파일을 찾을수 없습니다 ");
         } catch(IOException e) {
-            
+            System.err.println("IO오류 발생: "+e.getMessage());
         }
     
     }
@@ -51,7 +51,6 @@ public class AccountsInfoList {
             String[] str = splitLine.split("\t");
             accsInfo.add(new ModifyAccounts(str[0],str[1],str[2],str[3]));
             }
-        
     }
 
     public ArrayList<ModifyAccounts> getAccsInfo() {

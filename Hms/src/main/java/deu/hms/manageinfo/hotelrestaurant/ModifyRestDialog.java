@@ -71,7 +71,8 @@ public class ModifyRestDialog extends JDialog{
             
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(validateText() == 0 ) {
+                if(validateText() == 0 && validatePrice() != -1 ) {
+                    
                     dispose();
                 } else {
                     
@@ -84,6 +85,14 @@ public class ModifyRestDialog extends JDialog{
             
             @Override
             public void actionPerformed(ActionEvent e) {
+                
+                if(servNameField.getText().isEmpty()||dishNameField.getText().isEmpty()
+                        ||dishPriceField.getText().isEmpty() ){
+                    servNameField.setText(rowData[0].toString());
+                    dishNameField.setText(rowData[1].toString());
+                    dishPriceField.setText(rowData[2].toString());
+                }
+                
                 dispose();
             }
         });
@@ -102,6 +111,24 @@ public class ModifyRestDialog extends JDialog{
             errnumb = -1;
         }
         return errnumb;
+    }
+    private int validatePrice() {
+        int errnumb = 0;
+        try{
+            int price = Integer.parseInt(dishPriceField.getText());
+            
+            if(price<0 ) {
+                JOptionPane.showMessageDialog(this, "가격은 0 이상이어야 합니다.", "경고", JOptionPane.WARNING_MESSAGE);
+                
+                errnumb = -1;
+            }
+        } catch(NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "가격은 숫자여야 합니다.", "경고", JOptionPane.WARNING_MESSAGE);
+            
+            errnumb = -1;
+        }
+        return errnumb;
+        
     }
     
     

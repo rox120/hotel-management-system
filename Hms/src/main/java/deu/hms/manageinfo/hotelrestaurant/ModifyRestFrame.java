@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -196,6 +197,8 @@ public class ModifyRestFrame extends javax.swing.JFrame {
         if (selectedRow != -1) {
         // Delete the row from the JTable
         restTableModel.removeRow(selectedRow);
+        } else {
+            JOptionPane.showMessageDialog(this,"셀을 선택하십시오! ", "Warning",JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_deleteButtonActionPerformed
 
@@ -258,6 +261,7 @@ public class ModifyRestFrame extends javax.swing.JFrame {
         } catch(IOException e) {
         
         }
+       
    
    }
     /**

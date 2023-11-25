@@ -19,7 +19,7 @@ public class RoomInfoList {
     private ArrayList<String> readRoomInfo = new ArrayList<>();
     private ArrayList<ModifyRoom> roomInfo = new ArrayList<>();
     private final String path = System.getProperty("user.dir");
-    private final String filePath = path + "/test_room.txt";
+    private final String filePath = path + "/room_lists.txt";
     private String line ;
 
     

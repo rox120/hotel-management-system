@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
 public class ModifyRoomFrame extends javax.swing.JFrame {
     private DefaultTableModel roomTableModel;
     private final String path = System.getProperty("user.dir");
-    private final String fileName = "/test_room.txt";
+    private final String fileName = "/room_lists.txt";
     private final String filePath = path + fileName; 
     /**
      * Creates new form ModifyFrame
@@ -213,7 +213,6 @@ public class ModifyRoomFrame extends javax.swing.JFrame {
         addDialog.setVisible(true);
         // Retrieve data from the dialog
         Object[] newData = addDialog.getEditedData();
-        
         // Add the new row to the table model
         roomTableModel.addRow(newData);
         
